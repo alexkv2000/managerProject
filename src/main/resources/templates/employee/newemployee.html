@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>New Employee</title>
+    <link rel="stylesheet"
+          href="/bootstrap.min.css">
+</head>
+<body>
+<div class="container">
+    <h1>Новый сотрудник</h1>
+    <hr>
+    <h2>Сохранить сотрудника</h2>
+
+    <form action="#" th:action="@{/saveemployee}" th:object="${employee}"
+          method="POST">
+        <input type="text" th:field="*{fio}" placeholder="Ф.И.О. сорудника"
+               class="form-control mb-4 col-4">
+        <input type="text" th:field="*{position}" placeholder="Должность"
+               class="form-control mb-4 col-4">
+        <input type="text" th:field="*{coments}" placeholder="Комментарий"
+               class="form-control mb-4 col-4">
+        <input type="text" th:field="*{active}" placeholder="Действующий"
+               class="form-control mb-4 col-4">
+
+        <button type="submit" class="btn btn-info col-2">Сохранить нового сотрудника</button>
+    </form>
+    <hr>
+    <a th:href="@{/employee}"> Возврат в список сотрудников </a>
+    <a th:href="@{/}"> Возврат основная страница </a>
+</div>
+</body>
+</html>

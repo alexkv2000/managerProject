@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Division</title>
+    <link rel="stylesheet" href="/bootstrap.min.css">
+</head>
+<body class="min-vh-100">
+<div class="offcanvas offcanvas-start w-5" tabindex="-1" id="offcanvas" data-bs-keyboard="false"
+     data-bs-backdrop="false">
+    <div class="offcanvas-header">
+        <h6 class="offcanvas-title d-none d-sm-block" id="offcanvas">Меню</h6>
+        <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+    </div>
+    <div class="offcanvas-body px-0">
+        <ul class="nav nav-pills flex-column mb-sm-auto mb-0 align-items-start" id="menu">
+            <li class="nav-item">
+                <a href="/projectlist" class="nav-link text-truncate">
+                    <i class="fs-5 bi-house"></i><span class="ms-1 d-none d-sm-inline">Проекты</span>
+                </a>
+            </li>
+            <li class="dropdown">
+                <a href="#" class="nav-link dropdown-toggle  text-truncate" id="dropdown" data-bs-toggle="dropdown"
+                   aria-expanded="false">
+                    <i class="fs-5 bi-bootstrap"></i><span class="ms-1 d-none d-sm-inline">Справочник</span>
+                </a>
+                <ul class="dropdown-menu text-small shadow" aria-labelledby="dropdown">
+                    <li><a class="dropdown-item" href="/division">Подразделения</a></li>
+                    <li><a class="dropdown-item" href="/entity">Юридические лица</a></li>
+                    <li><a class="dropdown-item" href="/employee">Сотрудник</a></li>
+                    <li><a class="dropdown-item" href="/jobplace">Рабочие места</a></li>
+                    <li><a class="dropdown-item" href="/stepproject">Этапы проекта</a></li>
+                    <li>
+                        <hr class="dropdown-divider">
+                    </li>
+                    <li><a class="dropdown-item" href="#">Sign out</a></li>
+                </ul>
+            </li>
+            <!--            <li>-->
+            <!--                <a href="#" class="nav-link text-truncate">-->
+            <!--                    <i class="fs-5 bi-grid"></i><span class="ms-1 d-none d-sm-inline">Products</span></a>-->
+            <!--            </li>-->
+            <!--            <li>-->
+            <!--                <a href="#" class="nav-link text-truncate">-->
+            <!--                    <i class="fs-5 bi-people"></i><span class="ms-1 d-none d-sm-inline">Customers</span> </a>-->
+            <!--            </li>-->
+        </ul>
+    </div>
+</div>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col min-vh-100 py-3">
+            <!-- toggler -->
+            <button class="btn float-end" data-bs-toggle="offcanvas" data-bs-target="#offcanvas" role="button"
+                    color="blue">
+                <i class="bi bi-arrow-right-square-fill fs-3" data-bs-toggle="offcanvas"
+                   data-bs-target="#offcanvas"></i>
+            </button>
+            <!--моя вставка-->
+            <div class="container my-2" align="center">
+                <tr>
+                    <th>Наименование</th>
+                    <th>Организация</th>
+                    <th>Активность(Да/Нет)</th>
+                    <th>Редакция</th>
+                </tr>
+                <!-- Bootstrap JS -->
+                <script src="/bootstrap.bundle.min.js"></script>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+
+
+</body>
+</html>

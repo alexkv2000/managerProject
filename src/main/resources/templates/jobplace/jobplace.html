@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>All JobPlace</title>
+</head>
+<body>
+<h1>JobPlace</h1>
+<table>
+    <thead>
+    <tr>
+        <th>Номер п/п</th>
+        <th>Номер места</th>
+        <th>Комментарий</th>
+<!--        <th>Active</th>-->
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="jobplace : ${jobplaces}">
+        <td th:text="${jobplace.id}"></td>
+        <td th:text="${jobplace.numberplace}"></td>
+        <td th:text="${jobplace.comment}"></td>
+<!--        <td th:text="${jobplace.active}"></td>-->
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>

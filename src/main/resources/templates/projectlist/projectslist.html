@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>All ProjectsList</title>
+</head>
+<body>
+<h1>ProjectsList</h1>
+<table>
+    <thead>
+    <tr>
+        <th>Наименование</th>
+<!--        <th>Отдел</th>-->
+        <th>Руководитель</th>
+        <th>Ответственные</th>
+        <th>Куратор</th>
+        <th>Завершено</th>
+        <th>Договор</th>
+        <th>Ссылка</th>
+        <th>Дата создания</th>
+        <th>Датат старта</th>
+        <th>Дата окончания</th>
+        <th>Держатель проекта</th>
+        <th>Сумма</th>
+        <th>OPEX</th>
+        <th>OPEX НДС</th>
+        <th>CAPEX</th>
+        <th>CAPEX НДС</th>
+        <th>Комментарий</th>
+        <th>Id_Division</th>
+<!--        <th>EmployeeByOwner</th>-->
+
+<!--        <th>Active</th>-->
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="projectlist : ${projectlists}">
+        <td th:hidden="${projectlist.id}"></td>
+        <td th:text="${projectlist.name}"></td>
+<!--        <td th:text="${projectlist.idDivision}"></td>-->
+        <td th:text="${projectlist.headManager}"></td>
+        <td th:text="${projectlist.responsibleFromBusiness}"></td>
+        <td th:text="${projectlist.curator}"></td>
+        <td th:text="${projectlist.closed}"></td>
+        <td th:text="${projectlist.dogovorNumber}"></td>
+        <td th:text="${projectlist.linkDogovor}"></td>
+        <td th:text="${#dates.format(projectlist.dateCreate, 'dd-MM-yyyy')}"></td>
+        <td th:text="${#dates.format(projectlist.dateStart, 'dd-MM-yyyy')}"></td>
+        <td th:text="${#dates.format(projectlist.dateEnd, 'dd-MM-yyyy')}"></td>
+        <td th:text="${projectlist.owner}"></td>
+        <td th:text="${projectlist.summaProject}"></td>
+        <td th:text="${projectlist.opex}"></td>
+        <td th:text="${projectlist.opexNds}"></td>
+        <td th:text="${projectlist.capex}"></td>
+        <td th:text="${projectlist.capexNds}"></td>
+        <td th:text="${projectlist.comment}"></td>
+        <td th:text="${projectlist.libDivisionByIdDivision}"></td>
+<!--        <td th:text="${projectlist.libEmployeeByOwner}"></td>-->
+
+<!--        <td th:text="${division.active}"></td>-->
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>

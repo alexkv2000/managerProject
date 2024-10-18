@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Entity Management System</title>
+
+  <link rel="stylesheet"
+        href="/bootstrap.min.css">
+</head>
+<body>
+<div class="container">
+  <h1>ENTITY Management System</h1>
+  <hr>
+  <h2>??????? ?????????? ???????????? ??????</h2>
+
+  <form action="#" th:action="@{/saveentity}" th:object="${entity}"
+        method="POST">
+
+    <!-- Add hidden form field to handle update -->
+    <input type="hidden" th:field="*{id}" />
+
+    <input type="text" th:field="*{nameentity}" class="form-control mb-4 col-4">
+
+    <input type="text" th:field="*{comment}" class="form-control mb-4 col-4">
+
+    <button type="submit" class="btn btn-info col-2"> Update Entity</button>
+  </form>
+
+  <hr>
+
+  <a th:href = "@{/entity}"> Back to entity List</a>
+</div>
+</body>
+</html>

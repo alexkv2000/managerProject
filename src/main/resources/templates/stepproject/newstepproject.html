@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>New JobPlace</title>
+    <link rel="stylesheet"
+          href="/bootstrap.min.css">
+</head>
+<body>
+<div class="container">
+    <h1>Новый этап проекта</h1>
+    <hr>
+    <h2>Сохранить этап проекта</h2>
+
+    <form action="#" th:action="@{/savestepproject}" th:object="${stepproject}"
+          method="POST">
+        <input type="text" th:field="*{nameStepProject}" placeholder="Номер рабочего места"
+               class="form-control mb-4 col-4">
+        <input type="text" th:field="*{comment}" placeholder="Комментарий"
+               class="form-control mb-4 col-4">
+
+        <button type="submit" class="btn btn-info col-2">Сохранить этап проекта'</button>
+    </form>
+    <hr>
+    <a th:href="@{/jobplace}"> Возврат в список этапов проекта </a>
+    <a th:href="@{/}"> Возврат основная страница </a>
+</div>
+</body>
+</html>

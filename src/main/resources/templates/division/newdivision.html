@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="ISO-8859-1">
+    <title>New Division</title>
+    <link rel="stylesheet"
+          href="/bootstrap.min.css">
+</head>
+<body>
+<div class="container">
+    <h1>Новое подразделение</h1>
+    <hr>
+    <h2>Сохранить подразделение</h2>
+
+    <form action="#" th:action="@{/savedivision}" th:object="${division}"
+          method="POST">
+        <input type="text" th:field="*{namedivision}" placeholder="Наименование подразделения"
+               class="form-control mb-4 col-4"> <input type="text"
+                                                       th:field="*{organisation}" placeholder="Организация подразделения"
+                                                       class="form-control mb-4 col-4">
+
+        <button type="submit" class="btn btn-info col-2">Сохранить подразделение</button>
+    </form>
+    <hr>
+    <a th:href="@{/division}"> Возврат в список подразделений </a>
+    <a th:href="@{/}"> Возврат основная страница </a>
+</div>
+</body>
+</html>

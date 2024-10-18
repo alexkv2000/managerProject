@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>All Divisions</title>
+</head>
+<body>
+<h1>Divisions</h1>
+<table>
+    <thead>
+    <tr>
+        <th>Номер п/п</th>
+        <th>Name Division</th>
+        <th>Organisation</th>
+<!--        <th>Active</th>-->
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="division : ${divisions}">
+        <td th:text="${division.id}"></td>
+        <td th:text="${division.nameDivision}"></td>
+        <td th:text="${division.organisation}"></td>
+<!--        <td th:text="${division.active}"></td>-->
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>

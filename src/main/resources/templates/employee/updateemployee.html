@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Employee Management System</title>
+
+  <link rel="stylesheet"
+        href="/bootstrap.min.css">
+</head>
+<body>
+<div class="container">
+  <h1>Employee Management System</h1>
+  <hr>
+  <h2>Система управление сотрудниками</h2>
+
+  <form action="#" th:action="@{/saveemployee}" th:object="${employee}"
+        method="POST">
+
+    <!-- Add hidden form field to handle update -->
+    <input type="hidden" th:field="*{id}" />
+
+    <input type="text" th:field="*{fio}" class="form-control mb-4 col-4">
+    <input type="text" th:field="*{position}" class="form-control mb-4 col-4">
+    <input type="text" th:field="*{coments}" class="form-control mb-4 col-4">
+    <input type="text" th:field="*{active}" class="form-control mb-4 col-4">
+    <button type="submit" class="btn btn-info col-2"> Обновить данные сотрудника</button>
+  </form>
+
+  <hr>
+
+  <a th:href = "@{/employee}"> Возврат в список сотрудников </a>
+</div>
+</body>
+</html>

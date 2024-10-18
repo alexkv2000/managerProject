@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>New ProjectList</title>
+    <link rel="stylesheet"
+          href="/bootstrap.min.css">
+</head>
+<body>
+<div class="container">
+    <h1>Новый проект</h1>
+    <hr>
+    <h2>Сохранить проект</h2>
+
+    <form action="#" th:action="@{/saveprojectlist}" th:object="${project}" method="POST">
+
+        <input type="text" th:field="${project.name}" placeholder="Наименование" class="form-control mb-4 col-4">
+        <label for="division">Выберите отдел:</label>
+        <select name="libDivisionByIdDivision" id="division">
+            <option value="" disabled selected>Отдел </option>
+            <th:block th:each="division : ${divisions}">
+                <option th:value="${division.id}" th:text="${division.namedivision}"></option>
+            </th:block>
+        </select>
+        <input type="text" th:field="${project.headManager}" placeholder="Руководитель" class="form-control mb-4 col-4">
+        <input type="text" th:field="${project.responsibleFromBusiness}" placeholder="Ответственные" class="form-control mb-4 col-4">
+        <input type="text" th:field="${project.curator}" placeholder="Куратор" class="form-control mb-4 col-4">
+        <input type="checkbox" name="closed" value="true" placeholder="Проект закрыт"/>
+        <input type="text" th:field="${project.dogovorNumber}" placeholder="Договор" class="form-control mb-4 col-4">
+        <input type="text" th:field="${project.linkDogovor}" placeholder="Ссылка" class="form-control mb-4 col-4">
+        <input type="text" th:field="${project.dateCreate}" placeholder="Дата создания" class="form-control mb-4 col-4">
+        <input type="text" th:field="${project.dateStart}" placeholder="Дата старта" class="form-control mb-4 col-4">
+        <input type="text" th:field="${project.dateEnd}" placeholder="Дата окончания" class="form-control mb-4 col-4">
+        <select name="LibJobEmployeeByOwner" id="owner">
+            <option value="" disabled selected>Ответственный за проект </option>
+            <th:block th:each="employee : ${employees}">
+                <option th:value="${employee.id}" th:text="${employee.fio}"></option>
+            </th:block>
+        </select>
+        <input type="text" th:field="${project.summaProject}" placeholder="Сумма" class="form-control mb-4 col-4">
+        <input type="text" th:field="${project.opex}" placeholder="OPEX" class="form-control mb-4 col-4">
+        <input type="text" th:field="${project.opexNds}" placeholder="OPEX НДС" class="form-control mb-4 col-4">
+        <input type="text" th:field="${project.capex}" placeholder="CAPEX" class="form-control mb-4 col-4">
+        <input type="text" th:field="${project.capexNds}" placeholder="CAPEX НДС" class="form-control mb-4 col-4">
+        <input type="text" th:field="${project.comment}" placeholder="Комментарий" class="form-control mb-4 col-4">
+
+        <button type="submit" class="btn btn-info col-2">Сохранить проект</button>
+    </form>
+    <hr>
+    <a th:href="@{/projectlist}"> Возврат к списоку проектов </a>
+    <a th:href="@{/}"> Возврат основная страница </a>
+</div>
+</body>
+</html>

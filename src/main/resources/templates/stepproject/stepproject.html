@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>All StepProject</title>
+</head>
+<body>
+<h1>StepProject</h1>
+<table>
+    <thead>
+    <tr>
+        <th>Номер п/п</th>
+        <th>Номер места</th>
+        <th>Комментарий</th>
+<!--        <th>Active</th>-->
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="stepproject : ${stepprojects}">
+        <td th:text="${stepproject.id}"></td>
+        <td th:text="${stepproject.namestepproject}"></td>
+        <td th:text="${stepproject.comment}"></td>
+<!--        <td th:text="${jobplace.active}"></td>-->
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="ISO-8859-1">
+    <title>New Entity</title>
+    <link rel="stylesheet"
+          href="/bootstrap.min.css">
+</head>
+<body>
+<div class="container">
+    <h1>Новое юридическое лицо</h1>
+    <hr>
+    <h2>Сохранить юридическое лицо</h2>
+
+    <form action="#" th:action="@{/saveentity}" th:object="${entity}"
+          method="POST">
+        <input type="text" th:field="*{nameentity}" placeholder="Наименование юридического лица"
+               class="form-control mb-4 col-4"> <input type="text"
+                                                       th:field="*{comment}" placeholder="комментарий"
+                                                       class="form-control mb-4 col-4">
+
+        <button type="submit" class="btn btn-info col-2">Сохранить юридическое лицо</button>
+    </form>
+    <hr>
+    <a th:href="@{/entity}"> Возврат в список юридических лиц </a>
+    <a th:href="@{/}"> Возврат основная страница </a>
+</div>
+</body>
+</html>

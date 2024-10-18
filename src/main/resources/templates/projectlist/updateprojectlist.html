@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>ProjectList Management System</title>
+
+  <link rel="stylesheet"
+        href="/bootstrap.min.css">
+</head>
+<body>
+<div class="container">
+  <h1>ProjectList Management System</h1>
+  <hr>
+  <h2>Система управление проектами</h2>
+
+  <form action="#" th:action="@{/saveprojectlist}" th:object="${projectlist}"
+        method="POST">
+
+    <!-- Add hidden form field to handle update -->
+    <input type="hidden" th:field="*{id}" />
+    <input type="text" th:field="*{name}" placeholder="Наименование"
+           class="form-control mb-4 col-4">
+    <input type="text" th:field="*{idDivision}" placeholder="ID отдела"
+           class="form-control mb-4 col-4">
+    <input type="text" th:field="*{headManager}" placeholder="Руководитель"
+           class="form-control mb-4 col-4">
+    <input type="text" th:field="*{responsibleFromBusiness}" placeholder="Ответственные"
+           class="form-control mb-4 col-4">
+    <input type="text" th:field="*{curator}" placeholder="Куратор"
+           class="form-control mb-4 col-4">
+    <input type="text" th:field="*{closed}" placeholder="Завершено"
+           class="form-control mb-4 col-4">
+    <input type="text" th:field="*{dogovorNumber}" placeholder="Договор"
+           class="form-control mb-4 col-4">
+    <input type="text" th:field="*{linkDogovor}" placeholder="Ссылка"
+           class="form-control mb-4 col-4">
+    <input type="date" th:field="*{dateCreate}" placeholder="Дата создания"
+           class="form-control mb-4 col-4">
+    <input type="text" th:field="*{dateStart}" placeholder="Дата старта"
+           class="form-control mb-4 col-4">
+    <input type="text" th:field="*{dateEnd}" placeholder="Дата окончания"
+           class="form-control mb-4 col-4">
+    <input type="text" th:field="*{owner}" placeholder="Держатель проекта"
+           class="form-control mb-4 col-4">
+    <input type="text" th:field="*{summaProject}" placeholder="Сумма"
+           class="form-control mb-4 col-4">
+    <input type="text" th:field="*{opex}" placeholder="OPEX"
+           class="form-control mb-4 col-4">
+    <input type="text" th:field="*{opexNds}" placeholder="OPEX НДС"
+           class="form-control mb-4 col-4">
+    <input type="text" th:field="*{capex}" placeholder="CAPEX"
+           class="form-control mb-4 col-4">
+    <input type="text" th:field="*{capexNds}" placeholder="CAPEX НДС"
+           class="form-control mb-4 col-4">
+    <input type="text" th:field="*{comment}" placeholder="Комментарий"
+           class="form-control mb-4 col-4">
+    <input type="text" th:field="*{libDivisionByIdDivision}" placeholder="Id_Division"
+           class="form-control mb-4 col-4">
+    <input type="text" th:field="*{libEmployeeByOwner}" placeholder="EmployeeByOwner"
+           class="form-control mb-4 col-4">
+
+    <button type="submit" class="btn btn-info col-2"> Update ProjectList</button>
+  </form>
+
+  <hr>
+
+  <a th:href = "@{/projectlist}"> Back to project List</a>
+</div>
+</body>
+</html>

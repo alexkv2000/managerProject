@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>ProjectList Management System</title>
+
+    <link rel="stylesheet"
+          href="/bootstrap.min.css">
+</head>
+<body>
+<div class="container">
+    <h1>Управление проектами</h1>
+    <hr>
+    <h2>Обновить проект</h2>
+    <div class="container">
+        <div class="row mb-4 justify-content-center align-items-center">
+            <form action="#" th:action="@{/updateprojectlist}" th:object="${projectlist}" method="POST">
+                <input type="hidden" th:field="*{id}" />
+                <div class="d-flex align-items-center mb-2">
+                    <label for="name" class="me-2">Название проекта:</label>
+                    <input type="text" id="name" th:field="*{name}" placeholder="Наименование"
+                           class="form-control col-4" style="flex: 1; max-width: 400px;"/>
+                </div>
+                <div class="d-flex align-items-center mb-2">
+                    <label for="division" class="me-2">Отдел :</label>
+                    <select id="division" th:field="*{libDivisionByIdDivision.id}" style="flex: 1; max-width: 400px;">
+                        <option th:each="division : ${divisions}" th:value="${division.id}"
+                                th:text="${division.namedivision}">Выберите отдел...</option>
+                    </select>
+                </div>
+                <div class="d-flex align-items-center mb-2">
+                    <label for="headManager" class="me-2">Руководитель проекта:</label>
+                    <input type="text" id="headManager" th:field="*{headManager}" placeholder="Руководитель"
+                           class="form-control" style="flex: 1; max-width: 400px;"/>
+                </div>
+                <div class="d-flex align-items-center mb-2">
+                    <label for="fromBusiness" class="me-2">Ответственный :</label>
+                    <input type="text" id="fromBusiness" th:field="*{responsibleFromBusiness}"
+                           placeholder="Ответственный за проект от бизнеса" class="form-control"
+                           style="flex: 1; max-width: 400px;"/>
+                </div>
+                <div class="d-flex align-items-center mb-2">
+                    <label for="curator" class="me-2">Куратор :</label>
+                    <input type="text" id="curator" th:field="*{curator}" placeholder="Куратор проекта"
+                           class="form-control"
+                           style="flex: 1; max-width: 400px;"/>
+                </div>
+                <div class="d-flex mb-2">
+                    <label for="close" class="me-2">Проект закрыт :</label>
+                    <input type="checkbox" id="close" name="closed" value="true" placeholder="Проект закрыт"/>
+                </div>
+                <div class="d-flex align-items-center mb-2">
+                    <label for="dog" class="me-2">Номер договора :</label>
+                    <input type="text" id="dog" th:field="*{dogovorNumber}" placeholder="Договор" class="form-control"
+                           style="flex: 1; max-width: 400px;"/>
+                </div>
+                <div class="d-flex align-items-center mb-2">
+                    <label for="linkDog" class="me-2">Ссылка :</label>
+                    <input type="text" id="linkDog" th:field="*{linkDogovor}" placeholder="Ссылка" class="form-control"
+                           style="flex: 1; max-width: 400px;"/>
+                </div>
+                <div class="d-flex align-items-center mb-2">
+                    <label for="dateCreate" class="me-2">Дата создания :</label>
+                    <input type="text" id="dateCreate" th:field="*{dateCreate}" placeholder="Дата создания"
+                           class="form-control"
+                           style="flex: 1; max-width: 400px;"/>
+                </div>
+
+                <div class="d-flex align-items-center mb-2">
+                    <label for="dateStart" class="me-2">Дата старта :</label>
+                    <input type="text" id="dateStart" th:field="*{dateStart}" placeholder="Дата старта"
+                           class="form-control"
+                           style="flex: 1; max-width: 400px;"/>
+                </div>
+                <div class="d-flex align-items-center mb-2">
+                    <label for="dateEnd" class="me-2">Дата окончания :</label>
+                    <input type="text" id="dateEnd" th:field="*{dateEnd}" placeholder="Дата окончания"
+                           class="form-control" style="flex: 1; max-width: 400px;"/>
+                </div>
+                <div class="d-flex align-items-center mb-2">
+                    <label for="employee" class="me-2">Ответственный за проект : </label>
+                    <select id="employee" th:field="*{libJobEmployeeByOwner.id}" style="flex: 1; max-width: 400px;">
+                        <option th:each="employee : ${employees}" th:value="${employee.id}"
+                                th:text="${employee.fio}"></option>
+                    </select>
+                </div>
+                <div class="d-flex align-items-center mb-2">
+                    <label for="summaProject" class="me-2">Сумма проекта (по бюджету) :</label>
+                    <input type="text" id="summaProject" th:field="*{summaProject}" placeholder="Сумма проекта"
+                           class="form-control" style="flex: 1; max-width: 400px;"/>
+                </div>
+                <div class="d-flex align-items-center mb-2">
+                    <label for="opex" class="me-2">Сумма услуг (OPEX) :</label>
+                    <input type="text" id="opex" th:field="*{opex}" placeholder="OPEX" class="form-control"
+                           style="flex: 1; max-width: 400px;"/>
+                </div>
+                <div class="d-flex align-items-center mb-2">
+                    <label for="opexNds" class="me-2">Сумма услуг НДС (OPEX-НДС) :</label>
+                    <input type="text" id="opexNds" th:field="*{opexNds}" placeholder="OPEX НДС (сумма)"
+                           style="flex: 1; max-width: 400px;"/>
+                </div>
+                <div class="d-flex align-items-center mb-2">
+                    <label for="capex" class="me-2">Сумма оборудования (CAPEX) :</label>
+                    <input type="text" id="capex" th:field="*{capex}" placeholder="Сумма оборудования/материала"
+                           style="flex: 1; max-width: 400px;"/>
+                </div>
+                <div class="d-flex align-items-center mb-2">
+                    <label for="capexNds" class="me-2">Сумма оборудования (CAPEX) :</label>
+                    <input type="text" id="capexNds" th:field="*{capexNds}" placeholder="CAPEX НДС (сумма)"
+                           style="flex: 1; max-width: 400px;"/>
+                </div>
+                <div class="d-flex align-items-center mb-2">
+                    <label for="comment" class="me-2">Сумма оборудования (CAPEX) :</label>
+                    <input type="text" id="comment" th:field="*{comment}" placeholder="Комментарий"
+                           style="flex: 1; max-width: 400px;"/>
+                </div>
+                <div class="row mb-4 justify-content-center align-items-center" style="flex: 0; max-width: 600px;">
+                    <button type="submit" class="btn btn-info col-2">Обновить данные</button>
+                </div>
+            </form>
+        </div>
+        <hr>
+
+        <a th:href="@{/projectlist}"> список проектов </a>
+    </div>
+</body>
+</html>
