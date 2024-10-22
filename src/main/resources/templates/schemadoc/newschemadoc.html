@@ -19,7 +19,7 @@
 
         <label for="id_division">Выберите отдел:</label>
         <!-- сохраняем в linkDivisionByIdDivision выбор division и в Controller передаем в id_division -->
-        <select th:name="linkDivisionByIdDivision" id="id_division">
+        <select th:name="schemadoc.linkDivisionByIdDivision" id="id_division">
             <option value="" disabled selected>Отдел</option>
             <th:block th:each="libdivision : ${libdivisions}">
                 <option th:value="${libdivision.id}" th:text="${libdivision.namedivision}"></option>
@@ -31,7 +31,7 @@
                placeholder="Дата создания" class="form-control mb-4 col-4"/>
 
         <label for="curr">Действующий шаблон:</label>
-        <input type="checkbox" id="curr" th:name="current" value="true" placeholder="Действующий шаблон"/>
+        <input type="checkbox" id="curr" th:name="schemadoc.current" value="true" placeholder="Действующий шаблон"/>
 
         <button type="submit" class="btn btn-info col-2">Сохранить шаблон</button>
     </form>

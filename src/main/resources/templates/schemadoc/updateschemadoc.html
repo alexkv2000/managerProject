@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="ISO-8859-1">
+  <title>Division Management System</title>
+
+  <link rel="stylesheet"
+        href="/bootstrap.min.css">
+</head>
+<body>
+<div class="container">
+  <h1>?????? Management System</h1>
+  <hr>
+  <h2>?????????? ????????</h2>
+
+  <form action="#" th:action="@{/saveschemadoc}" th:object="${schemadoc}"
+        method="POST">
+
+    <!-- Add hidden form field to handle update -->
+    <label for="schemaName">???????????? ???????:</label>
+    <input type="text" id="schemaName" th:field="${schemadoc.name}" placeholder="???????????? ???????"
+           class="form-control mb-4 col-4"/>
+
+    <label for="id_division">???????? ?????:</label>
+    <!-- ????????? ? linkDivisionByIdDivision ????? division ? ? Controller ???????? ? id_division -->
+    <select th:name="linkDivisionByIdDivision" id="id_division">
+      <option value="" disabled selected>?????</option>
+      <th:block th:each="libdivision : ${libdivisions}">
+        <option th:value="${libdivision.id}" th:text="${libdivision.namedivision}"></option>
+      </th:block>
+    </select>
+
+    <label for="dCreate">???? ????????:</label>
+    <input type="date" id="dCreate" th:name="dateCreate" th:text="${schemadoc.dateCreate}"
+           placeholder="???? ????????" class="form-control mb-4 col-4"/>
+
+    <label for="curr">??????????? ??????:</label>
+    <input type="checkbox" id="curr" th:name="current" value="true" placeholder="??????????? ??????"/>
+
+    <button type="submit" class="btn btn-info col-2"> Update Division</button>
+  </form>
+
+  <hr>
+
+  <a th:href = "@{/divisions}"> Back to Division List</a>
+</div>
+</body>
+</html>
