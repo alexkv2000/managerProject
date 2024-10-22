@@ -1,11 +1,15 @@
 package kvo.menproject.project.entity;
 
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+
+import java.util.Optional;
 
 @Controller
 public class FileUploadController {
@@ -43,5 +47,21 @@ public class FileUploadController {
         }
 
         return "redirect:/schemadoc";
+    }
+    @GetMapping("/download/{id}")
+    public ResponseEntity<byte[]> downloadFile(@PathVariable Long id) {
+        Optional<FileData> fileDataOptional = fileDataService.getFileById(id);
+
+        if (fileDataOptional.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        }
+
+        FileData fileData = fileDataOptional.get();
+        byte[] data = fileData.getData();
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("Content-Disposition", "attachment; filename=" + fileData.getName()); // Замените на нужное название
+
+        return new ResponseEntity<>(data, headers, HttpStatus.OK);
     }
 }

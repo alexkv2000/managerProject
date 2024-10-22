@@ -71,8 +71,7 @@
     <div class="row">
         <div class="col min-vh-100 py-3">
             <!-- toggler -->
-            <button class="btn float-end" data-bs-toggle="offcanvas" data-bs-target="#offcanvas" role="button"
-                    color="blue">
+            <button class="btn float-end" data-bs-toggle="offcanvas" data-bs-target="#offcanvas" role="button">
                 <i class="bi bi-arrow-right-square-fill fs-3" data-bs-toggle="offcanvas"
                    data-bs-target="#offcanvas"></i>
             </button>
@@ -99,7 +98,16 @@
                         <td th:text="${schemdoc.dateCreate}"></td>
                         <td th:text="${schemdoc.linkDivisionByIdDivision.namedivision}"></td>
                         <td>
-                            <li th:text="${file.getName()}" th:each="file:${fileData}"></li>
+                            <!--                            <li th:text="${file.getName()}" th:each="file:${fileData}"></li>-->
+                            <ul>
+                                <li th:each="file : ${fileData}"
+                                    th:if="${file.getId_Data() == schemdoc.getId()}">
+                                    <a th:href="@{/download/{id}(id=${file.getId_Data()})}"
+                                       th:text="${file.getName()}"
+                                       download="true">
+                                    </a>
+                                </li>
+                            </ul>
                         </td>
                         <td>
                             <form action="/upload" method="post" enctype="multipart/form-data">
@@ -143,11 +151,10 @@
                 </div>
                 <!-- Bootstrap JS -->
                 <script src="/bootstrap.bundle.min.js"></script>
+            </td>
         </div>
     </div>
 </div>
-</div>
-
 
 </body>
 </html>

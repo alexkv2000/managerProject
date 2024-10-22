@@ -1,6 +1,8 @@
 package kvo.menproject.project.entity;
-import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.stereotype.Service;
+
+import java.util.Optional;
 
 @Service
 public class FileDataService {
@@ -13,5 +15,9 @@ public class FileDataService {
 
     public void saveFileData(FileData fileData) {
         fileDataRepo.save(fileData);
+    }
+
+    public Optional<FileData> getFileById(Long id) {
+        return fileDataRepo.findById(id);
     }
 }

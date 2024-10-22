@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Division Management System</title>
+
+    <link rel="stylesheet"
+          href="/bootstrap.min.css">
+</head>
+<body>
+<div class="container">
+    <h1>Управление системой Подразделение</h1>
+    <hr>
+    <h2>Обновить подразделение</h2>
+
+    <form action="#" th:action="@{/saveschemadoc}" th:object="${schemadoc}"
+          method="POST">
+
+        <!-- Add hidden form field to handle update -->
+        <input type="hidden" th:field="*{id}" />
+
+        <label for="schemaname">Наименование:</label>
+        <input type="text" id="schemaname" th:field="*{name}" class="form-control mb-4 col-4">
+
+        <label for="schemaDate">Дата создания:</label>
+        <input type="text" id="schemaDate" th:field="*{dateCreate}" class="form-control mb-4 col-4">
+
+        <label for="current">Действующий шаюлон:</label>
+        <input type="text" id="current" th:field="*{current}" class="form-control mb-4 col-4">
+
+        <button type="submit" class="btn btn-info col-2"> обновить шаблон</button>
+    </form>
+
+    <hr>
+
+    <a th:href = "@{/schemadoc}"> список шаблон </a>
+</div>
+</body>
+</html>

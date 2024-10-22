@@ -10,10 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
+
 import java.util.List;
 
 import static java.lang.String.valueOf;
@@ -38,6 +35,7 @@ public class docSchemaDocController implements CommandLineRunner {
 
         Pageable pageable = PageRequest.of(page, size);
         Page<docSchemaDoc> rows = docSchemaDocRepo.findAll(pageable);
+//        Page<docSchemaDoc> rows = docSchemaDocRepo.findAllByIdAndBinFilesById(pageable);
         if (rows != null) {
             System.out.println("Retrieved " + rows.getContent().size() + " Schema Documents");
         } else {
@@ -63,48 +61,31 @@ public class docSchemaDocController implements CommandLineRunner {
     }
 
     @PostMapping(path = "/saveschemadoc")
-    public String saveDivision(@ModelAttribute("schemadoc") docSchemaDoc schemadoc, @RequestParam("binFiles") List<MultipartFile> files) throws IOException {
+    public String saveDivision(@ModelAttribute("schemadoc") docSchemaDoc schemadoc) throws IOException {
 
-        List<FileData> fileDataList = new ArrayList<>();
 
-        for (MultipartFile file : files) {
-            try {
-                FileData fileData = new FileData();
-                fileData.setData(file.getBytes());
-//                fileData.setDocSchemaDoc(schemadoc); // Установите связь с основной сущностью
-                fileDataList.add(fileData);
-            } catch (IOException e) {
-                e.printStackTrace(); // Обработка исключений
-                return "Error uploading files: " + e.getMessage();
+
+        if (!schemadoc.getName().isEmpty() || schemadoc.getName().trim() != "" || !schemadoc.getName().isBlank()) {
+//            SimpleDateFormat dateTemp = new SimpleDateFormat("dd-MM-yyyy");
+//
+//            Date date = dateTemp.parse(String.valueOf(schemadoc.getDateCreate().toLocalDate()));
+            if (schemadoc.getLinkDivisionByIdDivision().getId() > 0) {
+                schemadoc.setIdDivision(schemadoc.getLinkDivisionByIdDivision().getId());
+            } else schemadoc.setIdDivision(1L);
+
+            if (schemadoc.getIdDivision().describeConstable().isPresent()) {
+//                for (MultipartFile file : binFiles) {
+//                    byte[] bytes = file.getBytes(); // Получаем массив байт
+//                    // Сохранение файла или другие операции
+//
+//                    schemadoc.setBinFiles(bytes);
+//                }
+//                new FileData().setData(binFiles.getBytes());
+
+                docSchemaDocRepo.saveAndFlush(schemadoc);
             }
         }
-
-        // Сохраните сущность и связанные данные
-        schemadoc.setBinFilesById(fileDataList); // Установите список файлов в вашу сущность
-        docSchemaDocRepo.saveAndFlush(schemadoc); // Сохранение в БД
-
-
-//        if (!schemadoc.getName().isEmpty() || schemadoc.getName().trim() != "" || !schemadoc.getName().isBlank()) {
-////            SimpleDateFormat dateTemp = new SimpleDateFormat("dd-MM-yyyy");
-////
-////            Date date = dateTemp.parse(String.valueOf(schemadoc.getDateCreate().toLocalDate()));
-//            if (schemadoc.getLinkDivisionByIdDivision().getId() > 0) {
-//                schemadoc.setIdDivision(schemadoc.getLinkDivisionByIdDivision().getId());
-//            } else schemadoc.setIdDivision(1L);
-//
-//            if (!schemadoc.getIdDivision().describeConstable().isEmpty()) {
-////                for (MultipartFile file : binFiles) {
-////                    byte[] bytes = file.getBytes(); // Получаем массив байт
-////                    // Сохранение файла или другие операции
-////
-////                    schemadoc.setBinFiles(bytes);
-////                }
-//                new FileData().setData(binFiles.getBytes());
-//
-//                docSchemaDocRepo.saveAndFlush(schemadoc);
-//            }
-//        }
-//        System.out.println(schemadoc.getDateCreate());
+        System.out.println(schemadoc.getDateCreate());
         return "redirect:/schemadoc";
     }
 
@@ -112,6 +93,7 @@ public class docSchemaDocController implements CommandLineRunner {
     public String updateForm(@PathVariable(value = "id") long id, Model model) {
         docSchemaDoc schemadoc = docSchemaDocRepo.getById(id);
         model.addAttribute("schemadoc", schemadoc);
+        model.addAttribute("libdivisions", libDivisionRepo.findAll());
         return "/schemadoc/showschemadoc";
     }
 

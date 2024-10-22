@@ -11,10 +11,12 @@
     <h1>Новый шаблон</h1>
     <hr>
     <h2>Сохранить шаблон</h2>
-<!--    <form action="#" th:action="@{/saveschemadoc}"  method="POST" enctype="multipart/form-data">-->
-        <form action="#" th:action="@{/api/files/upload}"  method="POST" enctype="multipart/form-data">
+    <form action="#" th:action="@{/saveschemadoc}" method="POST" enctype="multipart/form-data">
+        <!--    <form action="#" th:action="@{/api/files/upload}" method="POST" enctype="multipart/form-data">-->
+        <label for="schemaName">Наименование шаблона:</label>
+        <input type="text" id="schemaName" th:field="${schemadoc.name}" placeholder="Наименование шаблона"
+               class="form-control mb-4 col-4"/>
 
-        <input type="text" th:field="${schemadoc.name}" placeholder="Наименование шаблона" class="form-control mb-4 col-4">
         <label for="id_division">Выберите отдел:</label>
         <!-- сохраняем в linkDivisionByIdDivision выбор division и в Controller передаем в id_division -->
         <select th:name="linkDivisionByIdDivision" id="id_division">
@@ -23,11 +25,13 @@
                 <option th:value="${libdivision.id}" th:text="${libdivision.namedivision}"></option>
             </th:block>
         </select>
-        <input type="date" th:name="dateCreate" th:text="${schemadoc.dateCreate}" placeholder="Дата создания" class="form-control mb-4 col-4">
 
-        <input type="checkbox" th:name="current" value="true" placeholder="Действующий шаблон"/>
-<!--TODO: убрать добавления Файла в отедльный блок-->
-        <input type="file" th:name="binFiles" multiple placeholder="Файл шаблона" class="form-control mb-4 col-4">
+        <label for="dCreate">Дата создания:</label>
+        <input type="date" id="dCreate" th:name="dateCreate" th:text="${schemadoc.dateCreate}"
+               placeholder="Дата создания" class="form-control mb-4 col-4"/>
+
+        <label for="curr">Действующий шаблон:</label>
+        <input type="checkbox" id="curr" th:name="current" value="true" placeholder="Действующий шаблон"/>
 
         <button type="submit" class="btn btn-info col-2">Сохранить шаблон</button>
     </form>
