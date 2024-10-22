@@ -31,8 +31,6 @@ public class libStepProjectController implements CommandLineRunner {
             System.out.println("No step project retrieved");
         }
 //        model.addAttribute("stepproject", rows);
-        System.out.println("Total elements: " + rows.getTotalElements()); // Вывод количества элементов
-        System.out.println("Content: " + rows.getContent()); // Вывод содержимого
         model.addAttribute("stepprojects", libStepProjectRepo.findAll(pageable));
         model.addAttribute("totalPages", rows.getTotalPages());
         model.addAttribute("currentPage", page);

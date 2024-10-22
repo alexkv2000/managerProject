@@ -26,7 +26,7 @@ public class libDivision {
     private Boolean active;
     @OneToMany(mappedBy = "libDivisionByIdDivision")
     private Collection<docProjectsList> projectsListsById;
-    @OneToMany(mappedBy = "libDivisionByIdDivision")
+    @OneToMany(mappedBy = "linkDivisionByIdDivision")
     private Collection<docSchemaDoc> libSchemaDocsById;
 
     public Collection<docSchemaDoc> getLibSchemaDocsById() {

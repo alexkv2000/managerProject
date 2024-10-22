@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>New JobPlace</title>
+    <link rel="stylesheet"
+          href="/bootstrap.min.css">
+</head>
+<body>
+<div class="container">
+    <h1>Новый шаблон</h1>
+    <hr>
+    <h2>Сохранить файл шаблона</h2>
+
+
+    <form action="#" method="post" enctype="multipart/form-data" th:action="@{/upload}" th:object="${file}">
+        <input type="file" name="file" />
+        <button type="submit">Загрузить файл</button>
+    </form>
+
+    <form action="#" th:action="@{/mainschemadoc}" th:object="${docSchemaDoc}"
+          method="POST">
+        <input type="text" th:field="*{docSchemaDoc.name}" placeholder="Наименование"
+               class="form-control mb-4 col-4">
+        <input type="text" th:field="*{docSchemaDoc.date_create}" placeholder="Дата создания"
+               class="form-control mb-4 col-4">
+        <input type="text" th:field="*{docSchemaDoc.id_division}" placeholder="Отдел"
+               class="form-control mb-4 col-4">
+        <input type="text" th:field="*{docSchemaDoc.bin_files}" placeholder="Файл"
+               class="form-control mb-4 col-4">
+
+        <button type="submit" class="btn btn-info col-2">Сохранить файл'</button>
+    </form>
+    <hr>
+    <a th:href="@{/templates/jobplace}"> Возврат в список этапов проекта </a>
+    <a th:href="@{/static}"> Возврат основная страница </a>
+</div>
+</body>
+</html>

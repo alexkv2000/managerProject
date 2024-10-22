@@ -11,27 +11,23 @@
     <h1>Новый шаблон</h1>
     <hr>
     <h2>Сохранить шаблон</h2>
-    <form action="#" th:action="@{/saveschemadoc}" th:object="${schemadoc}" method="POST">
+<!--    <form action="#" th:action="@{/saveschemadoc}"  method="POST" enctype="multipart/form-data">-->
+        <form action="#" th:action="@{/api/files/upload}"  method="POST" enctype="multipart/form-data">
 
         <input type="text" th:field="${schemadoc.name}" placeholder="Наименование шаблона" class="form-control mb-4 col-4">
-        <label for="libdivision">Выберите отдел:</label>
-
-        <select name="LibJobEmployeeByOwner" id="idDivision">
+        <label for="id_division">Выберите отдел:</label>
+        <!-- сохраняем в linkDivisionByIdDivision выбор division и в Controller передаем в id_division -->
+        <select th:name="linkDivisionByIdDivision" id="id_division">
             <option value="" disabled selected>Отдел</option>
             <th:block th:each="libdivision : ${libdivisions}">
-                <option id="libdivision" th:value="${libdivision.id}" th:text="${libdivision.namedivision}"></option>
+                <option th:value="${libdivision.id}" th:text="${libdivision.namedivision}"></option>
             </th:block>
         </select>
-        <input type="text" th:field="${schemadoc.dateCreate}" placeholder="Дата создания" class="form-control mb-4 col-4">
-        <input type="checkbox" name="current" value="true" placeholder="Действующий шаблон"/>
+        <input type="date" th:name="dateCreate" th:text="${schemadoc.dateCreate}" placeholder="Дата создания" class="form-control mb-4 col-4">
 
-<!--        <select name="LibJobEmployeeByOwner" id="idDivision">-->
-<!--            <option value="" disabled selected>Отдел</option>-->
-<!--            <th:block th:each="libdivision : ${libdivisions}">-->
-<!--                <option th:value="${libdivision.id}" th:text="${libdivision.namedivision}"></option>-->
-<!--            </th:block>-->
-<!--        </select>-->
-        <input type="text" th:field="${schemadoc.binFiles}" placeholder="Файл шаблона" class="form-control mb-4 col-4">
+        <input type="checkbox" th:name="current" value="true" placeholder="Действующий шаблон"/>
+<!--TODO: убрать добавления Файла в отедльный блок-->
+        <input type="file" th:name="binFiles" multiple placeholder="Файл шаблона" class="form-control mb-4 col-4">
 
         <button type="submit" class="btn btn-info col-2">Сохранить шаблон</button>
     </form>
