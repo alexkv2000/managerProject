@@ -11,28 +11,33 @@
     <h1>Новый шаблон</h1>
     <hr>
     <h2>Сохранить шаблон</h2>
-    <form action="#" th:action="@{/saveschemadoc}" method="POST" enctype="multipart/form-data">
+    <form action="#" th:action="@{/saveschemadoc}" method="POST" th:object="${schemadoc}" enctype="multipart/form-data">
         <!--    <form action="#" th:action="@{/api/files/upload}" method="POST" enctype="multipart/form-data">-->
-        <label for="schemaName">Наименование шаблона:</label>
-        <input type="text" id="schemaName" th:field="${schemadoc.name}" placeholder="Наименование шаблона"
-               class="form-control mb-4 col-4"/>
-
-        <label for="id_division">Выберите отдел:</label>
-        <!-- сохраняем в linkDivisionByIdDivision выбор division и в Controller передаем в id_division -->
-        <select th:name="schemadoc.linkDivisionByIdDivision" id="id_division">
-            <option value="" disabled selected>Отдел</option>
-            <th:block th:each="libdivision : ${libdivisions}">
-                <option th:value="${libdivision.id}" th:text="${libdivision.namedivision}"></option>
-            </th:block>
-        </select>
-
-        <label for="dCreate">Дата создания:</label>
-        <input type="date" id="dCreate" th:name="dateCreate" th:text="${schemadoc.dateCreate}"
-               placeholder="Дата создания" class="form-control mb-4 col-4"/>
-
-        <label for="curr">Действующий шаблон:</label>
-        <input type="checkbox" id="curr" th:name="schemadoc.current" value="true" placeholder="Действующий шаблон"/>
-
+        <div class="d-flex align-items-center mb-2">
+            <label for="schemaName">Наименование шаблона:</label>
+            <input type="text" id="schemaName" th:field="${schemadoc.name}" placeholder="Наименование шаблона"
+                   class="form-control mb-4 col-4"/>
+        </div>
+        <div class="d-flex align-items-center mb-2">
+            <label for="id_division">Выберите отдел:</label>
+            <!-- сохраняем в linkDivisionByIdDivision выбор division и в Controller передаем в id_division -->
+            <select th:name="linkDivisionByIdDivision" id="id_division">
+                <option value="" disabled selected>Отдел</option>
+                <th:block th:each="libdivision : ${libdivisions}">
+                    <option th:value="${libdivision.id}" th:text="${libdivision.namedivision}"></option>
+                </th:block>
+            </select>
+        </div>
+        <div class="d-flex align-items-center mb-2">
+            <label for="dCreate">Дата создания:</label>
+            <input type="date" id="dCreate" th:name="dateCreate" th:text="${schemadoc.dateCreate}"
+                   placeholder="Дата создания" class="form-control mb-4 col-4"/>
+        </div>
+        <div class="d-flex align-items-center mb-2">
+            <label for="curr">Действующий шаблон:</label>
+            <input type="checkbox" id="curr" th:name="current" th:field="${schemadoc.current}"
+                   placeholder="Действующий шаблон"/>
+        </div>
         <button type="submit" class="btn btn-info col-2">Сохранить шаблон</button>
     </form>
     <hr>

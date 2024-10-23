@@ -13,27 +13,55 @@
     <hr>
     <h2>Обновить подразделение</h2>
 
-    <form action="#" th:action="@{/saveschemadoc}" th:object="${schemadoc}"
-          method="POST">
-
+    <form action="#" th:action="@{/saveschemadoc}" method="POST" enctype="multipart/form-data">
+        <input type="hidden" th:field="${schemadoc.id}" />
+        <div class="d-flex align-items-center mb-2">
+            <!--    <form action="#" th:action="@{/api/files/upload}" method="POST" enctype="multipart/form-data">-->
+            <label for="schemaName">Наименование шаблона:</label>
+            <input type="text" id="schemaName" th:field="${schemadoc.name}" placeholder="Наименование шаблона"
+                   class="form-control mb-4 col-4"/>
+        </div>
+        <div class="d-flex align-items-center mb-2">
+            <label for="id_division">Выберите отдел:</label>
+            <!-- сохраняем в linkDivisionByIdDivision выбор division и в Controller передаем в id_division -->
+            <select th:name="linkDivisionByIdDivision" id="id_division">
+                <!--                <option value="" disabled selected>Отдел</option>-->
+                <th:block th:each="libdivision : ${libdivisions}">
+                    <option th:value="${libdivision.id}" th:text="${libdivision.namedivision}"></option>
+                </th:block>
+            </select>
+        </div>
+        <div class="d-flex align-items-center mb-2">
+            <label for="dCreate">Дата создания:</label>
+            <input type="date" id="dCreate" th:name="dateCreate" th:value="${schemadoc.dateCreate}"
+                   placeholder="Дата создания" class="form-control mb-4 col-4"/>
+        </div>
+        <div class="d-flex align-items-center mb-2">
+            <label for="curr">Действующий шаблон:</label>
+            <input type="checkbox" id="curr" th:name="current" th:field="${schemadoc.current}"
+                   placeholder="Действующий шаблон"/>
+        </div>
+        <div class="row mb-4 justify-content-center align-items-center" style="flex: 0; max-width: 600px;">
+            <button type="submit" class="btn btn-info col-2">Сохранить шаблон</button>
+        </div>
         <!-- Add hidden form field to handle update -->
-        <input type="hidden" th:field="*{id}" />
+        <!--        <input type="hidden" th:field="*{id}" />-->
 
-        <label for="schemaname">Наименование:</label>
-        <input type="text" id="schemaname" th:field="*{name}" class="form-control mb-4 col-4">
+        <!--        <label for="schemaname">Наименование:</label>-->
+        <!--        <input type="text" id="schemaname" th:field="*{name}" class="form-control mb-4 col-4">-->
 
-        <label for="schemaDate">Дата создания:</label>
-        <input type="text" id="schemaDate" th:field="*{dateCreate}" class="form-control mb-4 col-4">
+        <!--        <label for="schemaDate">Дата создания:</label>-->
+        <!--        <input type="text" id="schemaDate" th:field="*{dateCreate}" class="form-control mb-4 col-4">-->
 
-        <label for="current">Действующий шаюлон:</label>
-        <input type="text" id="current" th:field="*{current}" class="form-control mb-4 col-4">
+        <!--        <label for="current">Действующий шаюлон:</label>-->
+        <!--        <input type="text" id="current" th:field="*{current}" class="form-control mb-4 col-4">-->
 
-        <button type="submit" class="btn btn-info col-2"> обновить шаблон</button>
+        <!--        <button type="submit" class="btn btn-info col-2"> обновить шаблон</button>-->
     </form>
 
     <hr>
 
-    <a th:href = "@{/schemadoc}"> список шаблон </a>
+    <a th:href="@{/schemadoc}"> список шаблон </a>
 </div>
 </body>
 </html>

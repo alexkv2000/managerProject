@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-  <meta charset="ISO-8859-1">
+  <meta charset="UTF-8">
   <title>Division Management System</title>
 
   <link rel="stylesheet"
@@ -9,19 +9,19 @@
 </head>
 <body>
 <div class="container">
-  <h1>?????? Management System</h1>
+  <h1>Управление системой Подразделение</h1>
   <hr>
-  <h2>?????????? ????????</h2>
+  <h2>Обновить подразделение</h2>
 
   <form action="#" th:action="@{/saveschemadoc}" th:object="${schemadoc}"
         method="POST">
 
     <!-- Add hidden form field to handle update -->
-    <label for="schemaName">???????????? ???????:</label>
-    <input type="text" id="schemaName" th:field="${schemadoc.name}" placeholder="???????????? ???????"
+    <label for="schemaName">Наименование шаблона:</label>
+    <input type="text" id="schemaName" th:field="${schemadoc.name}" placeholder="Наименование шаблона"
            class="form-control mb-4 col-4"/>
 
-    <label for="id_division">???????? ?????:</label>
+    <label for="id_division">Выберите отдел:</label>
     <!-- ????????? ? linkDivisionByIdDivision ????? division ? ? Controller ???????? ? id_division -->
     <select th:name="linkDivisionByIdDivision" id="id_division">
       <option value="" disabled selected>?????</option>
@@ -30,12 +30,12 @@
       </th:block>
     </select>
 
-    <label for="dCreate">???? ????????:</label>
+    <label for="dCreate">Дата создания:</label>
     <input type="date" id="dCreate" th:name="dateCreate" th:text="${schemadoc.dateCreate}"
-           placeholder="???? ????????" class="form-control mb-4 col-4"/>
+           placeholder="Дата создания" class="form-control mb-4 col-4"/>
 
-    <label for="curr">??????????? ??????:</label>
-    <input type="checkbox" id="curr" th:name="current" value="true" placeholder="??????????? ??????"/>
+    <label for="curr">Действующий шаблон:</label>
+    <input type="checkbox" id="curr" th:name="current" value="true" placeholder="Действующий шаблон:"/>
 
     <button type="submit" class="btn btn-info col-2"> Update Division</button>
   </form>

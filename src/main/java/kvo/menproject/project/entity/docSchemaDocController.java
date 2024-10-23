@@ -61,41 +61,36 @@ public class docSchemaDocController implements CommandLineRunner {
     }
 
     @PostMapping(path = "/saveschemadoc")
-    public String saveDivision(@ModelAttribute("schemadoc") docSchemaDoc schemadoc, Model model) throws IOException {
+    public String saveDivision(@ModelAttribute("schemadoc") docSchemaDoc schemadoc,
+                               Model model) throws IOException {
 
+        if (!schemadoc.getName().isEmpty() || schemadoc.getName().trim() != "" || !schemadoc.getName().isBlank()) {
+//            SimpleDateFormat dateTemp = new SimpleDateFormat("dd-MM-yyyy");
+//            Date date = dateTemp.parse(String.valueOf(schemadoc.getDateCreate().toLocalDate()));
+            if (schemadoc.getLinkDivisionByIdDivision().getId() > 0) {
+                schemadoc.setIdDivision(schemadoc.getLinkDivisionByIdDivision().getId());
+            } else schemadoc.setIdDivision(1L);
+//            if (schemadoc.getIdDivision().describeConstable().isPresent()) {
+//                for (MultipartFile file : binFiles) {
+//                    byte[] bytes = file.getBytes(); // Получаем массив байт
+//                    // Сохранение файла или другие операции
+//                    schemadoc.setBinFiles(bytes);
+//                }
+//                new FileData().setData(binFiles.getBytes());
+            docSchemaDocRepo.saveAndFlush(schemadoc);
+//            }
+        }
         model.addAttribute("libdivisions", libDivisionRepo.findAll());
         model.addAttribute("schemadoc", schemadoc);
-
-
-//        if (!schemadoc.getName().isEmpty() || schemadoc.getName().trim() != "" || !schemadoc.getName().isBlank()) {
-////            SimpleDateFormat dateTemp = new SimpleDateFormat("dd-MM-yyyy");
-////
-////            Date date = dateTemp.parse(String.valueOf(schemadoc.getDateCreate().toLocalDate()));
-//            if (schemadoc.getLinkDivisionByIdDivision().getId() > 0) {
-//                schemadoc.setIdDivision(schemadoc.getLinkDivisionByIdDivision().getId());
-//            } else schemadoc.setIdDivision(1L);
-//
-//            if (schemadoc.getIdDivision().describeConstable().isPresent()) {
-////                for (MultipartFile file : binFiles) {
-////                    byte[] bytes = file.getBytes(); // Получаем массив байт
-////                    // Сохранение файла или другие операции
-////
-////                    schemadoc.setBinFiles(bytes);
-////                }
-////                new FileData().setData(binFiles.getBytes());
-
-                docSchemaDocRepo.saveAndFlush(schemadoc);
-//            }
-//        }
         System.out.println(schemadoc.getDateCreate());
         return "redirect:/schemadoc";
     }
 
     @GetMapping(path = "/showschemadoc/{id}")
     public String updateForm(@PathVariable(value = "id") long id, Model model) {
-        docSchemaDoc schemadoc = docSchemaDocRepo.getById(id);
-        model.addAttribute("schemadoc", schemadoc);
+        docSchemaDoc schemadoc = docSchemaDocRepo.findById(id);
         model.addAttribute("libdivisions", libDivisionRepo.findAll());
+        model.addAttribute("schemadoc", schemadoc);
         return "/schemadoc/showschemadoc";
     }
 
@@ -107,10 +102,11 @@ public class docSchemaDocController implements CommandLineRunner {
     }
 
     @PostMapping("/upload2")
-    public String handleFileUploadButton(@ModelAttribute("schemadoc") docSchemaDoc schemadoc, @RequestParam("binFiles") List<MultipartFile> files,
-                                   Model model,
-                                   @RequestParam(defaultValue = "0") int page,
-                                   @RequestParam(defaultValue = "5") int size) throws IOException {
+    public String handleFileUploadButton(@ModelAttribute("schemadoc") docSchemaDoc
+                                                 schemadoc, @RequestParam("binFiles") List<MultipartFile> files,
+                                         Model model,
+                                         @RequestParam(defaultValue = "0") int page,
+                                         @RequestParam(defaultValue = "5") int size) throws IOException {
         Pageable pageable = PageRequest.of(page, size);
         Page<docSchemaDoc> rows = docSchemaDocRepo.findAll(pageable);
         if (rows != null) {
