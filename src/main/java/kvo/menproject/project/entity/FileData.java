@@ -3,6 +3,12 @@ package kvo.menproject.project.entity;
 import jakarta.persistence.*;
 import lombok.Data;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
+import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
+import java.util.Arrays;
+
 @Data
 @Entity
 @Table(name = "bin_files", catalog = "dev")
@@ -21,7 +27,6 @@ public class FileData {
     @Basic
     @Column(name = "id_data", insertable = false, updatable = false)
     private Long id_Data;
-
     @ManyToOne
     @JoinColumn(name = "id_data", referencedColumnName = "id", nullable = true)
     private docSchemaDoc linkDataDocSchemaDocById;
@@ -62,7 +67,7 @@ public class FileData {
     }
 
     public String getName() {
-        return name;
+        return name.toLowerCase();
     }
 
     public void setName(String name) {

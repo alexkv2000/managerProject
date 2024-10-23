@@ -5,11 +5,9 @@
              version="3.0">
     <persistence-unit name="libDivision">
         <class>kvo.menproject.project.entity.libDivision</class>
-        <class>kvo.menproject.project.entity.sLibDivision</class>
         <class>kvo.menproject.project.entity.docSchemaDoc</class>
-        <class>kvo.menproject.project.entity.sLibSchemaDoc</class>
-        <class>kvo.menproject.project.entity.sBinFiles</class>
-        <class>kvo.menproject.project.entity.sDocSchemaDoc</class>
+        <class>kvo.menproject.project.entity.FileData</class>
+        <class>kvo.menproject.project.entity.docProjectsList</class>
         <properties>
             <property name="jakarta.persistence.jdbc.driver" value="org.postgresql.Driver"/>
             <property name="jakarta.persistence.jdbc.url" value="jdbc:postgresql://localhost:5432/dev;shutdown=true"/>

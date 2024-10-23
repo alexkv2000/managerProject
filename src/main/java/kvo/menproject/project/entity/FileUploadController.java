@@ -48,20 +48,5 @@ public class FileUploadController {
 
         return "redirect:/schemadoc";
     }
-    @GetMapping("/download/{id}")
-    public ResponseEntity<byte[]> downloadFile(@PathVariable Long id) {
-        Optional<FileData> fileDataOptional = fileDataService.getFileById(id);
 
-        if (fileDataOptional.isEmpty()) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
-        }
-
-        FileData fileData = fileDataOptional.get();
-        byte[] data = fileData.getData();
-
-        HttpHeaders headers = new HttpHeaders();
-        headers.add("Content-Disposition", "attachment; filename=" + fileData.getName()); // Замените на нужное название
-
-        return new ResponseEntity<>(data, headers, HttpStatus.OK);
-    }
 }

@@ -24,13 +24,14 @@
                     <i class="fs-5 bi-house"></i><span class="ms-1 d-none d-sm-inline">Проекты</span>
                 </a>
             </li>
-            <!--            <li>-->
-            <!--                <a href="#submenu1" data-bs-toggle="collapse" class="nav-link text-truncate">-->
-            <!--                    <i class="fs-5 bi-speedometer2"></i><span class="ms-1 d-none d-sm-inline">Dashboard</span> </a>-->
-            <!--            </li>-->
-            <!--            <li>-->
-            <!--                <a href="#" class="nav-link text-truncate">-->
-            <!--                    <i class="fs-5 bi-table"></i><span class="ms-1 d-none d-sm-inline">Orders</span></a>-->
+            <li>
+                <a href="/projectlist" class="nav-link text-truncate">
+                    <i class="fs-5 bi-table"></i><span class="ms-1 d-none d-sm-inline">Список проектов</span></a>
+            </li>
+            <!--            <li class="nav-item">-->
+            <!--                <a href="/schemadoc" class="nav-link text-truncate">-->
+            <!--                    <i class="fs-5 bi-house"></i><span class="ms-1 d-none d-sm-inline">Шаблоны документов</span>-->
+            <!--                </a>-->
             <!--            </li>-->
             <li class="dropdown">
                 <a href="#" class="nav-link dropdown-toggle  text-truncate" id="dropdown" data-bs-toggle="dropdown"
@@ -76,7 +77,7 @@
                    data-bs-target="#offcanvas"></i>
             </button>
             <!--моя вставка-->
-<!--            <div class="container my-2" align="center">-->
+            <!--            <div class="container my-2" align="center">-->
             <div align="center">
                 <h3>Список шаблонов документов</h3>
                 <a th:href="@{/addschemadoc}" class="btn btn-primary btn-sm mb-3">Добавить шаблон</a>
@@ -103,7 +104,7 @@
                             <ul>
                                 <li th:each="file : ${fileData}"
                                     th:if="${file.getId_Data() == schemdoc.getId()}">
-                                    <a th:href="@{/download/{id}(id=${file.getId_Data()})}"
+                                    <a th:href="@{/download/{id}(id=${file.getId()})}"
                                        th:text="${file.getName()}" target="_blank"
                                        download="true">
                                     </a>
@@ -117,7 +118,6 @@
                                 <button type="submit">Загрузить файл</button>
                             </form>
                         </td>
-
 
                         <td><a th:href="@{/showschemadoc/{id}(id=${schemdoc.id})}"
                                class="btn btn-primary">Изменить</a>
