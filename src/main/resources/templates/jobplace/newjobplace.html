@@ -14,12 +14,26 @@
 
     <form action="#" th:action="@{/savejobplace}" th:object="${jobplace}"
           method="POST">
-        <input type="text" th:field="*{numberplace}" placeholder="Номер рабочего места"
-               class="form-control mb-4 col-4">
-        <input type="text" th:field="*{comment}" placeholder="Комментарий"
-               class="form-control mb-4 col-4">
+        <div>
+            <input type="text" th:field="*{numberplace}" placeholder="Номер рабочего места" class="form-control mb-4 col-4">
+        </div>
+        <div>
+            <input type="text" th:field="*{comment}" placeholder="Комментарий" class="form-control mb-4 col-4">
+        </div>
+        <div>
+            <label for="emp">Закрепленный сотрудник:</label>
+            <select name="libJobEmployeeByPlaceEmployee" id="emp">
+                <option value="" disabled selected>Сотрудник отдела</option>
+                <th:block th:each="employee : ${employees}">
+                    <option th:value="${employee.id}"
+                            th:text="${employee.id} + ' - ' + ${employee.fio} + ' : ' + ${employee.coments}"></option>
+                </th:block>
+            </select>
+        </div>
+        <div class="d-flex justify-content-center mt-2">
+            <button type="submit" class="btn btn-info btn-sm col-2">Сохранить рабочее место</button>
+        </div>
 
-        <button type="submit" class="btn btn-info col-2">Сохранить рабочее место</button>
     </form>
     <hr>
     <a th:href="@{/jobplace}"> Возврат в список юридических лиц </a>

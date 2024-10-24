@@ -9,7 +9,7 @@
 <div class="offcanvas offcanvas-start w-5" tabindex="-1" id="offcanvas" data-bs-keyboard="false"
      data-bs-backdrop="false">
     <div class="offcanvas-header">
-        <h6 class="offcanvas-title d-none d-sm-block" >Меню</h6>
+        <h6 class="offcanvas-title d-none d-sm-block">Меню</h6>
         <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
     </div>
     <div class="offcanvas-body px-0">
@@ -29,10 +29,10 @@
                     <i class="fs-5 bi-house"></i><span class="ms-1 d-none d-sm-inline">Шаблоны документов</span>
                 </a>
             </li>
-<!--            <li>-->
-<!--                <a href="#" class="nav-link text-truncate">-->
-<!--                    <i class="fs-5 bi-table"></i><span class="ms-1 d-none d-sm-inline">Orders</span></a>-->
-<!--            </li>-->
+            <!--            <li>-->
+            <!--                <a href="#" class="nav-link text-truncate">-->
+            <!--                    <i class="fs-5 bi-table"></i><span class="ms-1 d-none d-sm-inline">Orders</span></a>-->
+            <!--            </li>-->
             <li class="dropdown">
                 <a href="#" class="nav-link dropdown-toggle  text-truncate" id="dropdown" data-bs-toggle="dropdown"
                    aria-expanded="false">
@@ -42,23 +42,23 @@
                     <li><a class="dropdown-item" href="/division">Подразделения</a></li>
                     <li><a class="dropdown-item" href="/jobplace">Юридические лица</a></li>
                     <li><a class="dropdown-item" href="/employee">Сотрудник</a></li>
-<!--                    <li><a class="dropdown-item" href="/jobplace">Рабочие места</a></li>-->
+                    <!--                    <li><a class="dropdown-item" href="/jobplace">Рабочие места</a></li>-->
                     <li><a class="dropdown-item" href="/stepproject">Этапы проекта</a></li>
-<!--                    <li><a class="dropdown-item" href="#">Сотрудникик</a></li>-->
-<!--                    <li>-->
-<!--                        <hr class="dropdown-divider">-->
-<!--                    </li>-->
-<!--                    <li><a class="dropdown-item" href="#">Sign out</a></li>-->
+                    <!--                    <li><a class="dropdown-item" href="#">Сотрудникик</a></li>-->
+                    <!--                    <li>-->
+                    <!--                        <hr class="dropdown-divider">-->
+                    <!--                    </li>-->
+                    <!--                    <li><a class="dropdown-item" href="#">Sign out</a></li>-->
                 </ul>
             </li>
-<!--            <li>-->
-<!--                <a href="#" class="nav-link text-truncate">-->
-<!--                    <i class="fs-5 bi-grid"></i><span class="ms-1 d-none d-sm-inline">Products</span></a>-->
-<!--            </li>-->
-<!--            <li>-->
-<!--                <a href="#" class="nav-link text-truncate">-->
-<!--                    <i class="fs-5 bi-people"></i><span class="ms-1 d-none d-sm-inline">Customers</span> </a>-->
-<!--            </li>-->
+            <!--            <li>-->
+            <!--                <a href="#" class="nav-link text-truncate">-->
+            <!--                    <i class="fs-5 bi-grid"></i><span class="ms-1 d-none d-sm-inline">Products</span></a>-->
+            <!--            </li>-->
+            <!--            <li>-->
+            <!--                <a href="#" class="nav-link text-truncate">-->
+            <!--                    <i class="fs-5 bi-people"></i><span class="ms-1 d-none d-sm-inline">Customers</span> </a>-->
+            <!--            </li>-->
         </ul>
     </div>
 </div>
@@ -66,7 +66,7 @@
     <div class="row">
         <div class="col min-vh-100 py-3">
             <!-- toggler -->
-            <button class="btn float-end" data-bs-toggle="offcanvas" data-bs-target="#offcanvas" role="button" >
+            <button class="btn float-end" data-bs-toggle="offcanvas" data-bs-target="#offcanvas" role="button">
                 <i class="bi bi-arrow-right-square-fill fs-3" data-bs-toggle="offcanvas"
                    data-bs-target="#offcanvas"></i>
             </button>
@@ -80,7 +80,8 @@
                     <tr>
                         <th>номер места</th>
                         <th>Комментарий</th>
-<!--                        <th>Активность(Да/Нет)</th>-->
+                        <th>Струдник</th>
+                        <!--                        <th>Активность(Да/Нет)</th>-->
                         <th>Редакция</th>
                     </tr>
                     </thead>
@@ -88,7 +89,9 @@
                     <tr th:each="jobplace:${jobplaces}">
                         <td th:text="${jobplace.numberplace}"></td>
                         <td th:text="${jobplace.comment}"></td>
-<!--                        <td th:text="${jobplace.active}"></td>-->
+                        <td th:text="${jobplace.libJobEmployeeByPlaceEmployee.getFio()} + ' - '+ ${jobplace.libJobEmployeeByPlaceEmployee.getComents()}  + ''"></td>
+                        <!--                        <td th:text="${jobplace.libJobEmployeeByPlaceEmployee.getFio() ?: 'Не указано'}"></td>-->
+                        <!--                        <td th:text="${jobplace.active}"></td>-->
                         <td><a th:href="@{/showjobplace/{id}(id=${jobplace.id})}"
                                class="btn btn-outline-primary btn-sm">Изменить</a>
                             <a th:href="@{/deletejobplace/{id}(id=${jobplace.id})}"
@@ -98,7 +101,7 @@
                     </tbody>
 
                 </table>
-                <div class="container my-2" align="center" style="width:80%" >
+                <div class="container my-2" align="center" style="width:80%">
                     <span th:text="'Страница ' + ${currentPage} + ' из ' + ${totalPages}"></span>
                     <!-- Добавьте ссылки на навигацию между страницами -->
                     <nav align="center" aria-label="Page navigation">

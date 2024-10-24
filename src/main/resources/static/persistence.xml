@@ -8,6 +8,8 @@
         <class>kvo.menproject.project.entity.docSchemaDoc</class>
         <class>kvo.menproject.project.entity.FileData</class>
         <class>kvo.menproject.project.entity.docProjectsList</class>
+        <class>kvo.menproject.project.entity.sLibJobEmployee</class>
+        <class>kvo.menproject.project.entity.sLibJobPlace</class>
         <properties>
             <property name="jakarta.persistence.jdbc.driver" value="org.postgresql.Driver"/>
             <property name="jakarta.persistence.jdbc.url" value="jdbc:postgresql://localhost:5432/dev;shutdown=true"/>

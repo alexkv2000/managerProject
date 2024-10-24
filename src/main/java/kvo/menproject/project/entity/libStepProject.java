@@ -7,16 +7,17 @@ import lombok.Data;
 @Table(name = "lib_step_project", schema = "library", catalog = "dev")
 @Data
 public class libStepProject {
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id
+    @Column(name = "id", nullable = false)
+    private long id;
     @Basic
     @Column(name = "name_step_project", nullable = true, length = -1)
     private String nameStepProject;
     @Basic
     @Column(name = "comment", nullable = true, length = -1)
     private String comment;
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Id
-    @Column(name = "id", nullable = false)
-    private long id;
+
 
     public String getNameStepProject() {
         return nameStepProject;

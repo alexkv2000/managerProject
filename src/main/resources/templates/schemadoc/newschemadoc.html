@@ -33,9 +33,9 @@
             <input type="date" id="dCreate" th:name="dateCreate" th:text="${schemadoc.dateCreate}"
                    placeholder="Дата создания" class="form-control mb-4 col-4"/>
         </div>
-        <div class="d-flex align-items-center mb-2">
+        <div class="form-check form-switch">
             <label for="curr">Действующий шаблон:</label>
-            <input type="checkbox" id="curr" th:name="current" th:field="${schemadoc.current}"
+            <input class="form-check-input" role="switch" type="checkbox" id="curr" th:name="current" th:field="${schemadoc.current}"
                    placeholder="Действующий шаблон"/>
         </div>
         <button type="submit" class="btn btn-info col-2">Сохранить шаблон</button>
