@@ -9,7 +9,7 @@
 <div class="offcanvas offcanvas-start w-5" tabindex="-1" id="offcanvas" data-bs-keyboard="false"
      data-bs-backdrop="false">
     <div class="offcanvas-header">
-        <h6 class="offcanvas-title d-none d-sm-block" id="offcanvas">Меню</h6>
+        <h6 class="offcanvas-title d-none d-sm-block" >Меню</h6>
         <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
     </div>
     <div class="offcanvas-body px-0">
@@ -66,7 +66,7 @@
     <div class="row">
         <div class="col min-vh-100 py-3">
             <!-- toggler -->
-            <button class="btn float-end" data-bs-toggle="offcanvas" data-bs-target="#offcanvas" role="button" color="blue">
+            <button class="btn float-end" data-bs-toggle="offcanvas" data-bs-target="#offcanvas" role="button" >
                 <i class="bi bi-arrow-right-square-fill fs-3" data-bs-toggle="offcanvas"
                    data-bs-target="#offcanvas"></i>
             </button>
@@ -90,15 +90,15 @@
                         <td th:text="${jobplace.comment}"></td>
 <!--                        <td th:text="${jobplace.active}"></td>-->
                         <td><a th:href="@{/showjobplace/{id}(id=${jobplace.id})}"
-                               class="btn btn-primary">Изменить</a>
+                               class="btn btn-outline-primary btn-sm">Изменить</a>
                             <a th:href="@{/deletejobplace/{id}(id=${jobplace.id})}"
-                               class="btn btn-danger">Удалить</a>
+                               class="btn btn-outline-danger btn-sm">Удалить</a>
                         </td>
                     </tr>
                     </tbody>
 
                 </table>
-                <div class="container my-2" align="center" style="width:80%" border="0">
+                <div class="container my-2" align="center" style="width:80%" >
                     <span th:text="'Страница ' + ${currentPage} + ' из ' + ${totalPages}"></span>
                     <!-- Добавьте ссылки на навигацию между страницами -->
                     <nav align="center" aria-label="Page navigation">
