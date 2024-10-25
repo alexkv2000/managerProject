@@ -111,11 +111,16 @@
                                 </li>
                             </ul>
                         </td>
+
                         <td>
                             <form action="/upload" method="post" enctype="multipart/form-data" id="uploadForm">
                                 <div>
                                     <input type="hidden" name="schemaId" th:value="${schemdoc.id}"/>
-                                    <input class="form-control form-control-sm" type="file" name="file" id="fileInput" onchange="this.form.submit();"/>
+                                    <style>
+                                        .form-control {bs-border-color: #0d6efd; color: #0d6efd;}
+                                    </style>
+                                    <input class="form-control form-control-sm" type="file" name="file" id="fileInput"
+                                           onchange="this.form.submit();"/>
                                 </div>
                             </form>
                         </td>

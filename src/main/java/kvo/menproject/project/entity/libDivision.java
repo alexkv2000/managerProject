@@ -28,7 +28,16 @@ public class libDivision {
     private Collection<docProjectsList> projectsListsById;
     @OneToMany(mappedBy = "linkDivisionByIdDivision")
     private Collection<docSchemaDoc> libSchemaDocsById;
+    @OneToMany(mappedBy = "libDivisionByProjectId")
+    private Collection<docPlanPayProject> planPayProjectsById;
 
+    public Collection<docPlanPayProject> getPlanPayProjectsById() {
+        return planPayProjectsById;
+    }
+
+    public void setPlanPayProjectsById(Collection<docPlanPayProject> planPayProjectsById) {
+        this.planPayProjectsById = planPayProjectsById;
+    }
     public Collection<docSchemaDoc> getLibSchemaDocsById() {
         return libSchemaDocsById;
     }
