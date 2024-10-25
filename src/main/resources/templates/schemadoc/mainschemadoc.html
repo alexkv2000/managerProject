@@ -24,14 +24,23 @@
                     <i class="fs-5 bi-house"></i><span class="ms-1 d-none d-sm-inline">Проекты</span>
                 </a>
             </li>
-            <li>
-                <a href="/projectlist" class="nav-link text-truncate">
-                    <i class="fs-5 bi-table"></i><span class="ms-1 d-none d-sm-inline">Список проектов</span></a>
+<!--            <li class="nav-item">-->
+<!--                <a href="/schemadoc" class="nav-link text-truncate">-->
+<!--                    <i class="fs-5 bi-house"></i><span class="ms-1 d-none d-sm-inline">Шаблоны документов</span>-->
+<!--                </a>-->
+<!--            </li>-->
+            <li class="nav-item">
+                <a href="/planpayproject" class="nav-link text-truncate">
+                    <i class="fs-5 bi-house"></i><span class="ms-1 d-none d-sm-inline">План оплат проектов</span>
+                </a>
             </li>
-            <!--            <li class="nav-item">-->
-            <!--                <a href="/schemadoc" class="nav-link text-truncate">-->
-            <!--                    <i class="fs-5 bi-house"></i><span class="ms-1 d-none d-sm-inline">Шаблоны документов</span>-->
-            <!--                </a>-->
+            <!--            <li>-->
+            <!--                <a href="#submenu1" data-bs-toggle="collapse" class="nav-link text-truncate">-->
+            <!--                    <i class="fs-5 bi-speedometer2"></i><span class="ms-1 d-none d-sm-inline">Dashboard</span> </a>-->
+            <!--            </li>-->
+            <!--            <li>-->
+            <!--                <a href="#" class="nav-link text-truncate">-->
+            <!--                    <i class="fs-5 bi-table"></i><span class="ms-1 d-none d-sm-inline">Orders</span></a>-->
             <!--            </li>-->
             <li class="dropdown">
                 <a href="#" class="nav-link dropdown-toggle  text-truncate" id="dropdown" data-bs-toggle="dropdown"
@@ -39,12 +48,11 @@
                     <i class="fs-5 bi-bootstrap"></i><span class="ms-1 d-none d-sm-inline">Справочник</span>
                 </a>
                 <ul class="dropdown-menu text-small shadow" aria-labelledby="dropdown">
-                    <!--                    <li><a class="dropdown-item" href="/division">Подразделения</a></li>-->
-                    <li><a class="dropdown-item" href="/entity">Юридические лица</a></li>
+                    <li><a class="dropdown-item" href="/division">Подразделения</a></li>
+                    <li><a class="dropdown-item" href="/jobplace">Юридические лица</a></li>
                     <li><a class="dropdown-item" href="/employee">Сотрудник</a></li>
                     <li><a class="dropdown-item" href="/jobplace">Рабочие места</a></li>
                     <li><a class="dropdown-item" href="/stepproject">Этапы проекта</a></li>
-                    <!--                    <li><a class="dropdown-item" href="#">Проекты</a></li>-->
                     <!--                    <li>-->
                     <!--                        <hr class="dropdown-divider">-->
                     <!--                    </li>-->
@@ -117,7 +125,10 @@
                                 <div>
                                     <input type="hidden" name="schemaId" th:value="${schemdoc.id}"/>
                                     <style>
-                                        .form-control {bs-border-color: #0d6efd; color: #0d6efd;}
+                                        .form-control {
+                                            bs-border-color: #0d6efd;
+                                            color: #0d6efd;
+                                        }
                                     </style>
                                     <input class="form-control form-control-sm" type="file" name="file" id="fileInput"
                                            onchange="this.form.submit();"/>

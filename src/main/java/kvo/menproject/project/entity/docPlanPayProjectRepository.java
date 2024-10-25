@@ -13,6 +13,6 @@ public interface docPlanPayProjectRepository extends JpaRepository<docPlanPayPro
     Page<docPlanPayProject> findAll(Pageable pageable);
     Page<docPlanPayProject> findAllByCompletedIsFalseOrderByProjectIdAscStepProjectAsc(Pageable pageable);
     Page<docPlanPayProject> findAllByCompletedIsTrueOrderByProjectIdAscStepProjectAsc(Pageable pageable);
-    Page<docPlanPayProject> findAllByProjectId(Pageable pageable);
+//    Page<docPlanPayProject> findAllByLibDivisionByProjectId(Pageable pageable);
     void deleteById(long id);
 }
