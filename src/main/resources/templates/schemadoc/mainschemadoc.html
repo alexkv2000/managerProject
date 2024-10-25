@@ -112,13 +112,28 @@
                             </ul>
                         </td>
                         <td>
-                            <form action="/upload" method="post" enctype="multipart/form-data">
-                                <input type="hidden" name="schemaId" th:value="${schemdoc.id}"/>
-                                <input type="file" name="file"/>
-                                <button type="submit">Загрузить файл</button>
+                            <form action="/upload" method="post" enctype="multipart/form-data" id="uploadForm">
+                                <div>
+                                    <input type="hidden" name="schemaId" th:value="${schemdoc.id}"/>
+                                    <input class="form-control form-control-sm" type="file" name="file" id="fileInput" onchange="this.form.submit();"/>
+                                </div>
                             </form>
                         </td>
+                        <script>
+                            // Дополнительно можно добавить проверку, если вы хотите
+                            const file = this.files[0];
+                            const allowedExtensions = /(\.jpg|\.jpeg|\.png|\.gif|\.pdf)$/i; // Задайте разрешенные типы файлов
 
+                            if (file && !allowedExtensions.exec(file.name)) {
+                                alert('Недопустимый файл типа! Выберите jpg, jpeg, png, gif или pdf.');
+                                this.value.file.name = ''; // Отменяем выбор файла
+                            } else if (file) {
+                                document.getElementById('uploadForm').submit();
+
+                            }
+                            ;
+                        </script>
+                        <!--                        const allowedExtensions = /(\.jpg|\.jpeg|\.png|\.gif|\.txt|\.doc|\.docx|\.xls|\.xlsx|\.pdf|\.cer|\.vsdx|\.sql)$/i; // Задайте разрешенные типы файлов-->
                         <td><a th:href="@{/showschemadoc/{id}(id=${schemdoc.id})}"
                                class="btn btn-outline-primary btn-sm">Изменить</a>
                             <a th:href="@{/deleteschemadoc/{id}(id=${schemdoc.id})}"
@@ -126,7 +141,7 @@
                     </tr>
                     </tbody>
                 </table>
-                <div class="container my-2" align="center" style="width:80%" >
+                <div class="container my-2" align="center" style="width:80%">
                     <span th:text="'Страница ' + ${currentPage} + ' из ' + ${totalPages}"></span>
                     <!-- Добавьте ссылки на навигацию между страницами -->
                     <nav align="center" aria-label="Page navigation">
