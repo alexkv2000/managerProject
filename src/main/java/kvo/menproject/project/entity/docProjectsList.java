@@ -5,6 +5,7 @@ import lombok.Data;
 import org.antlr.v4.runtime.misc.NotNull;
 import org.springframework.format.annotation.DateTimeFormat;
 
+import java.util.Collection;
 import java.util.Date;
 
 @Entity
@@ -82,7 +83,16 @@ public class docProjectsList {
     @ManyToOne
     @JoinColumn(name = "owner", referencedColumnName = "id")
     private libEmployee libJobEmployeeByOwner;
+    @OneToMany(mappedBy = "projectsListByNameProject")
+    private Collection<binStorage> binProjectsById;
 
+    public Collection<binStorage> getBinProjectsById() {
+        return binProjectsById;
+    }
+
+    public void setBinProjectsById(Collection<binStorage> binProjectsById) {
+        this.binProjectsById = binProjectsById;
+    }
     public Date getDateCreate() {
         return dateCreate;
     }

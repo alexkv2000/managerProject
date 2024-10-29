@@ -3,6 +3,8 @@ package kvo.menproject.project.entity;
 import jakarta.persistence.*;
 import lombok.Data;
 
+import java.util.Collection;
+
 @Entity
 @Table(name = "lib_step_project", schema = "library", catalog = "dev")
 @Data
@@ -17,7 +19,16 @@ public class libStepProject {
     @Basic
     @Column(name = "comment", nullable = true, length = -1)
     private String comment;
+    @OneToMany(mappedBy = "libStepProjectByStepProject")
+    private Collection<binStorage> binProjectsById;
 
+    public Collection<binStorage> getBinProjectsById() {
+        return binProjectsById;
+    }
+
+    public void setBinProjectsById(Collection<binStorage> binProjectsById) {
+        this.binProjectsById = binProjectsById;
+    }
 
     public String getNameStepProject() {
         return nameStepProject;

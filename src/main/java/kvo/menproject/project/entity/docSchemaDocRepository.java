@@ -6,6 +6,8 @@ import org.springframework.data.jpa.repository.JpaRepository;
 //import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository
 public interface docSchemaDocRepository extends JpaRepository<docSchemaDoc, Long> {
 
@@ -17,7 +19,6 @@ public interface docSchemaDocRepository extends JpaRepository<docSchemaDoc, Long
 //    Page<docSchemaDoc> findAllByIdAndBinFilesById(Pageable pageable);
 
     Page<docSchemaDoc> findAll(Pageable pageable);
-
     void deleteById(long id);
 
     docSchemaDoc findById(long id);

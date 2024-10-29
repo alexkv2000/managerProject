@@ -3,12 +3,6 @@ package kvo.menproject.project.entity;
 import jakarta.persistence.*;
 import lombok.Data;
 
-import java.io.UnsupportedEncodingException;
-import java.net.URLEncoder;
-import java.nio.charset.Charset;
-import java.nio.charset.StandardCharsets;
-import java.util.Arrays;
-
 @Data
 @Entity
 @Table(name = "bin_files", catalog = "dev")
@@ -17,6 +11,9 @@ public class FileData {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     private Long id;
+    @Basic
+    @Column(name = "type_doc")
+    private String typeDoc;
     @Basic
     private String name;
     @Basic
@@ -30,6 +27,17 @@ public class FileData {
     @ManyToOne
     @JoinColumn(name = "id_data", referencedColumnName = "id", nullable = true)
     private docSchemaDoc linkDataDocSchemaDocById;
+    @ManyToOne
+    @JoinColumn(name = "id_data", referencedColumnName = "step_project", nullable = true, insertable = false, updatable = false)
+    private binStorage binStorageByIdData;
+
+    public binStorage getBinStorageByIdData() {
+        return binStorageByIdData;
+    }
+
+    public void setBinStorageByIdData(binStorage binStorageByIdData) {
+        this.binStorageByIdData = binStorageByIdData;
+    }
 
     public String getSizeFile() {
         return sizeFile;

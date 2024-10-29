@@ -34,6 +34,7 @@ public class FileUploadController {
             //TODO schemaID
 
             fileData.setLinkDataDocSchemaDocById(schemdoc);
+            fileData.setTypeDoc("docSchemaDoc");
             fileData.setName(file.getOriginalFilename());
             fileData.setSizeFile(String.valueOf(file.getSize())); // Размер файла в байтах
             fileData.setData(file.getBytes()); // Содержимое файла в виде массива байтов
