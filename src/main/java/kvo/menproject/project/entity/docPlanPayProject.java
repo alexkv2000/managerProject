@@ -16,7 +16,7 @@ public class docPlanPayProject {
 //    @Basic
     @Column(name = "plan_year", nullable = true)
     @Temporal(TemporalType.DATE)
-    @DateTimeFormat(pattern = "dd.MM.yyyy")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date planYear;
     @Basic
     @Column(name = "project_id", nullable = true, insertable=false, updatable=false)
@@ -24,7 +24,7 @@ public class docPlanPayProject {
 //    @Basic
     @Column(name = "data_planing", nullable = true)
     @Temporal(TemporalType.DATE)
-    @DateTimeFormat(pattern = "dd.MM.yyyy")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date dataPlaning;
     @Basic
     @Column(name = "opex", nullable = true)

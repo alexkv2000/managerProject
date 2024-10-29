@@ -107,7 +107,7 @@
                         <td th:hidden="${planpayproject.id}"></td>
                         <td th:text="${#dates.format(planpayproject.getPlanYear(), 'dd-MM-yyyy')}"></td>
                         <td th:text="${planpayproject.libDivisionByProjectId.namedivision}">
-                        <td th:text="${planpayproject.dataPlaning}"></td>
+                        <td th:text="${#dates.format(planpayproject.getDataPlaning(),'dd-MM-yyyy')}" ></td>
                         <td th:text="${planpayproject.opex}"></td>
                         <td th:text="${planpayproject.opexNds}"></td>
                         <td th:text="${planpayproject.capex}"></td>

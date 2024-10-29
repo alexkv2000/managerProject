@@ -11,85 +11,101 @@
     <h1>Новый план оплат</h1>
     <hr>
     <h2>Сохранить план оплат</h2>
-    <form action="#" th:action="@{/saveplanpayproject}" method="POST" th:object="${planpayproject}" enctype="multipart/form-data">
-        <!--    <form action="#" th:action="@{/api/files/upload}" method="POST" enctype="multipart/form-data">-->
-        <div class="d-flex align-items-center mb-2">
-            <label for="planYear">Планируемый Год оплат:</label>
-            <input type="text" th:name="planYear" id="planYear" th:field="${PlanPayProject.planYear}" placeholder="год оплаты дд.Мм.Гггг"
-                   class="form-control mb-4 col-4"/>
-<!--            <input type="text" th:field="${PlanPayProject.planYear}" id="planYear" placeholder="дд.Мм.Гггг"-->
-<!--                   class="form-control mb-4 col-4" onfocus="(this.type='date')" onblur="(this.type='text')"/>-->
-        </div>
-        <div class="d-flex align-items-center mb-2">
-            <label for="project_id">Выберите отдел:</label>
-            <!-- сохраняем в linkDivisionByIdDivision выбор division и в Controller передаем в id_division -->
-            <select th:name="libDivisionByProjectId" id="project_id">
-                <option value="" disabled selected>Отдел</option>
-                <th:block th:each="division : ${divisions}">
-                    <option th:value="${division.id}" th:text="${division.namedivision}"></option>
-                </th:block>
-            </select>
-        </div>
-        <div class="d-flex align-items-center mb-2">
-            <label for="dataPlaning">Дата оплаты: </label>
-            <input type="text" id="dataPlaning" th:name="dataPlaning" th:text="${PlanPayProject.dataPlaning}"
-                   placeholder="Дата оплаты дд.Мм.Гггг" class="form-control mb-4 col-4"/>
-<!--            <input type="text" th:field="${PlanPayProject.dataPlaning}" id="dataPlaning" placeholder="дд.Мм.Гггг"-->
-<!--                   class="form-control mb-4 col-4" onfocus="(this.type='date')" onblur="(this.type='text')"/>-->
-        </div>
-        <div class="d-flex align-items-center mb-2">
-            <label for="opex">OPEX (услуги): </label>
-            <input type="text" id="opex" th:name="opex" th:field="${PlanPayProject.opex}"
-                   placeholder="OPEX (услуги)"/>
-        </div>
-        <div class="d-flex align-items-center mb-2">
-            <label for="opexNds">OPEX NDS(услуги): </label>
-            <input type="text" id="opexNds" th:name="opexNds" th:field="${PlanPayProject.opexNds}"
-                   placeholder="OPEX NDS (услуги)"/>
-        </div>
-        <div class="d-flex align-items-center mb-2">
-            <label for="capex">CAPEX (ОС): </label>
-            <input type="text" id="capex" th:name="capex" th:field="${PlanPayProject.capex}"
-                   placeholder="OPEX (ОС)"/>
-        </div>
-        <div class="d-flex align-items-center mb-2">
-            <label for="capexNds">CAPEX NDS(ОС): </label>
-            <input type="text" id="capexNds" th:name="capexNds" th:field="${PlanPayProject.capexNds}"
-                   placeholder="CAPEX NDS (ОС)"/>
-        </div>
+    <div class="row mb-4 justify-content-center align-items-center form-control">
+        <form action="#" th:action="@{/saveplanpayproject}" method="POST" th:object="${PlanPayProject}"
+              enctype="multipart/form-data">
+            <input type="hidden" th:field="*{id}"/>
+            <div class="d-flex align-items-center mb-2">
+                <label for="planYear" class="me-2" style="flex: 1; max-width: 230px;">Дата планирования :</label>
+                <input type="date" id="planYear" th:field="*{planYear}" placeholder="Дата планирования"
+                       class="form-control"
+                       style="flex: 1; max-width: 120px;"/>
+            </div>
+            <div class="d-flex align-items-center mb-2">
+                            <label for="project_id" class="me-2" style="flex: 1; max-width: 230px;">Отдел :</label>
+                            <!-- сохраняем в linkDivisionByIdDivision выбор division и в Controller передаем в id_division -->
+                            <select th:name="libDivisionByProjectId" id="project_id" style="flex: 1; max-width: 400px;" class="form-select">
+                                <option value="" disabled selected>отдел ...</option>
+                                <th:block th:each="division : ${divisions}">
+                                    <option th:value="${division.id}" th:text="${division.namedivision}"></option>
+                                </th:block>
+                            </select>
+            </div>
+            <div class="d-flex align-items-center mb-2">
+                <label for="dataPlaning" class="me-2" style="flex: 1; max-width: 230px;">Дата оплаты :</label>
+                <input type="date" id="dataPlaning" th:field="*{dataPlaning}" placeholder="Дата оплаты"
+                       class="form-control"
+                       style="flex: 1; max-width: 120px;"/>
+            </div>
+            <div class="d-flex align-items-center mb-2">
+                <label for="opex" class="me-2" style="flex: 1; max-width: 230px;">Сумма услуг (OPEX) :</label>
+                <input type="text" id="opex" th:field="*{opex}" placeholder="OPEX" class="form-control"
+                       style="flex: 1; max-width: 400px;"/>
+            </div>
+            <div class="d-flex align-items-center mb-2">
+                <label for="opexNds" class="me-2" style="flex: 1; max-width: 230px;">Сумма услуг НДС (OPEX-НДС)
+                    :</label>
+                <input type="text" id="opexNds" th:field="*{opexNds}" placeholder="OPEX НДС (сумма)"
+                       class="form-control"
+                       style="flex: 1; max-width: 400px;"/>
+            </div>
+            <div class="d-flex align-items-center mb-2">
+                <label for="capex" class="me-2" style="flex: 1; max-width: 230px;">Сумма оборудования (CAPEX) :</label>
+                <input type="text" id="capex" th:field="*{capex}" placeholder="Сумма оборудования/материала"
+                       class="form-control"
+                       style="flex: 1; max-width: 400px;"/>
+            </div>
+            <div class="d-flex align-items-center mb-2">
+                <label for="capexNds" class="me-2" style="flex: 1; max-width: 230px;">Сумма оборудования (CAPEX)
+                    :</label>
+                <input type="text" id="capexNds" th:field="*{capexNds}" placeholder="CAPEX НДС (сумма)"
+                       class="form-control"
+                       style="flex: 1; max-width: 400px;"/>
+            </div>
+            <div class="d-flex align-items-center mb-2">
+                <label for="comment" class="me-2" style="flex: 1; max-width: 230px;">Комментнарий :</label>
+                <input type="text" id="comment" th:field="*{comment}" placeholder="Комментарий" class="form-control"
+                       style="flex: 1; max-width: 400px;"/>
+            </div>
 
-        <div class="d-flex align-items-center mb-2">
-            <label for="comment">Комментарий: </label>
-            <input type="text" id="comment" th:name="comment" th:field="${PlanPayProject.comment}"
-                   placeholder="Комментарий"/>
-        </div>
-        <div class="d-flex align-items-center mb-2">
-            <label for="stepProject">Этап проекта: </label>
-            <input type="text" id="stepProject" th:name="stepProject" th:field="${PlanPayProject.stepProject}"
-                   placeholder="Этап проекта"/>
-        </div>
-        <div class="d-flex align-items-center mb-2">
-            <label for="duration">Длительность: </label>
-            <input type="text" id="duration" th:name="duration" th:field="${PlanPayProject.duration}"
-                   placeholder="Длительность"/>
-        </div>
-        <div class="d-flex align-items-center mb-2">
-            <label for="interval">Интервал: </label>
-            <input type="text" id="interval" th:name="interval" th:field="${PlanPayProject.interval}"
-                   placeholder="Интервал"/>
-        </div>
-        <div class="form-check form-switch">
-            <label for="completed">Оплачен: </label>
-            <input class="form-check-input" role="switch" type="checkbox" id="completed" th:name="completed" th:field="${PlanPayProject.completed}"
-                   placeholder="Оплачен"/>
-        </div>
-        <div class="form-check form-switch">
-            <label for="paymentOnTime">Оплачен по плану: </label>
-            <input class="form-check-input" role="switch" type="checkbox" id="paymentOnTime" th:name="paymentOnTime" th:field="${PlanPayProject.paymentOnTime}"
-                   placeholder="Оплачен в срок"/>
-        </div>
-        <button type="submit" class="btn btn-info col-2">Сохранить план оплат</button>
-    </form>
+            <div class="d-flex align-items-center mb-2">
+                <label for="stepProject" class="me-2" style="flex: 1; max-width: 230px;">Этап проекта:</label>
+                <input type="text" id="stepProject" th:field="*{stepProject}" placeholder="Этап проекта"
+                       class="form-control"
+                       style="flex: 1; max-width: 400px;"/>
+            </div>
+            <div class="d-flex align-items-center mb-2">
+                <label for="duration" class="me-2" style="flex: 1; max-width: 230px;">Длительность:</label>
+                <input type="text" id="duration" th:field="*{duration}" placeholder="Длительность" class="form-control"
+                       style="flex: 1; max-width: 400px;"/>
+            </div>
+            <div class="d-flex align-items-center mb-3">
+                <label for="interval" class="me-2" style="flex: 1; max-width: 230px;">Интервал :</label>
+                <input type="text" id="interval" th:field="*{interval}"
+                       placeholder="Интервал" class="form-control"
+                       style="flex: 1; max-width: 400px;"/>
+            </div>
+            <div class="form-check form-switch d-flex align-items-center">
+                <label for="completed" style="flex: 1; max-width: 230px;">Оплачен: </label>
+                <input class="form-check-input me-5" role="switch" type="checkbox" id="completed" th:name="completed"
+                       th:field="*{completed}" placeholder="Оплачен"/>
+
+                <label for="paymentOnTime" style="flex: 1; max-width: 230px;">Оплачен по плану: </label>
+                <input class="form-check-input" role="switch" type="checkbox" id="paymentOnTime"
+                       th:name="paymentOnTime" th:field="*{paymentOnTime}" placeholder="Оплачен в срок"/>
+            </div>
+
+
+            <div class="row mt-3 mb-3 justify-content-center align-items-center" style="flex: 0; max-width: 600px;">
+                <!--                    <button type="submit" class="btn btn-info col-1" style="white-space: nowrap;">Обновить данные</button>-->
+                <div class="d-flex justify-content-center">
+                    <button type="submit" class="btn btn-info" style="white-space: nowrap; min-width: 150px;">Обновить
+                        данные
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
     <hr>
     <a th:href="@{/schemadoc}"> Возврат к списоку проектов </a>
     <a th:href="@{/}"> Возврат основная страница </a>
