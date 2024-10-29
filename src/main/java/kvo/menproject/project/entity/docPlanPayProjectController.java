@@ -9,6 +9,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Date;
+import java.util.List;
+
 @Controller
 public class docPlanPayProjectController implements CommandLineRunner {
     //    private final JdbcTemplate jdbcTemplate;
@@ -47,7 +49,7 @@ public class docPlanPayProjectController implements CommandLineRunner {
 //        List<libDivision> division = libDivisionRepo.findAllByActiveIsTrue();
 //        List<libEmployee> employee = libEmployeeRepo.findAllByActiveIsTrue();
 
-        model.addAttribute("project", new docPlanPayProject());
+        model.addAttribute("PlanPayProject", new docPlanPayProject());
         model.addAttribute("divisions", libDivisionRepo.findAllByActiveIsTrue());
 
         return "/planpayproject/newplanpayproject";

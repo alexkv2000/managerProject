@@ -2,6 +2,7 @@ package kvo.menproject.project.entity;
 
 import jakarta.persistence.*;
 import lombok.Data;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.util.Date;
 @Data
@@ -12,16 +13,18 @@ public class docPlanPayProject {
     @Id
     @Column(name = "id", nullable = false)
     private long id;
-    @Basic
+//    @Basic
     @Column(name = "plan_year", nullable = true)
     @Temporal(TemporalType.DATE)
+    @DateTimeFormat(pattern = "dd.MM.yyyy")
     private Date planYear;
     @Basic
     @Column(name = "project_id", nullable = true, insertable=false, updatable=false)
     private Long projectId;
-    @Basic
+//    @Basic
     @Column(name = "data_planing", nullable = true)
     @Temporal(TemporalType.DATE)
+    @DateTimeFormat(pattern = "dd.MM.yyyy")
     private Date dataPlaning;
     @Basic
     @Column(name = "opex", nullable = true)

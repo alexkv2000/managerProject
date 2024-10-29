@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>New Schema documents</title>
+    <link rel="stylesheet"
+          href="/bootstrap.min.css">
+</head>
+<body>
+<div class="container">
+    <h1>Новый план оплат</h1>
+    <hr>
+    <h2>Сохранить план оплат</h2>
+    <form action="#" th:action="@{/saveplanpayproject}" method="POST" th:object="${planpayproject}" enctype="multipart/form-data">
+        <!--    <form action="#" th:action="@{/api/files/upload}" method="POST" enctype="multipart/form-data">-->
+        <div class="d-flex align-items-center mb-2">
+            <label for="planYear">Планируемый Год оплат:</label>
+            <input type="text" th:name="planYear" id="planYear" th:field="${PlanPayProject.planYear}" placeholder="год оплаты дд.Мм.Гггг"
+                   class="form-control mb-4 col-4"/>
+<!--            <input type="text" th:field="${PlanPayProject.planYear}" id="planYear" placeholder="дд.Мм.Гггг"-->
+<!--                   class="form-control mb-4 col-4" onfocus="(this.type='date')" onblur="(this.type='text')"/>-->
+        </div>
+        <div class="d-flex align-items-center mb-2">
+            <label for="project_id">Выберите отдел:</label>
+            <!-- сохраняем в linkDivisionByIdDivision выбор division и в Controller передаем в id_division -->
+            <select th:name="libDivisionByProjectId" id="project_id">
+                <option value="" disabled selected>Отдел</option>
+                <th:block th:each="division : ${divisions}">
+                    <option th:value="${division.id}" th:text="${division.namedivision}"></option>
+                </th:block>
+            </select>
+        </div>
+        <div class="d-flex align-items-center mb-2">
+            <label for="dataPlaning">Дата оплаты: </label>
+            <input type="text" id="dataPlaning" th:name="dataPlaning" th:text="${PlanPayProject.dataPlaning}"
+                   placeholder="Дата оплаты дд.Мм.Гггг" class="form-control mb-4 col-4"/>
+<!--            <input type="text" th:field="${PlanPayProject.dataPlaning}" id="dataPlaning" placeholder="дд.Мм.Гггг"-->
+<!--                   class="form-control mb-4 col-4" onfocus="(this.type='date')" onblur="(this.type='text')"/>-->
+        </div>
+        <div class="d-flex align-items-center mb-2">
+            <label for="opex">OPEX (услуги): </label>
+            <input type="text" id="opex" th:name="opex" th:field="${PlanPayProject.opex}"
+                   placeholder="OPEX (услуги)"/>
+        </div>
+        <div class="d-flex align-items-center mb-2">
+            <label for="opexNds">OPEX NDS(услуги): </label>
+            <input type="text" id="opexNds" th:name="opexNds" th:field="${PlanPayProject.opexNds}"
+                   placeholder="OPEX NDS (услуги)"/>
+        </div>
+        <div class="d-flex align-items-center mb-2">
+            <label for="capex">CAPEX (ОС): </label>
+            <input type="text" id="capex" th:name="capex" th:field="${PlanPayProject.capex}"
+                   placeholder="OPEX (ОС)"/>
+        </div>
+        <div class="d-flex align-items-center mb-2">
+            <label for="capexNds">CAPEX NDS(ОС): </label>
+            <input type="text" id="capexNds" th:name="capexNds" th:field="${PlanPayProject.capexNds}"
+                   placeholder="CAPEX NDS (ОС)"/>
+        </div>
+
+        <div class="d-flex align-items-center mb-2">
+            <label for="comment">Комментарий: </label>
+            <input type="text" id="comment" th:name="comment" th:field="${PlanPayProject.comment}"
+                   placeholder="Комментарий"/>
+        </div>
+        <div class="d-flex align-items-center mb-2">
+            <label for="stepProject">Этап проекта: </label>
+            <input type="text" id="stepProject" th:name="stepProject" th:field="${PlanPayProject.stepProject}"
+                   placeholder="Этап проекта"/>
+        </div>
+        <div class="d-flex align-items-center mb-2">
+            <label for="duration">Длительность: </label>
+            <input type="text" id="duration" th:name="duration" th:field="${PlanPayProject.duration}"
+                   placeholder="Длительность"/>
+        </div>
+        <div class="d-flex align-items-center mb-2">
+            <label for="interval">Интервал: </label>
+            <input type="text" id="interval" th:name="interval" th:field="${PlanPayProject.interval}"
+                   placeholder="Интервал"/>
+        </div>
+        <div class="form-check form-switch">
+            <label for="completed">Оплачен: </label>
+            <input class="form-check-input" role="switch" type="checkbox" id="completed" th:name="completed" th:field="${PlanPayProject.completed}"
+                   placeholder="Оплачен"/>
+        </div>
+        <div class="form-check form-switch">
+            <label for="paymentOnTime">Оплачен по плану: </label>
+            <input class="form-check-input" role="switch" type="checkbox" id="paymentOnTime" th:name="paymentOnTime" th:field="${PlanPayProject.paymentOnTime}"
+                   placeholder="Оплачен в срок"/>
+        </div>
+        <button type="submit" class="btn btn-info col-2">Сохранить план оплат</button>
+    </form>
+    <hr>
+    <a th:href="@{/schemadoc}"> Возврат к списоку проектов </a>
+    <a th:href="@{/}"> Возврат основная страница </a>
+</div>
+</body>
+</html>
