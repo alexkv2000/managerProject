@@ -127,16 +127,6 @@ public class binStorage {
         this.comments = comments;
     }
 
-    @Override
-    public String toString() {
-        return "binStorage{" +
-                "id=" + id +
-                ", nameProject=" + nameProject +
-                ", stepProject=" + stepProject +
-//                ", nameFile='" + nameFile + '\'' +
-//                ", sizeFile='" + sizeFile + '\'' +
-                ", dateCreate=" + dateCreate +
-                ", comments='" + comments + '\'' +
-                '}';
-    }
+
+
 }
