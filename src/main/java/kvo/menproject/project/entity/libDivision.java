@@ -110,4 +110,13 @@ public class libDivision {
         return result;
     }
 
+    @Override
+    public String toString() {
+        return "libDivision{" +
+                "id=" + id +
+                ", namedivision='" + namedivision + '\'' +
+                ", organisation='" + organisation + '\'' +
+                ", active=" + active +
+                '}';
+    }
 }

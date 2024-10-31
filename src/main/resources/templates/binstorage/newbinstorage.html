@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>New Schema documents</title>
+    <link rel="stylesheet"
+          href="/bootstrap.min.css">
+</head>
+<body>
+<div class="container">
+    <h1>Новое [хранилище файлов]</h1>
+    <hr>
+    <h2>Сохранить файл</h2>
+    <form action="#" th:action="@{/savebinstorage}" method="POST" th:object="${binstorage}"
+          enctype="multipart/form-data">
+        <input type="hidden" th:field="*{id}"/>
+        <div lass="d-flex align-items-center mb-2">
+            <label for="id_project" style="flex: 1; max-width: 230px;">Наименование проекта:</label>
+            <!-- сохраняем в projectsListByNameProject выбор projectslist и в Controller передаем в id_project -->
+            <select th:name="projectsListByNameProject" id="id_project" style="flex: 1; max-width: 400px;"
+                    class="form-select"/>
+            <option value="" disabled selected>проект ...</option>
+            <th:block th:each="projectslist : ${projectslists}">
+                <option th:value="${projectslist.id}" th:text="${projectslist.getName()}"></option>
+            </th:block>
+            </select>
+        </div>
+        <div class="d-flex align-items-center mb-2">
+            <label for="binstorageStep" class="me-2" style="flex: 1; max-width: 230px;">Этап проекта:</label>
+            <select th:name="libStepProjectByStepProject" id="binstorageStep" style="flex: 1; max-width: 400px;"
+                    class="form-select"/>
+            <option value="" disabled selected>этап ...</option>
+            <th:block th:each="stepproject : ${stepprojects}">
+                <option th:value="${stepproject.id}" th:text="${stepproject.getNameStepProject()}"></option>
+            </th:block>
+            </select>
+        </div>
+
+        <div class="d-flex align-items-center mb-2">
+            <label for="dCreate" style="flex: 1; max-width: 230px;">Дата создания:</label>
+            <input type="date" id="dCreate" th:name="dateCreate" th:text="${binstorage.dateCreate}"
+                   placeholder="Дата создания" class="form-control mb-4 col-4" style="flex: 1; max-width: 400px;"/>
+        </div>
+        <div class="d-flex align-items-center mb-2">
+            <label for="binstorageComments" style="flex: 1; max-width: 230px;">Комментарий :</label>
+            <input type="text" id="binstorageComments" th:field="${binstorage.comments}" placeholder="Комментарий"
+                   class="form-control mb-4 col-4" style="flex: 1; max-width: 400px;"/>
+        </div>
+
+        <button type="submit" class="btn btn-info" style="white-space: nowrap; min-width: 150px;">Сохранить</button>
+    </form>
+    <hr>
+    <a th:href="@{/schemadoc}"> Возврат к списоку проектов </a>
+    <a th:href="@{/}"> Возврат основная страница </a>
+</div>
+</body>
+</html>

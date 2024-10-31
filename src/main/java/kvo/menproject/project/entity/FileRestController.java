@@ -39,9 +39,9 @@ public class FileRestController {
         FileData file = fileData.get();
         byte[] data = file.getData();
         ByteArrayResource resource = new ByteArrayResource(data);
-        // Здесь определите тип содержимого
-        String contentType = "application/octet-stream"; // Замените на актуальный тип, если необходимо "Content-Disposition"
-        // Укажите заголовки ответа
+        // Определить тип содержимого
+        String contentType = "application/octet-stream"; // Заменить на актуальный тип, если необходимо "Content-Disposition"
+        // Указать заголовки ответа
         HttpHeaders headers = new HttpHeaders();
 
         String fileName = URLEncoder.encode(file.getName(), "UTF-8"); // имя файла в кодировке "UTF-8"

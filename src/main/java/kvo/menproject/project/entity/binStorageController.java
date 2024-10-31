@@ -13,11 +13,15 @@ import java.util.Date;
 public class binStorageController implements CommandLineRunner {
     //    private final JdbcTemplate jdbcTemplate;
     private final binStorageRepository binStorageRepo;
-    private libDivisionRepository libDivisionRepo;
+    private docProjectsListRepository docProjectsListRepo;
+    private libStepProjectRepository libStepProjectRepo;
+    private FileDataRepository fileDataRepo;
 
-    public binStorageController(binStorageRepository binStorageRepo, libDivisionRepository libDivisionRepo) {
+    public binStorageController(binStorageRepository binStorageRepo, docProjectsListRepository docProjectsListRepo, FileDataRepository fileDataRepo, libStepProjectRepository libStepProjectRepo) {
         this.binStorageRepo = binStorageRepo;
-        this.libDivisionRepo = libDivisionRepo;
+        this.docProjectsListRepo = docProjectsListRepo;
+        this.fileDataRepo = fileDataRepo;
+        this.libStepProjectRepo=libStepProjectRepo;
     }
 
     @GetMapping("/binstorage")
@@ -34,7 +38,9 @@ public class binStorageController implements CommandLineRunner {
         }
         System.out.println("Total elements: " + rows.getTotalElements()); // Вывод количества элементов
         System.out.println("Content: " + rows.getContent()); // Вывод содержимого
-        model.addAttribute("divisions", libDivisionRepo.findAll());
+        model.addAttribute("fileData", fileDataRepo.findAllByTypeDoc("binStorage"));
+        model.addAttribute("projectslists", docProjectsListRepo.findAllByClosedIsFalse());
+        model.addAttribute("stepprojects", libStepProjectRepo.findAll());
         model.addAttribute("binstorages", binStorageRepo.findAll(pageable));
         model.addAttribute("totalPages", rows.getTotalPages());
         model.addAttribute("currentPage", page);
@@ -47,20 +53,22 @@ public class binStorageController implements CommandLineRunner {
 //        List<libDivision> division = libDivisionRepo.findAllByActiveIsTrue();
 //        List<libEmployee> employee = libEmployeeRepo.findAllByActiveIsTrue();
 
+        model.addAttribute("stepprojects", libStepProjectRepo.findAll());
+        model.addAttribute("projectslists", docProjectsListRepo.findAllByClosedIsFalse());
         model.addAttribute("binstorage", new binStorage());
-        model.addAttribute("divisions", libDivisionRepo.findAllByActiveIsTrue());
-
         return "/binstorage/newbinstorage";
     }
 
     @PostMapping(path = "/savebinstorage")
-    public String saveProject(@ModelAttribute("newbinstorage") binStorage list) {
+    public String saveProject(@ModelAttribute("binstorage") binStorage list) {
         if (list.getDateCreate() == null) {
             list.setDateCreate(new Date());
         }
 
+        list.setNameProject(list.getProjectsListByNameProject().getId());
+        list.setStepProject(list.getLibStepProjectByStepProject().getId());
         if (list.getNameProject() == 0 || list.getStepProject() == null) {
-            System.out.println("error");
+            System.out.println("error: Step Project or Name Project not entry");
             return "redirect:/binstorage";
         }
 
@@ -73,8 +81,10 @@ public class binStorageController implements CommandLineRunner {
     @GetMapping(path = "/showbinstorage/{id}")
     public String updateForm(@PathVariable(value = "id") long id, Model model) {
         binStorage binStorage = binStorageRepo.getById(id);
+//        model.addAttribute("fileData", fileDataRepo.findAllByTypeDoc("binStorage"));
+        model.addAttribute("stepprojects", libStepProjectRepo.findAll());
+        model.addAttribute("projectslists", docProjectsListRepo.findAllByClosedIsFalse());
         model.addAttribute("binstorage", binStorage);
-        model.addAttribute("divisions", libDivisionRepo.findAllByActiveIsTrue());
         return "/binstorage/showbinstorage";
     }
 

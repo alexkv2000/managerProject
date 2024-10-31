@@ -76,4 +76,13 @@ public class libStepProject {
         result = 31 * result + (int) (id ^ (id >>> 32));
         return result;
     }
+
+    @Override
+    public String toString() {
+        return "libStepProject{" +
+                "id=" + id +
+                ", nameStepProject='" + nameStepProject + '\'' +
+                ", comment='" + comment + '\'' +
+                '}';
+    }
 }

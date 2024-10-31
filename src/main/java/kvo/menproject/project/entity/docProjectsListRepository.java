@@ -7,9 +7,12 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository
 public interface docProjectsListRepository extends JpaRepository<docProjectsList, Long> {
     Page<docProjectsList> findAllByClosedIsFalse(Pageable pageable);
+    List<docProjectsList> findAllByClosedIsFalse();
 
     @Query("SELECT e.name, e.headManager, e.responsibleFromBusiness, e.curator, e.closed, e.dogovorNumber, e.linkDogovor," +
             "e.dateCreate, e.dateEnd, e.dateStart, e.summaProject, e.opex, e.opexNds, e.capex, e.capexNds, e.comment, d.namedivision, emp.fio " +

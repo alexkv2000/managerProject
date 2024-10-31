@@ -139,6 +139,9 @@ public class docProjectsList {
                 ", capex=" + capex +
                 ", capexNds=" + capexNds +
                 ", comment='" + comment + '\'' +
+//                ", libDivisionByIdDivision=" + libDivisionByIdDivision +
+//                ", libJobEmployeeByOwner=" + libJobEmployeeByOwner +
+//                ", binProjectsById=" + binProjectsById +
                 '}';
     }
 }
