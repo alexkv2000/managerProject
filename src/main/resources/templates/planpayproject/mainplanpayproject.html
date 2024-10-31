@@ -87,6 +87,7 @@
                     <tr>
                         <th>План на ГОД</th>
                         <th>Отдел / подразделение</th>
+                        <th>Проект</th>
                         <th>Дата оплаты</th>
                         <th>Сумма OPEX</th>
                         <th>НДС OPEX</th>
@@ -97,7 +98,7 @@
                         <th>Длительность (неделя / месяц)</th>
                         <th>Интервал</th>
                         <th>Завершен</th>
-                        <th>Завершен в срок</th>
+<!--                        <th>Завершен в срок</th>-->
 
                         <th>Редакция</th>
                     </tr>
@@ -107,6 +108,7 @@
                         <td th:hidden="${planpayproject.id}"></td>
                         <td th:text="${#dates.format(planpayproject.getPlanYear(), 'dd-MM-yyyy')}"></td>
                         <td th:text="${planpayproject.libDivisionByProjectId.namedivision}">
+                        <td th:text="${planpayproject.planPayProjectById.name}">
                         <td th:text="${#dates.format(planpayproject.getDataPlaning(),'dd-MM-yyyy')}" ></td>
                         <td th:text="${planpayproject.opex}"></td>
                         <td th:text="${planpayproject.opexNds}"></td>
@@ -116,8 +118,10 @@
                         <td th:text="${planpayproject.stepProject}"></td>
                         <td th:text="${planpayproject.duration}"></td>
                         <td th:text="${planpayproject.interval}"></td>
-                        <td th:text="${planpayproject.completed} ? 'Закрыт' : 'Открыт'"></td>
-                        <td th:text="${planpayproject.paymentOnTime} ? 'Оплачен' : 'Не оплачен'"></td>
+<!--                        <td th:text="${planpayproject.completed} ? 'Оплачен' : '-'"></td>-->
+                        <td th:text="${planpayproject.completed && planpayproject.paymentOnTime} ? 'Оплачен вне графика'
+                        : (${planpayproject.completed && !planpayproject.paymentOnTime} ? 'Оплачен по графику'
+                        : '-')"></td>
 
                         <td><a th:href="@{/showplanpayproject/{id}(id=${planpayproject.id})}"
                                class="btn btn-outline-primary btn-sm">Изменить</a>
@@ -159,7 +163,6 @@
         </div>
     </div>
 </div>
-
 
 </body>
 </html>
