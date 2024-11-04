@@ -4,6 +4,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -40,14 +41,19 @@ public class FileUploadController {
             redirectAttributes.addFlashAttribute("message", "Файл загружен успешно: " + file.getOriginalFilename());
         } catch (Exception e) {
             redirectAttributes.addFlashAttribute("message", "Ошибка при загрузке файла: " + e.getMessage());
+            return "redirect:/uploadStatus";
         }
         return "redirect:/schemadoc";
+    }
+    @GetMapping("/uploadStatus")
+    public String uploadStatus(Model model) {
+        return "/schemadoc/uploadStatus"; // указывает на шаблон uploadStatus.html
     }
     @PostMapping("/uploadbinstorage")
     public String handleFileUploadBinStorage(@RequestParam("file") MultipartFile file, @ModelAttribute("binstorageId") binStorage binstorage, RedirectAttributes redirectAttributes) {
         if (file.isEmpty()) {
             redirectAttributes.addFlashAttribute("message", "Вы не выбрали файл!");
-            return "redirect:/uploadStatus";
+            return "redirect:/schemadoc/uploadStatus";
         }
         try {
             // Создаем объект FileData и заполняем его данными
