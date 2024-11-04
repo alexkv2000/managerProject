@@ -1,6 +1,6 @@
 package kvo.menproject.project.entity;
 
-import jakarta.transaction.Transactional;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -94,57 +94,17 @@ public class docSchemaDocController implements CommandLineRunner {
         model.addAttribute("schemadoc", schemadoc);
         return "/schemadoc/showschemadoc";
     }
-
+@Transactional
     @GetMapping("/deleteschemadoc/{id}")
     public String deleteThroughId(@PathVariable(value = "id") long id) {
+        List<FileData> fatd = fileDataRepo.findAllByTypeDocAndIdData("docSchemaDoc", id);
+        for (FileData fileData : fatd) {
+            long idDataDelete = fileData.getId();
+            fileDataRepo.deleteById(idDataDelete);
+        }
         docSchemaDocRepo.deleteById(id);
         return "redirect:/schemadoc";
-
     }
-
-//    @PostMapping("/upload2")
-//    public String handleFileUploadButton(@ModelAttribute("schemadoc") docSchemaDoc
-//                                                 schemadoc, @RequestParam("binFiles") List<MultipartFile> files,
-//                                         Model model,
-//                                         @RequestParam(defaultValue = "0") int page,
-//                                         @RequestParam(defaultValue = "5") int size) throws IOException {
-//        Pageable pageable = PageRequest.of(page, size);
-//        Page<docSchemaDoc> rows = docSchemaDocRepo.findAll(pageable);
-//        if (rows != null) {
-//            System.out.println("Retrieved " + rows.getContent().size() + " Schema Documents");
-//        } else {
-//            System.out.println("No schema Document retrieved");
-//        }
-//        if (!files.isEmpty()) {
-//
-//            // Логика обработки файла
-//
-//            model.addAttribute("message", "Файл успешно загружен.");
-//
-//        } else {
-//            for (MultipartFile file : files) {
-//                FileData fileData = new FileData();
-//
-//                fileData.setData(file.getBytes()); // Assuming data is of byte array type
-//
-//                fileData.setSizeFile(valueOf(file.getSize())); // Associate with the entity
-//                fileData.setId_Data(schemadoc.getId());
-//                fileData.setName(file.getOriginalFilename()); // Associate with the entity
-//                fileDataRepo.saveAndFlush(fileData);
-//
-//
-//                model.addAttribute("schemadocs", rows);
-//                model.addAttribute("divisions", libDivisionRepo.findAll());
-//                //TODO потом изменить на конкретные ID (а не все из БД)
-//                model.addAttribute("fileData", fileDataRepo.findAll());
-//                model.addAttribute("totalPages", rows.getTotalPages());
-//                model.addAttribute("currentPage", page);
-//                model.addAttribute("message", "Пожалуйста, выберите файл для загрузки.");
-//
-//            }
-//        }
-//        return "redirect:/mainschemadoc";
-//    }
 
     @Override
     public void run(String... args) throws Exception {

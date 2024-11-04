@@ -10,6 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Date;
+import java.util.List;
 
 @Controller
 public class binStorageController implements CommandLineRunner {
@@ -94,11 +95,16 @@ public class binStorageController implements CommandLineRunner {
         return "/binstorage/showbinstorage";
     }
 
+    @Transactional
     @GetMapping("/deletebinstorage/{id}")
     public String deleteThroughId(@PathVariable(value = "id") long id) {
+        List<FileData> fatd = fileDataRepo.findAllByTypeDocAndIdData("binStorage", id);
+        for (FileData fileData : fatd) {
+            long idDataDelete = fileData.getId();
+            fileDataRepo.deleteById(idDataDelete);
+        }
         binStorageRepo.deleteById(id);
         return "redirect:/binstorage";
-
     }
 
     @PostMapping(path = "/updatebinstorage")
