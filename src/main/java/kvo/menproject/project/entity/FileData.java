@@ -3,6 +3,8 @@ package kvo.menproject.project.entity;
 import jakarta.persistence.*;
 import lombok.Data;
 
+import java.util.Arrays;
+
 @Data
 @Entity
 @Table(name = "bin_files", catalog = "dev")
@@ -22,22 +24,22 @@ public class FileData {
     @Lob
     private byte[] data;
     @Basic
-    @Column(name = "id_data", insertable = false, updatable = false)
+    @Column(name = "id_data", insertable = true, updatable = true)
     private Long id_Data;
-    @ManyToOne
-    @JoinColumn(name = "id_data", referencedColumnName = "id", nullable = true)
-    private docSchemaDoc linkDataDocSchemaDocById;
-    @ManyToOne
-    @JoinColumn(name = "id_data", referencedColumnName = "step_project", nullable = true, insertable = false, updatable = false)
-    private binStorage binStorageByIdData;
+//    @ManyToOne
+//    @JoinColumn(name = "id_data", referencedColumnName = "id", nullable = true)
+//    private docSchemaDoc linkDataDocSchemaDocById;
+//    @ManyToOne
+//    @JoinColumn(name = "id_data", referencedColumnName = "step_project", nullable = true, insertable = false, updatable = false)
+//    private binStorage binStorageByIdData;
 
-    public binStorage getBinStorageByIdData() {
-        return binStorageByIdData;
-    }
-
-    public void setBinStorageByIdData(binStorage binStorageByIdData) {
-        this.binStorageByIdData = binStorageByIdData;
-    }
+//    public binStorage getBinStorageByIdData() {
+//        return binStorageByIdData;
+//    }
+//
+//    public void setBinStorageByIdData(binStorage binStorageByIdData) {
+//        this.binStorageByIdData = binStorageByIdData;
+//    }
 
     public String getSizeFile() {
         return sizeFile;
@@ -55,13 +57,13 @@ public class FileData {
         this.id_Data = id_Data;
     }
 
-    public docSchemaDoc getLinkDataDocSchemaDocById() {
-        return linkDataDocSchemaDocById;
-    }
-
-    public void setLinkDataDocSchemaDocById(docSchemaDoc linkDataDocSchemaDocById) {
-        this.linkDataDocSchemaDocById = linkDataDocSchemaDocById;
-    }
+//    public docSchemaDoc getLinkDataDocSchemaDocById() {
+//        return linkDataDocSchemaDocById;
+//    }
+//
+//    public void setLinkDataDocSchemaDocById(docSchemaDoc linkDataDocSchemaDocById) {
+//        this.linkDataDocSchemaDocById = linkDataDocSchemaDocById;
+//    }
 
     public FileData() {
     }
@@ -90,4 +92,15 @@ public class FileData {
         this.data = data;
     }
 
+    @Override
+    public String toString() {
+        return "FileData{" +
+                "id=" + id +
+                ", typeDoc='" + typeDoc + '\'' +
+                ", name='" + name + '\'' +
+                ", sizeFile='" + sizeFile + '\'' +
+                ", data=" + Arrays.toString(data) +
+                ", id_Data=" + id_Data +
+                '}';
+    }
 }

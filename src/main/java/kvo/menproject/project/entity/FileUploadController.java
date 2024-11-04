@@ -13,8 +13,9 @@ import java.util.Optional;
 
 @Controller
 public class FileUploadController {
-//    public docSchemaDocRepository docSchemaDocRepo;
+    public binStorageRepository binStorageRepo;
     private final FileDataService fileDataService; // Сервис для работы с FileData
+
 
     public FileUploadController(FileDataService fileDataService) {
         this.fileDataService = fileDataService;
@@ -33,7 +34,7 @@ public class FileUploadController {
             FileData fileData = new FileData();
             //TODO schemaID
 
-            fileData.setLinkDataDocSchemaDocById(schemdoc);
+            fileData.setId_Data(schemdoc.getId());
             fileData.setTypeDoc("docSchemaDoc");
             fileData.setName(file.getOriginalFilename());
             fileData.setSizeFile(String.valueOf(file.getSize())); // Размер файла в байтах
@@ -49,5 +50,34 @@ public class FileUploadController {
 
         return "redirect:/schemadoc";
     }
+    @PostMapping("/uploadbinstorage")
+    public String handleFileUploadBinStorage(@RequestParam("file") MultipartFile file, @ModelAttribute("binstorageId") binStorage binstorage, RedirectAttributes redirectAttributes) {
+        if (file.isEmpty()) {
+            redirectAttributes.addFlashAttribute("message", "Вы не выбрали файл!");
+            return "redirect:/uploadStatus";
+        }
 
+        try {
+            // Создаем объект FileData и заполняем его данными
+            FileData fileData = new FileData();
+            //TODO schemaID
+
+//            fileData.setBinStorageByIdData(binstorage);
+
+
+            fileData.setId_Data(binstorage.getId());
+            fileData.setTypeDoc("binStorage");
+            fileData.setName(file.getOriginalFilename());
+            fileData.setSizeFile(String.valueOf(file.getSize())); // Размер файла в байтах
+            fileData.setData(file.getBytes()); // Содержимое файла в виде массива байтов
+            // Сохраняем файл в базе данных
+            fileDataService.saveFileData(fileData);
+
+            redirectAttributes.addFlashAttribute("message", "Файл загружен успешно: " + file.getOriginalFilename());
+        } catch (Exception e) {
+            redirectAttributes.addFlashAttribute("message", "Ошибка при загрузке файла: " + e.getMessage());
+        }
+
+        return "redirect:/binstorage";
+    }
 }

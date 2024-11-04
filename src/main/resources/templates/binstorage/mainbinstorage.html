@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>SchemaDoc List</title>
+    <title>Bin Storage List</title>
     <link rel="stylesheet" href="/bootstrap.min.css">
 </head>
 <body class="min-vh-100">
@@ -94,10 +94,11 @@
                     <tr>
                         <th>Наименование проекта</th>
                         <th>Этап проекта</th>
-                        <th>Название файла</th>
+<!--                        <th>Название файла</th>-->
                         <th>Размер файла</th>
                         <th>Дата создания</th>
                         <th>Комментарий</th>
+                        <th>Файл</th>
                         <th>Добавить файл</th>
                         <th>Редакция</th>
                     </tr>
@@ -107,8 +108,8 @@
                         <td th:hidden="${binstorage.id}"></td>
                         <td th:text="${binstorage.projectsListByNameProject.name}"></td>
                         <td th:text="${binstorage.libStepProjectByStepProject.nameStepProject}"></td>
-                        <!--                        <td th:text="${#dates.format(schemdoc.getDateCreate(), 'dd-MM-yyyy')}"></td>-->
-                        <td th:text="${binstorage.nameFile}"></td>
+<!--                        &lt;!&ndash;                        <td th:text="${#dates.format(schemdoc.getDateCreate(), 'dd-MM-yyyy')}"></td>&ndash;&gt;-->
+<!--                        <td th:text="${binstorage.nameFile}"></td>-->
                         <td th:text="${binstorage.dateCreate}"></td>
                         <td th:text="${#dates.format(binstorage.getDateCreate(), 'dd-MM-yyyy')}"></td>
                         <td th:text="${binstorage.comments}"></td>
@@ -126,7 +127,7 @@
                         </td>
 
                         <td>
-                            <form action="/upload" method="post" enctype="multipart/form-data" id="uploadForm">
+                            <form action="/uploadbinstorage" method="post" enctype="multipart/form-data" id="uploadForm">
                                 <div>
                                     <input type="hidden" name="binstorageId" th:value="${binstorage.id}"/>
                                     <style>

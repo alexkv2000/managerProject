@@ -33,8 +33,8 @@ public class docSchemaDoc {
     @Column(name = "id_division", nullable = true, insertable = false, updatable = false)
     private Long idDivision;
 
-    @OneToMany(mappedBy = "linkDataDocSchemaDocById", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private Collection<FileData> binFilesById;
+//    @OneToMany(mappedBy = "linkDataDocSchemaDocById", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+//    private Collection<FileData> binFilesById;
 
     @ManyToOne
     @JoinColumn(name = "id_division", referencedColumnName = "id")
@@ -89,4 +89,14 @@ public class docSchemaDoc {
         this.linkDivisionByIdDivision = libDivisionByIdDivision;
     }
 
+    @Override
+    public String toString() {
+        return "docSchemaDoc{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", current=" + current +
+                ", dateCreate=" + dateCreate +
+                ", idDivision=" + idDivision +
+                '}';
+    }
 }

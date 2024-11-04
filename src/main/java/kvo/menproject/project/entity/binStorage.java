@@ -21,12 +21,12 @@ public class binStorage {
     @Basic
     @Column(name = "step_project", nullable = true, insertable=false, updatable=false)
     private long stepProject;
-    @Basic
-    @Column(name = "name_file", nullable = true, length = 255)
-    private String nameFile;
-    @Basic
-    @Column(name = "size_file", nullable = true, length = 255)
-    private String sizeFile;
+//    @Basic
+//    @Column(name = "name_file", nullable = true, length = 255)
+//    private String nameFile;
+//    @Basic
+//    @Column(name = "size_file", nullable = true, length = 255)
+//    private String sizeFile;
 
     @Column(name = "date_create", nullable = true)
     @DateTimeFormat(pattern = "yyyy-MM-dd")
@@ -41,16 +41,16 @@ public class binStorage {
     @ManyToOne
     @JoinColumn(name = "step_project", referencedColumnName = "id")
     private libStepProject libStepProjectByStepProject;
-    @OneToMany(mappedBy = "binStorageByIdData")
-    private Collection<FileData> binFilesById;
+//    @OneToMany(mappedBy = "binStorageByIdData")
+//    private Collection<FileData> binFilesById;
 
-    public Collection<FileData> getBinFilesById() {
-        return binFilesById;
-    }
-
-    public void setBinFilesById(Collection<FileData> binFilesById) {
-        this.binFilesById = binFilesById;
-    }
+//    public Collection<FileData> getBinFilesById() {
+//        return binFilesById;
+//    }
+//
+//    public void setBinFilesById(Collection<FileData> binFilesById) {
+//        this.binFilesById = binFilesById;
+//    }
 
     public docProjectsList getProjectsListByNameProject() {
         return projectsListByNameProject;
@@ -95,21 +95,21 @@ public class binStorage {
         this.stepProject = stepProject;
     }
 
-    public String getNameFile() {
-        return nameFile;
-    }
-
-    public void setNameFile(String nameFile) {
-        this.nameFile = nameFile;
-    }
-
-    public String getSizeFile() {
-        return sizeFile;
-    }
-
-    public void setSizeFile(String sizeFile) {
-        this.sizeFile = sizeFile;
-    }
+//    public String getNameFile() {
+//        return nameFile;
+//    }
+//
+//    public void setNameFile(String nameFile) {
+//        this.nameFile = nameFile;
+//    }
+//
+//    public String getSizeFile() {
+//        return sizeFile;
+//    }
+//
+//    public void setSizeFile(String sizeFile) {
+//        this.sizeFile = sizeFile;
+//    }
 
     public Date getDateCreate() {
         return dateCreate;

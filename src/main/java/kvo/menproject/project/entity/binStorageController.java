@@ -5,25 +5,30 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Date;
+
 @Controller
 public class binStorageController implements CommandLineRunner {
     //    private final JdbcTemplate jdbcTemplate;
+    private libDivisionRepository libDivisionRepo;
     private final binStorageRepository binStorageRepo;
     private docProjectsListRepository docProjectsListRepo;
     private libStepProjectRepository libStepProjectRepo;
     private FileDataRepository fileDataRepo;
 
-    public binStorageController(binStorageRepository binStorageRepo, docProjectsListRepository docProjectsListRepo, FileDataRepository fileDataRepo, libStepProjectRepository libStepProjectRepo) {
+    public binStorageController(binStorageRepository binStorageRepo, docProjectsListRepository docProjectsListRepo, FileDataRepository fileDataRepo, libStepProjectRepository libStepProjectRepo, libDivisionRepository libDivisionRepo) {
         this.binStorageRepo = binStorageRepo;
         this.docProjectsListRepo = docProjectsListRepo;
         this.fileDataRepo = fileDataRepo;
-        this.libStepProjectRepo=libStepProjectRepo;
+        this.libStepProjectRepo = libStepProjectRepo;
+        this.libDivisionRepo = libDivisionRepo;
     }
 
+    @Transactional(readOnly = true)
     @GetMapping("/binstorage")
     public String viewHomePage(Model model,
                                @RequestParam(defaultValue = "0") int page,
@@ -82,8 +87,9 @@ public class binStorageController implements CommandLineRunner {
     public String updateForm(@PathVariable(value = "id") long id, Model model) {
         binStorage binStorage = binStorageRepo.getById(id);
 //        model.addAttribute("fileData", fileDataRepo.findAllByTypeDoc("binStorage"));
+        model.addAttribute("projectslists", docProjectsListRepo.findAll());
         model.addAttribute("stepprojects", libStepProjectRepo.findAll());
-        model.addAttribute("projectslists", docProjectsListRepo.findAllByClosedIsFalse());
+//        model.addAttribute("projectslists", docProjectsListRepo.findAllByClosedIsFalse());
         model.addAttribute("binstorage", binStorage);
         return "/binstorage/showbinstorage";
     }
@@ -94,6 +100,7 @@ public class binStorageController implements CommandLineRunner {
         return "redirect:/binstorage";
 
     }
+
     @PostMapping(path = "/updatebinstorage")
     public String updateProject(@ModelAttribute("showbinstorage") binStorage list) {
         if (list.getDateCreate() == null) {
@@ -107,6 +114,7 @@ public class binStorageController implements CommandLineRunner {
         binStorageRepo.saveAndFlush(list);
         return "redirect:/binstorage";
     }
+
     @Override
     public void run(String... args) throws Exception {
     }
