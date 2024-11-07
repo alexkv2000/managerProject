@@ -2,8 +2,10 @@ package kvo.menproject.project.entity;
 
 import jakarta.persistence.*;
 import lombok.Data;
+import org.springframework.format.annotation.DateTimeFormat;
 
-import java.sql.Date;
+import java.util.Date;
+
 @Data
 
 @Entity
@@ -16,8 +18,10 @@ public class docFaсtPayment {
     @Basic
     @Column(name = "commetns", nullable = true, length = -1)
     private String commetns;
-    @Basic
+//    @NotNull
+    @Temporal(TemporalType.DATE)
     @Column(name = "data_pay_doc", nullable = true)
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date dataPayDoc;
     @Basic
     @Column(name = "paid", nullable = true)
@@ -44,17 +48,35 @@ public class docFaсtPayment {
     @Column(name = "binfiles_id", nullable = true, insertable=false, updatable=false)
     private Long binfilesId;
     @Basic
-    @Column(name = "status", nullable = true, length = 12, insertable=false, updatable=false)
-    private String status;
+    @Column(name = "status", length = 18, nullable = false)
+    private String statusFact;
     @ManyToOne
     @JoinColumn(name = "project_id", referencedColumnName = "id")
     private docProjectsList projectsListByProjectId;
     @ManyToOne
     @JoinColumn(name = "step_project_id", referencedColumnName = "id")
-    private docPlanPayProject planPayProjectByStepProjectId;
+    private docPlanPayProject planPayProjectById;
     @ManyToOne
     @JoinColumn(name = "binfiles_id", referencedColumnName = "id")
     private FileData binFilesByBinfilesId;
+
+    @Override
+    public String toString() {
+        return "docFaсtPayment{" +
+                "id=" + id +
+                ", commetns='" + commetns + '\'' +
+                ", dataPayDoc=" + dataPayDoc +
+                ", paid=" + paid +
+                ", projectId=" + projectId +
+                ", stepProjectId=" + stepProjectId +
+                ", sumCapex=" + sumCapex +
+                ", sumCapexNds=" + sumCapexNds +
+                ", sumOpex=" + sumOpex +
+                ", sumOpexNds=" + sumOpexNds +
+                ", binfilesId=" + binfilesId +
+                ", status='" + statusFact + '\'' +
+                '}';
+    }
 
     public String getCommetns() {
         return commetns;
@@ -144,12 +166,13 @@ public class docFaсtPayment {
         this.binfilesId = binfilesId;
     }
 
-    public String getStatus() {
-        return status;
+    public String getStatusFact() {
+        return statusFact;
     }
 
-    public void setStatus(String status) {
-        this.status = status;
+    public String setStatusFact(String statusFact) {
+        this.statusFact = statusFact;
+        return statusFact;
     }
 
     @Override
@@ -171,7 +194,7 @@ public class docFaсtPayment {
         if (sumOpex != null ? !sumOpex.equals(that.sumOpex) : that.sumOpex != null) return false;
         if (sumOpexNds != null ? !sumOpexNds.equals(that.sumOpexNds) : that.sumOpexNds != null) return false;
         if (binfilesId != null ? !binfilesId.equals(that.binfilesId) : that.binfilesId != null) return false;
-        if (status != null ? !status.equals(that.status) : that.status != null) return false;
+        if (statusFact != null ? !statusFact.equals(that.statusFact) : that.statusFact != null) return false;
 
         return true;
     }
@@ -189,7 +212,7 @@ public class docFaсtPayment {
         result = 31 * result + (sumOpex != null ? sumOpex.hashCode() : 0);
         result = 31 * result + (sumOpexNds != null ? sumOpexNds.hashCode() : 0);
         result = 31 * result + (binfilesId != null ? binfilesId.hashCode() : 0);
-        result = 31 * result + (status != null ? status.hashCode() : 0);
+        result = 31 * result + (statusFact != null ? statusFact.hashCode() : 0);
         return result;
     }
 
@@ -201,13 +224,6 @@ public class docFaсtPayment {
         this.projectsListByProjectId = projectsListByProjectId;
     }
 
-    public docPlanPayProject getPlanPayProjectByStepProjectId() {
-        return planPayProjectByStepProjectId;
-    }
-
-    public void setPlanPayProjectByStepProjectId(docPlanPayProject planPayProjectByStepProjectId) {
-        this.planPayProjectByStepProjectId = planPayProjectByStepProjectId;
-    }
 
     public FileData getBinFilesByBinfilesId() {
         return binFilesByBinfilesId;

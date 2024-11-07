@@ -63,7 +63,7 @@ public class docPlanPayProject {
     @ManyToOne
     @JoinColumn(name = "plan_project", referencedColumnName = "id")
     private docProjectsList docProjectsListByPlanProject;
-    @OneToMany(mappedBy = "planPayProjectByStepProjectId")
+    @OneToMany(mappedBy = "planPayProjectById")
     private Collection<docFaсtPayment> docFaсtPaymentsById;
 
     public Collection<docFaсtPayment> getDocFaсtPaymentsById() {

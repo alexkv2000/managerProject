@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Fact pay project List</title>
+    <link rel="stylesheet" href="/bootstrap.min.css">
+</head>
+<body class="min-vh-100">
+<div class="offcanvas offcanvas-start w-5" tabindex="-1" id="offcanvas" data-bs-keyboard="false"
+     data-bs-backdrop="false">
+    <div class="offcanvas-header">
+        <h6 class="offcanvas-title d-none d-sm-block">Меню</h6>
+        <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+    </div>
+    <div class="offcanvas-body px-0">
+        <ul class="nav nav-pills flex-column mb-sm-auto mb-0 align-items-start" id="menu">
+            <li class="nav-item">
+                <a href="/" class="nav-link text-truncate">
+                    <i class="fs-5 bi-house"></i><span class="ms-1 d-none d-sm-inline">Основная</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="/projectlist" class="nav-link text-truncate">
+                    <i class="fs-5 bi-house"></i><span class="ms-1 d-none d-sm-inline">Проекты</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="/schemadoc" class="nav-link text-truncate">
+                    <i class="fs-5 bi-house"></i><span class="ms-1 d-none d-sm-inline">Шаблоны документов</span>
+                </a>
+            </li>
+<!--            <li class="nav-item">-->
+<!--                <a href="/planpayproject" class="nav-link text-truncate">-->
+<!--                    <i class="fs-5 bi-house"></i><span class="ms-1 d-none d-sm-inline">План оплат проектов</span>-->
+<!--                </a>-->
+<!--            </li>-->
+            <!--            <li>-->
+            <!--                <a href="#submenu1" data-bs-toggle="collapse" class="nav-link text-truncate">-->
+            <!--                    <i class="fs-5 bi-speedometer2"></i><span class="ms-1 d-none d-sm-inline">Dashboard</span> </a>-->
+            <!--            </li>-->
+            <!--            <li>-->
+            <!--                <a href="#" class="nav-link text-truncate">-->
+            <!--                    <i class="fs-5 bi-table"></i><span class="ms-1 d-none d-sm-inline">Orders</span></a>-->
+            <!--            </li>-->
+            <li class="dropdown">
+                <a href="#" class="nav-link dropdown-toggle  text-truncate" id="dropdown" data-bs-toggle="dropdown"
+                   aria-expanded="false">
+                    <i class="fs-5 bi-bootstrap"></i><span class="ms-1 d-none d-sm-inline">Справочник</span>
+                </a>
+                <ul class="dropdown-menu text-small shadow" aria-labelledby="dropdown">
+                    <li><a class="dropdown-item" href="/division">Подразделения</a></li>
+                    <li><a class="dropdown-item" href="/jobplace">Юридические лица</a></li>
+                    <li><a class="dropdown-item" href="/employee">Сотрудник</a></li>
+                    <li><a class="dropdown-item" href="/jobplace">Рабочие места</a></li>
+                    <li><a class="dropdown-item" href="/stepproject">Этапы проекта</a></li>
+                    <!--                    <li>-->
+                    <!--                        <hr class="dropdown-divider">-->
+                    <!--                    </li>-->
+                    <!--                    <li><a class="dropdown-item" href="#">Sign out</a></li>-->
+                </ul>
+            </li>
+            <!--            <li>-->
+            <!--                <a href="#" class="nav-link text-truncate">-->
+            <!--                    <i class="fs-5 bi-grid"></i><span class="ms-1 d-none d-sm-inline">Products</span></a>-->
+            <!--            </li>-->
+            <!--            <li>-->
+            <!--                <a href="#" class="nav-link text-truncate">-->
+            <!--                    <i class="fs-5 bi-people"></i><span class="ms-1 d-none d-sm-inline">Customers</span> </a>-->
+            <!--            </li>-->
+        </ul>
+    </div>
+</div>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col min-vh-100 py-3">
+            <!-- toggler -->
+            <button class="btn float-end" data-bs-toggle="offcanvas" data-bs-target="#offcanvas" role="button">
+                <i class="bi bi-arrow-right-square-fill fs-3" data-bs-toggle="offcanvas"
+                   data-bs-target="#offcanvas"></i>
+            </button>
+            <!--моя вставка-->
+            <div align="center">
+                <h3>Список факта оплат проектов</h3>
+                <a th:href="@{/addfactpayment}" class="btn btn-primary btn-sm mb-3">Добавить оплату проекта</a>
+                <table style="width:80%" border="1" class="table table-striped table-responsive-xxl">
+                    <thead>
+                    <tr>
+                        <th>Дата платежа</th>
+                        <th>Проект</th>
+                        <th>Этап проекта</th>
+
+                        <th>Сумма OPEX</th>
+                        <th>НДС OPEX</th>
+                        <th>Сумма CAPEX</th>
+                        <th>НДС CAPEX</th>
+                        <th>Комментарий</th>
+                        <th>Оплачен</th>
+
+                        <th>Статус</th>
+<!--                        <th>Завершен в срок</th>-->
+
+                        <th>Редакция</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="factpayment : ${factpayments}">
+                        <td th:hidden="${factpayment.id}"></td>
+                        <td th:text="${#dates.format(factpayment.dataPayDoc, 'dd-MM-yyyy')}"></td>
+
+                        <td th:text="${factpayment.projectsListByProjectId.name}"></td>
+                        <td th:text="${factpayment.planPayProjectById.stepProject}"></td>
+
+                        <td th:text="${factpayment.sumOpex}"></td>
+                        <td th:text="${factpayment.sumOpexNds}"></td>
+                        <td th:text="${factpayment.sumCapex}"></td>
+                        <td th:text="${factpayment.sumCapexNds}"></td>
+
+                        <td th:text="${factpayment.commetns}"></td>
+                        <td th:text="${factpayment.paid} ? 'Оплачен' : '-'"></td>
+                        <td th:text="${factpayment.statusFact} ? ${factpayment.statusFact} : '-'"></td>
+<!--                        <td th:text="${factpayment.completed && factpayment.paymentOnTime} ? 'Оплачен вне графика'-->
+<!--                        : (${factpayment.completed && !factpayment.paymentOnTime} ? 'Оплачен по графику'-->
+<!--                        : '-')"></td>-->
+
+                        <td><a th:href="@{/showfactpayment/{id}(id=${factpayment.id})}"
+                               class="btn btn-outline-primary btn-sm">Изменить</a>
+                            <a th:href="@{/deletefactpayment/{id}(id=${factpayment.id})}"
+                               class="btn btn-outline-danger btn-sm">Удалить</a>
+                        </td>
+                    </tr>
+                    </tbody>
+
+                </table>
+                <div class="container my-2" align="center" style="width:80%">
+                    <span th:text="'Страница ' + ${currentPage} + ' из ' + ${totalPages}"></span>
+                    <!-- Добавьте ссылки на навигацию между страницами -->
+                    <nav align="center" aria-label="Page navigation">
+                        <ul align="center" class="pagination">
+                            <li class="page-item" th:classappend="${currentPage == 0 ? 'disabled' : ''}">
+                                <a class="page-link" th:href="@{factpayment#(page=0)}">Первая</a>
+                            </li>
+                            <li class="page-item" th:classappend="${currentPage == 0 ? 'disabled' : ''}">
+                                <a class="page-link"
+                                   th:href="@{factpayment#(page=${currentPage - 1})}">Предыдущая</a>
+                            </li>
+                            <li class="page-item" th:each="i : ${#numbers.sequence(0, totalPages - 1)}"
+                                th:classappend="${currentPage == i ? 'active' : ''}">
+                                <a class="page-link" th:href="@{factpayment#(page=${i})}" th:text="${i + 1}"></a>
+                            </li>
+                            <li class="page-item" th:classappend="${currentPage == totalPages - 1 ? 'disabled' : ''}">
+                                <a class="page-link" th:href="@{factpayment#(page=${currentPage + 1})}">Следующая</a>
+                            </li>
+                            <li class="page-item" th:classappend="${currentPage == totalPages - 1 ? 'disabled' : ''}">
+                                <a class="page-link" th:href="@{factpayment#(page=${totalPages - 1})}">Последняя</a>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
+                <!-- Bootstrap JS -->
+                <script src="/bootstrap.bundle.min.js"></script>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+</body>
+</html>
