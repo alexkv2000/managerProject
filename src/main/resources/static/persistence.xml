@@ -17,6 +17,8 @@
         <class>kvo.menproject.project.entity.binStorage</class>
         <class>kvo.menproject.project.entity.sBinFiles</class>
         <class>kvo.menproject.project.entity.sBinProject</class>
+        <class>kvo.menproject.project.entity.sPlanPayProject</class>
+        <class>kvo.menproject.project.entity.docFaсtPayment</class>
         planpayproject
         <properties>
             <property name="jakarta.persistence.jdbc.driver" value="org.postgresql.Driver"/>

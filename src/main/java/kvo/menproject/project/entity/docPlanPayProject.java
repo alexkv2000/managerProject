@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.Data;
 import org.springframework.format.annotation.DateTimeFormat;
 
+import java.util.Collection;
 import java.util.Date;
 @Data
 @Entity
@@ -62,6 +63,15 @@ public class docPlanPayProject {
     @ManyToOne
     @JoinColumn(name = "plan_project", referencedColumnName = "id")
     private docProjectsList docProjectsListByPlanProject;
+    @OneToMany(mappedBy = "planPayProjectByStepProjectId")
+    private Collection<docFaсtPayment> docFaсtPaymentsById;
+
+    public Collection<docFaсtPayment> getDocFaсtPaymentsById() {
+        return docFaсtPaymentsById;
+    }
+    public void setDocFaсtPaymentsById(Collection<docFaсtPayment> docFaсtPaymentsById) {
+        this.docFaсtPaymentsById = docFaсtPaymentsById;
+    }
     @Override
     public String toString() {
         return "docPlanPayProject{" +
