@@ -32,6 +32,16 @@
                             </select>
             </div>
             <div class="d-flex align-items-center mb-2">
+                <label for="planproject_id" class="me-2" style="flex: 1; max-width: 230px;">Проект :</label>
+                <!-- сохраняем в linkDivisionByIdDivision выбор division и в Controller передаем в id_division -->
+                <select th:name="docProjectsListByPlanProject" id="planproject_id" style="flex: 1; max-width: 400px;" class="form-select">
+                    <option value="" disabled selected>проект ...</option>
+                    <th:block th:each="projectslist : ${projectslists}">
+                        <option th:value="${projectslist.id}" th:text="${projectslist.name}"></option>
+                    </th:block>
+                </select>
+            </div>
+            <div class="d-flex align-items-center mb-2">
                 <label for="dataPlaning" class="me-2" style="flex: 1; max-width: 230px;">Дата оплаты :</label>
                 <input type="date" id="dataPlaning" th:field="*{dataPlaning}" placeholder="Дата оплаты"
                        class="form-control"

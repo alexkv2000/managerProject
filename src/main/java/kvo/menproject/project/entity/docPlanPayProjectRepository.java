@@ -11,8 +11,8 @@ public interface docPlanPayProjectRepository extends JpaRepository<docPlanPayPro
     Page<docPlanPayProject> findAllByCompletedIsTrue(Pageable pageable);
     Page<docPlanPayProject> findAllByCompletedIsFalse(Pageable pageable);
     Page<docPlanPayProject> findAll(Pageable pageable);
-    Page<docPlanPayProject> findAllByCompletedIsFalseOrderByProjectIdAscStepProjectAsc(Pageable pageable);
-    Page<docPlanPayProject> findAllByCompletedIsTrueOrderByProjectIdAscStepProjectAsc(Pageable pageable);
+    Page<docPlanPayProject> findAllByCompletedIsFalseOrderByLibDivisionByProjectIdAsc(Pageable pageable);
+    Page<docPlanPayProject> findAllByCompletedIsTrueOrderByLibDivisionByProjectIdAsc(Pageable pageable);
 //    Page<docPlanPayProject> findAllByLibDivisionByProjectId(Pageable pageable);
     void deleteById(long id);
 }

@@ -30,6 +30,14 @@
                     </select>
                 </div>
                 <div class="d-flex align-items-center mb-2">
+                    <label for="planproject_id" class="me-2" style="flex: 1; max-width: 230px;">Проект :</label>
+                    <select id="planproject_id" th:field="*{docProjectsListByPlanProject.id}" style="flex: 1; max-width: 400px;" class="form-select">
+                        <option th:each="projectslist : ${projectslists}" th:value="${projectslist.id}"
+                                th:text="${projectslist.name}">проект...
+                        </option>
+                    </select>
+                </div>
+                <div class="d-flex align-items-center mb-2">
                     <label for="dataPlaning" class="me-2" style="flex: 1; max-width: 230px;">Дата оплаты :</label>
                     <input type="date" id="dataPlaning" th:field="*{dataPlaning}" placeholder="Дата оплаты" class="form-control"
                            style="flex: 1; max-width: 120px;"/>

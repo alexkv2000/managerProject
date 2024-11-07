@@ -85,6 +85,8 @@ public class docProjectsList {
     private libEmployee libJobEmployeeByOwner;
     @OneToMany(mappedBy = "projectsListByNameProject")
     private Collection<binStorage> binProjectsById;
+    @OneToMany(mappedBy = "docProjectsListByPlanProject")
+    private Collection<docPlanPayProject> docPlanPayProject;
 
     public Collection<binStorage> getBinProjectsById() {
         return binProjectsById;

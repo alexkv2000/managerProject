@@ -87,7 +87,6 @@
                     <tr>
                         <th>План на ГОД</th>
                         <th>Отдел / подразделение</th>
-                        <th>Проект</th>
                         <th>Дата оплаты</th>
                         <th>Сумма OPEX</th>
                         <th>НДС OPEX</th>
@@ -98,7 +97,7 @@
                         <th>Длительность (неделя / месяц)</th>
                         <th>Интервал</th>
                         <th>Завершен</th>
-<!--                        <th>Завершен в срок</th>-->
+                        <th>Завершен в срок</th>
 
                         <th>Редакция</th>
                     </tr>
@@ -108,7 +107,7 @@
                         <td th:hidden="${planpayproject.id}"></td>
                         <td th:text="${#dates.format(planpayproject.getPlanYear(), 'dd-MM-yyyy')}"></td>
                         <td th:text="${planpayproject.libDivisionByProjectId.namedivision}">
-                        <td th:text="${planpayproject.planPayProjectById.name}">
+                        <td th:text="${planpayproject.docProjectsListByPlanProject.name}">
                         <td th:text="${#dates.format(planpayproject.getDataPlaning(),'dd-MM-yyyy')}" ></td>
                         <td th:text="${planpayproject.opex}"></td>
                         <td th:text="${planpayproject.opexNds}"></td>
@@ -163,6 +162,7 @@
         </div>
     </div>
 </div>
+
 
 </body>
 </html>
