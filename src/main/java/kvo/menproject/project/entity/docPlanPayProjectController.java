@@ -27,7 +27,7 @@ public class docPlanPayProjectController implements CommandLineRunner {
     @GetMapping("/planpayproject")
     public String viewHomePage(Model model,
                                @RequestParam(defaultValue = "0") int page,
-                               @RequestParam(defaultValue = "15") int size) {
+                               @RequestParam(defaultValue = "10") int size) {
 
         Pageable pageable = PageRequest.of(page, size);
         Page<docPlanPayProject> rows = docPlanPayProjectRepo.findAll(pageable);
