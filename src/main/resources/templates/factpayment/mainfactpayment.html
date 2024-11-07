@@ -116,8 +116,8 @@
                         <td th:text="${factpayment.sumCapexNds}"></td>
 
                         <td th:text="${factpayment.commetns}"></td>
-                        <td th:text="${factpayment.paid} ? 'Оплачен' : '-'"></td>
                         <td th:text="${factpayment.statusFact} ? ${factpayment.statusFact} : '-'"></td>
+                        <td th:text="${factpayment.paid} ? 'Оплачен' : '-'"></td>
 <!--                        <td th:text="${factpayment.completed && factpayment.paymentOnTime} ? 'Оплачен вне графика'-->
 <!--                        : (${factpayment.completed && !factpayment.paymentOnTime} ? 'Оплачен по графику'-->
 <!--                        : '-')"></td>-->
