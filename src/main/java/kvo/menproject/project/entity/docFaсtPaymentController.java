@@ -8,10 +8,12 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Date;
+import java.util.List;
 
 
 @Controller
@@ -20,18 +22,20 @@ public class docFaсtPaymentController implements CommandLineRunner {
     private docPlanPayProjectRepository docPlanPayProjectRepo;
     private docProjectsListRepository docProjectsListRepo;
     private libStepProjectRepository libStepProjectRepo;
+    private FileDataRepository fileDataRepo;
 
-    public docFaсtPaymentController(docFaсtPaymentRepository docFaсtPaymentRepo, docPlanPayProjectRepository docPlanPayProjectRepo, docProjectsListRepository docProjectsListRepo, libStepProjectRepository libStepProjectRepo) {
+    public docFaсtPaymentController(docFaсtPaymentRepository docFaсtPaymentRepo, docPlanPayProjectRepository docPlanPayProjectRepo, docProjectsListRepository docProjectsListRepo, libStepProjectRepository libStepProjectRepo, FileDataRepository fileDataRepo) {
         this.docFaсtPaymentRepo = docFaсtPaymentRepo;
         this.docPlanPayProjectRepo = docPlanPayProjectRepo;
         this.docProjectsListRepo = docProjectsListRepo;
         this.libStepProjectRepo = libStepProjectRepo;
+        this.fileDataRepo = fileDataRepo;
     }
 
     public enum Status {
         НА_СОГЛАСОВАНИИ, ПЕРЕДАН_НА_ОПЛАТУ, ОПЛАЧЕН, ОТКАЗАНО;
     }
-
+    @Transactional
     @GetMapping("/factpayment")
     public String viewHomePage(Model model,
                                @RequestParam(defaultValue = "0") int page,
@@ -46,7 +50,7 @@ public class docFaсtPaymentController implements CommandLineRunner {
         }
         System.out.println("Total elements: " + rows.getTotalElements()); // Вывод количества элементов
         System.out.println("Content: " + rows.getContent()); // Вывод содержимого
-
+        model.addAttribute("fileData", fileDataRepo.findAllByTypeDoc("factPayment"));
         model.addAttribute("stepprojects", libStepProjectRepo.findAll());
         model.addAttribute("projectslists", docProjectsListRepo.findAll());
 
@@ -107,9 +111,14 @@ public class docFaсtPaymentController implements CommandLineRunner {
         model.addAttribute("planpayprojects", docPlanPayProjectRepo.findAll());
         return "/factpayment/showfactpayment";
     }
-
+    @Transactional
     @GetMapping("/deletefactpayment/{id}")
     public String deleteThroughId(@PathVariable(value = "id") long id) {
+        List<FileData> fakt = fileDataRepo.findAllByTypeDocAndIdData("factPayment", id);
+        for (FileData fileData : fakt) {
+            long idDataDelete = fileData.getId();
+            fileDataRepo.deleteById(idDataDelete);
+        }
         docFaсtPaymentRepo.deleteById(id);
         return "redirect:/factpayment";
 
@@ -130,7 +139,6 @@ public class docFaсtPaymentController implements CommandLineRunner {
         docFaсtPaymentRepo.saveAndFlush(list);
         return "redirect:/factpayment";
     }
-
     @Override
     public void run(String... args) throws Exception {
     }
