@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+  <title>Форма</title>
+
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+</head>
+
+<body>
+
+
+
+<form action="#" method="post">
+
+  <label for="category">Категория:</label>
+
+  <select id="category" name="category">
+
+    <option value="">Выберите категорию</option>
+
+    <th:block th:each="category : ${categories}">
+
+      <option th:value="${category[0]}" th:text="${category[0]}"></option>
+
+    </th:block>
+
+  </select>
+
+
+
+  <label for="subcategory">Подкатегория:</label>
+
+  <select id="subcategory" name="subcategory">
+
+    <option value="">Выберите подкатегорию</option>
+
+  </select>
+
+</form>
+
+
+
+<script type="text/javascript">
+
+  $(document).ready(function () {
+
+    $('#category').change(function () {
+
+      var categoryId = $(this).val();
+
+      $('#subcategory').empty(); // Очистка подкатегорий
+
+
+
+      if (categoryId) {
+
+        $.ajax({
+
+          url: '/form/subcategories',
+
+          type: 'GET',
+
+          data: {categoryId: categoryId},
+
+          success: function (data) {
+
+            $('#subcategory').append('<option value="">Выберите подкатегорию</option>');
+
+            $.each(data, function (key, subcategory) {
+
+              $('#subcategory').append('<option value="' + subcategory.idSub + '">' + subcategory.name + '</option>');
+
+            });
+
+          }
+
+        });
+
+      } else {
+
+        $('#subcategory').append('<option value="">Выберите подкатегорию</option>');
+
+      }
+
+    });
+
+  });
+
+</script>
+
+
+
+</body>
+
+</html>

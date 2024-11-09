@@ -12,13 +12,9 @@
         <class>kvo.menproject.project.entity.LibJobPlace</class>
         <class>kvo.menproject.project.entity.libDivision</class>
         <class>kvo.menproject.project.entity.docPlanPayProject</class>
-        <class>kvo.menproject.project.entity.sLibStepProject</class>
-        <class>kvo.menproject.project.entity.sProjectsList</class>
         <class>kvo.menproject.project.entity.binStorage</class>
-        <class>kvo.menproject.project.entity.sBinFiles</class>
-        <class>kvo.menproject.project.entity.sBinProject</class>
-        <class>kvo.menproject.project.entity.sPlanPayProject</class>
         <class>kvo.menproject.project.entity.docFaсtPayment</class>
+        <class>kvo.menproject.project.Categorie</class>
         planpayproject
         <properties>
             <property name="jakarta.persistence.jdbc.driver" value="org.postgresql.Driver"/>
