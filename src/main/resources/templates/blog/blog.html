@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Blog</title>
+    <link rel="stylesheet" href="/jquery.dataTables.min.css">
+    <link rel="stylesheet" href="/bootstrap.min.css">
+    <link rel="stylesheet" href="/menu/menu.css">
+    <style> body {
+        font-family: Arial, sans-serif;
+        line-height: 1.6;
+        margin: 0;
+        padding: 20px;
+        max-width: 800px;
+        margin: auto;
+        background-color: #f9f9f9;
+        color: #333;
+    }
+
+    h1 {
+        font-size: 2em;
+        color: #333;
+    }
+
+    h2 {
+        font-size: 1.5em;
+        color: #555;
+    }
+
+    p {
+        margin-bottom: 1em;
+    }
+
+    .highlight {
+        font-weight: bold;
+        color: #007ACC;
+    } </style>
+</head>
+<body>
+<nav>
+    <ul class="topmenu">
+        <li><a href="/">Главная -</a></li>
+        <li><a href="" class="down">Справочник -</a>
+            <ul class="submenu">
+                <li><a href="/entity">Юр. лица</a></li>
+                <li><a href="/division">Отдел / подразделения</a></li>
+                <li><a href="/employee">Сотрудники</a></li>
+                <li><a href="/jobplace">Рабочие места</a></li>
+                <li><a href="/stepproject">Этапы проекта</a></li>
+            </ul>
+        </li>
+        <li><a href="" class="down">Проекты -</a>
+            <ul class="submenu">
+                <li><a href="/projectlist">Проекты</a></li>
+                <li><a href="/planpayproject">План оплат проектов</a></li>
+                <li><a href="/factpayment">Факт оплаты проектов</a></li>
+                <li><a href="/binstorage">Хранилице файлов</a></li>
+            </ul>
+        </li>
+        <li><a href="/schemadoc" class="down">Шаблоны -</a></li>
+        <li><a href="/blog">Блог</a></li>
+    </ul>
+</nav>
+
+<h1 th:text="${blogs.get(0).title}">Заголовок страницы</h1>
+<p th:utext="${blogs.get(0).content}">Это пример параграфа текста, который вы можете использовать для написания
+    блога.</p>
+
+<table style="width:80%" border="1" class="table table-striped table-responsive-xxl">
+    <thead>
+    <tr>
+        <th>Дата блога</th>
+        <th>Заголовок</th>
+        <th>Контент</th>
+        <th>Для публикации</th>
+
+        <th>Редакция</th>
+    </tr>
+    </thead>
+    <tr th:each="blog : ${blogs}">
+        <td th:hidden="${blog.id}"></td>
+        <td th:text="${#dates.format(blog.getDcreate(), 'dd-MM-yyyy')}"></td>
+        <td th:text="${blog.getTitle()}"></td>
+        <td th:utext="${blog.getContent()}"></td>
+        <td th:text="${blog.getShow()} ? 'для публикации': 'закрыто'"></td>
+
+
+        <td><a th:href="@{/showblog/{id}(id=${blog.id})}"
+               class="btn btn-outline-primary btn-sm">Изменить</a>
+            <a th:href="@{/deleteblog/{id}(id=${blog.id})}"
+               class="btn btn-outline-danger btn-sm">Удалить</a>
+        </td>
+    </tr>
+</table>
+
+
+
+<h1 th:text="${blogs.get(0).title}">Заголовок страницы</h1>
+<form action="/saveBlogPost" method="post" th:object="${blogs}">
+    <textarea id="contentEditor" name="content" th:utext="${blogs.get(0).content}"></textarea>
+    <button type="submit">Сохранить</button>
+</form>
+<!-- Place the first <script> tag in your HTML's <head> -->
+<script src="https://cdn.tiny.cloud/1/o0oxvbihfwv9vyvkzej8d772o57saextbl5mdgz1o2x6eibb/tinymce/7/tinymce.min.js"
+        referrerpolicy="origin"></script>
+
+<!-- Place the following <script> and <textarea> tags your HTML's <body> -->
+<script>
+    tinymce.init({
+        selector: 'textarea',
+        plugins: [
+            // Core editing features
+            'anchor', 'autolink', 'charmap', 'codesample', 'emoticons', 'image', 'link', 'lists', 'media', 'searchreplace', 'table', 'visualblocks', 'wordcount',
+            // Your account includes a free trial of TinyMCE premium features
+            // Try the most popular premium features until Nov 25, 2024:
+            'checklist', 'mediaembed', 'casechange', 'export', 'formatpainter', 'pageembed', 'a11ychecker', 'tinymcespellchecker', 'permanentpen', 'powerpaste', 'advtable', 'advcode', 'editimage', 'advtemplate', 'ai', 'mentions', 'tinycomments', 'tableofcontents', 'footnotes', 'mergetags', 'autocorrect', 'typography', 'inlinecss', 'markdown',
+            // Early access to document converters
+            'importword', 'exportword', 'exportpdf'
+        ],
+        toolbar: 'undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | link image media table mergetags | addcomment showcomments | spellcheckdialog a11ycheck typography | align lineheight | checklist numlist bullist indent outdent | emoticons charmap | removeformat',
+        tinycomments_mode: 'embedded',
+        tinycomments_author: 'Author name',
+        mergetags_list: [
+            {value: 'First.Name', title: 'First Name'},
+            {value: 'Email', title: 'Email'},
+        ],
+        ai_request: (request, respondWith) => respondWith.string(() => Promise.reject('See docs to implement AI Assistant')),
+        exportpdf_converter_options: {
+            'format': 'Letter',
+            'margin_top': '1in',
+            'margin_right': '1in',
+            'margin_bottom': '1in',
+            'margin_left': '1in'
+        },
+        exportword_converter_options: {'document': {'size': 'Letter'}},
+        importword_converter_options: {'formatting': {'styles': 'inline', 'resets': 'inline', 'defaults': 'inline',}},
+    });
+</script>
+
+
+</body>
+</html>

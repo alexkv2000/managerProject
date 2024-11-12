@@ -3,82 +3,39 @@
 <head>
     <meta charset="UTF-8">
     <title>JobPlace</title>
+    <link rel="stylesheet" href="/jquery.dataTables.min.css">
     <link rel="stylesheet" href="/bootstrap.min.css">
+    <link rel="stylesheet" href="/menu/menu.css">
 
 </head>
 <body class="min-vh-100">
-<div class="offcanvas offcanvas-start w-5" tabindex="-1" id="offcanvas" data-bs-keyboard="false"
-     data-bs-backdrop="false">
-    <div class="offcanvas-header">
-        <h6 class="offcanvas-title d-none d-sm-block" id="offcanvas">Меню</h6>
-        <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-    </div>
-    <div class="offcanvas-body px-0">
-        <ul class="nav nav-pills flex-column mb-sm-auto mb-0 align-items-start" id="menu">
-            <li class="nav-item">
-                <a href="/" class="nav-link text-truncate">
-                    <i class="fs-5 bi-house"></i><span class="ms-1 d-none d-sm-inline">Основная</span>
-                </a>
-            </li>
-            <li class="nav-item">
-                <a href="/projectlist" class="nav-link text-truncate">
-                    <i class="fs-5 bi-house"></i><span class="ms-1 d-none d-sm-inline">Проекты</span>
-                </a>
-            </li>
-            <li class="nav-item">
-                <a href="/schemadoc" class="nav-link text-truncate">
-                    <i class="fs-5 bi-house"></i><span class="ms-1 d-none d-sm-inline">Шаблоны документов</span>
-                </a>
-            </li>
-            <li class="nav-item">
-                <a href="/planpayproject" class="nav-link text-truncate">
-                    <i class="fs-5 bi-house"></i><span class="ms-1 d-none d-sm-inline">План оплат проектов</span>
-                </a>
-            </li>
-            <!--            <li>-->
-            <!--                <a href="#submenu1" data-bs-toggle="collapse" class="nav-link text-truncate">-->
-            <!--                    <i class="fs-5 bi-speedometer2"></i><span class="ms-1 d-none d-sm-inline">Dashboard</span> </a>-->
-            <!--            </li>-->
-            <!--            <li>-->
-            <!--                <a href="#" class="nav-link text-truncate">-->
-            <!--                    <i class="fs-5 bi-table"></i><span class="ms-1 d-none d-sm-inline">Orders</span></a>-->
-            <!--            </li>-->
-            <li class="dropdown">
-                <a href="#" class="nav-link dropdown-toggle  text-truncate" id="dropdown" data-bs-toggle="dropdown"
-                   aria-expanded="false">
-                    <i class="fs-5 bi-bootstrap"></i><span class="ms-1 d-none d-sm-inline">Справочник</span>
-                </a>
-                <ul class="dropdown-menu text-small shadow" aria-labelledby="dropdown">
-                    <li><a class="dropdown-item" href="/division">Подразделения</a></li>
-                    <li><a class="dropdown-item" href="/jobplace">Юридические лица</a></li>
-                    <li><a class="dropdown-item" href="/employee">Сотрудник</a></li>
-                    <li><a class="dropdown-item" href="/jobplace">Рабочие места</a></li>
-                    <!--                    <li><a class="dropdown-item" href="/stepproject">Этапы проекта</a></li>-->
-                    <!--                    <li>-->
-                    <!--                        <hr class="dropdown-divider">-->
-                    <!--                    </li>-->
-                    <!--                    <li><a class="dropdown-item" href="#">Sign out</a></li>-->
-                </ul>
-            </li>
-<!--            <li>-->
-<!--                <a href="#" class="nav-link text-truncate">-->
-<!--                    <i class="fs-5 bi-grid"></i><span class="ms-1 d-none d-sm-inline">Products</span></a>-->
-<!--            </li>-->
-<!--            <li>-->
-<!--                <a href="#" class="nav-link text-truncate">-->
-<!--                    <i class="fs-5 bi-people"></i><span class="ms-1 d-none d-sm-inline">Customers</span> </a>-->
-<!--            </li>-->
-        </ul>
-    </div>
-</div>
+<nav>
+    <ul class="topmenu">
+        <li><a href="/">Главная -</a></li>
+        <li><a href="" class="down">Справочник -</a>
+            <ul class="submenu">
+                <li><a href="/entity">Юр. лица</a></li>
+                <li><a href="/division">Отдел / подразделения</a></li>
+                <li><a href="/employee">Сотрудники</a></li>
+                <li><a href="/jobplace">Рабочие места</a></li>
+                <li><a href="/stepproject">Этапы проекта</a></li>
+            </ul>
+        </li>
+        <li><a href="" class="down">Проекты -</a>
+            <ul class="submenu">
+                <li><a href="/projectlist">Проекты</a></li>
+                <li><a href="/planpayproject">План оплат проектов</a></li>
+                <li><a href="/factpayment">Факт оплаты проектов</a></li>
+                <li><a href="/binstorage">Хранилице файлов</a></li>
+            </ul>
+        </li>
+        <li><a href="/schemadoc" class="down">Шаблоны -</a></li>
+        <li><a href="/blog">Блог</a></li>
+    </ul>
+</nav>
 <div class="container-fluid">
     <div class="row">
         <div class="col min-vh-100 py-3">
-            <!-- toggler -->
-            <button class="btn float-end" data-bs-toggle="offcanvas" data-bs-target="#offcanvas" role="button" color="blue">
-                <i class="bi bi-arrow-right-square-fill fs-3" data-bs-toggle="offcanvas"
-                   data-bs-target="#offcanvas"></i>
-            </button>
             <!--моя вставка-->
             <div class="container my-2" align="center">
                 <h3>Список этапов проекта</h3>

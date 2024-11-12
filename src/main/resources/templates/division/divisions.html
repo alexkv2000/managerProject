@@ -1,11 +1,39 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
+    <meta charset="UTF-8">
     <title>All Divisions</title>
+    <link rel="stylesheet" href="/jquery.dataTables.min.css">
+    <link rel="stylesheet" href="/bootstrap.min.css">
+    <link rel="stylesheet" href="/menu/menu.css">
 </head>
 <body>
 <h1>Divisions</h1>
 <table>
+    <nav>
+        <ul class="topmenu">
+            <li><a href="/">Главная -</a></li>
+            <li><a href="" class="down">Справочник -</a>
+                <ul class="submenu">
+                    <li><a href="/jobplace">Юр. лица</a></li>
+                    <li><a href="/division">Отдел / подразделения</a></li>
+                    <li><a href="/employee">Сотрудники</a></li>
+                    <li><a href="/jobplace">Рабочие места</a></li>
+                    <li><a href="/stepproject">Этапы проекта</a></li>
+                </ul>
+            </li>
+            <li><a href="" class="down">Проекты -</a>
+                <ul class="submenu">
+                    <li><a href="/projectlist">Проекты</a></li>
+                    <li><a href="/planpayproject">План оплат проектов</a></li>
+                    <li><a href="/factpayment">Факт оплаты проектов</a></li>
+                    <li><a href="/binstorage">Хранилице файлов</a></li>
+                </ul>
+            </li>
+            <li><a href="/schemadoc" class="down">Шаблоны -</a></li>
+            <li><a href="/blog">Блог</a></li>
+        </ul>
+    </nav>
     <thead>
     <tr>
         <th>Номер п/п</th>

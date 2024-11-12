@@ -40,6 +40,7 @@ public class docPlanPayProjectController implements CommandLineRunner {
         System.out.println("Content: " + rows.getContent()); // Вывод содержимого
         model.addAttribute("divisions", libDivisionRepo.findAll());
         model.addAttribute("planpayprojects", docPlanPayProjectRepo.findAll(pageable));
+//        model.addAttribute("planpayprojects", docPlanPayProjectRepo.findAll());
         model.addAttribute("totalPages", rows.getTotalPages());
         model.addAttribute("currentPage", page);
         return "/planpayproject/mainplanpayproject";

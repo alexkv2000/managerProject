@@ -3,7 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <title>SchemaDoc List</title>
+    <link rel="stylesheet" href="/jquery.dataTables.min.css">
     <link rel="stylesheet" href="/bootstrap.min.css">
+    <link rel="stylesheet" href="/menu/menu.css">
 </head>
 <body class="min-vh-100">
 <div class="offcanvas offcanvas-start w-5" tabindex="-1" id="offcanvas" data-bs-keyboard="false"
@@ -76,11 +78,35 @@
 <!--        <button type="submit">Загрузить файл</button>-->
 <!--    </form>-->
 <!--</div>-->
+<nav>
+    <ul class="topmenu">
+        <li><a href="/">Главная -</a></li>
+        <li><a href="" class="down">Справочник -</a>
+            <ul class="submenu">
+                <li><a href="/entity">Юр. лица</a></li>
+                <li><a href="/division">Отдел / подразделения</a></li>
+                <li><a href="/employee">Сотрудники</a></li>
+                <li><a href="/jobplace">Рабочие места</a></li>
+                <li><a href="/stepproject">Этапы проекта</a></li>
+            </ul>
+        </li>
+        <li><a href="" class="down">Проекты -</a>
+            <ul class="submenu">
+                <li><a href="/projectlist">Проекты</a></li>
+                <li><a href="/planpayproject">План оплат проектов</a></li>
+                <li><a href="/factpayment">Факт оплаты проектов</a></li>
+                <li><a href="/binstorage">Хранилице файлов</a></li>
+            </ul>
+        </li>
+        <li><a href="/schemadoc" class="down">Шаблоны -</a></li>
+        <li><a href="/blog">Блог</a></li>
+    </ul>
+</nav>
 <div class="container-fluid">
     <div class="row">
         <div class="col min-vh-100 py-3">
             <!-- toggler -->
-            <button class="btn float-end" data-bs-toggle="offcanvas" data-bs-target="#offcanvas" role="button">
+            <button class="btn float-end" data-bs-toggle="offcanvas" data-bs-target="#offcanvas" role="button" style="background-color:#C5D2DAFF; border-color:#F7F8FCFF; color:#aed9ec">
                 <i class="bi bi-arrow-right-square-fill fs-3" data-bs-toggle="offcanvas"
                    data-bs-target="#offcanvas"></i>
             </button>
