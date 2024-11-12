@@ -1,9 +1,74 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
+    <meta charset="UTF-8">
     <title>All StepProject</title>
+    <link rel="stylesheet" href="/jquery.dataTables.min.css">
+    <link rel="stylesheet" href="/bootstrap.min.css">
+    <link rel="stylesheet" href="/menu/menu.css">
 </head>
 <body>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col min-vh-100 py-3">
+            <!--моя вставка-->
+            <div class="container my-2" align="center">
+                <h3>Список этапов проекта</h3>
+                <a th:href="@{/addstepproject}" class="btn btn-primary btn-sm mb-3">Добавить этап проекта</a>
+                <table style="width:80%" border="1"
+                       class="table table-striped table-responsive-md">
+                    <thead>
+                    <tr>
+                        <th>Название этапа</th>
+                        <th>Комментарий</th>
+                        <!--                        <th>Активность(Да/Нет)</th>-->
+                        <th>Редакция</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="stepproject:${stepprojects}">
+                        <td th:text="${stepproject.nameStepProject}"></td>
+                        <td th:text="${stepproject.comment}"></td>
+                        <!--                        <td th:text="${jobplace.active}"></td>-->
+                        <td><a th:href="@{/showstepproject/{id}(id=${stepproject.id})}"
+                               class="btn btn-primary">Изменить</a>
+                            <a th:href="@{/deletestepproject/{id}(id=${stepproject.id})}"
+                               class="btn btn-danger">Удалить</a>
+                        </td>
+                    </tr>
+                    </tbody>
+
+                </table>
+                <div class="container my-2" align="center" style="width:80%" border="0">
+                    <span th:text="'Страница ' + ${currentPage} + ' из ' + ${totalPages}"></span>
+                    <!-- Добавьте ссылки на навигацию между страницами -->
+                    <nav align="center" aria-label="Page navigation">
+                        <ul align="center" class="pagination">
+                            <li class="page-item" th:classappend="${currentPage == 0 ? 'disabled' : ''}">
+                                <a class="page-link" th:href="@{stepproject#(page=0)}">Первая</a>
+                            </li>
+                            <li class="page-item" th:classappend="${currentPage == 0 ? 'disabled' : ''}">
+                                <a class="page-link" th:href="@{stepproject#(page=${currentPage - 1})}">Предыдущая</a>
+                            </li>
+                            <li class="page-item" th:each="i : ${#numbers.sequence(0, totalPages - 1)}"
+                                th:classappend="${currentPage == i ? 'active' : ''}">
+                                <a class="page-link" th:href="@{stepproject#(page=${i})}" th:text="${i + 1}"></a>
+                            </li>
+                            <li class="page-item" th:classappend="${currentPage == totalPages - 1 ? 'disabled' : ''}">
+                                <a class="page-link" th:href="@{stepproject#(page=${currentPage + 1})}">Следующая</a>
+                            </li>
+                            <li class="page-item" th:classappend="${currentPage == totalPages - 1 ? 'disabled' : ''}">
+                                <a class="page-link" th:href="@{stepproject#(page=${totalPages - 1})}">Последняя</a>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
+                <!-- Bootstrap JS -->
+                <script src="/bootstrap.bundle.min.js"></script>
+            </div>
+        </div>
+    </div>
+</div>
 <h1>StepProject</h1>
 <table>
     <thead>
