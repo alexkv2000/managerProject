@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.Data;
 import org.springframework.format.annotation.DateTimeFormat;
 
+import java.util.Collection;
 import java.util.Date;
 @Data
 @Entity
@@ -18,9 +19,9 @@ public class docPlanPayProject {
     @Temporal(TemporalType.DATE)
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date planYear;
-    @Basic
-    @Column(name = "project_id", nullable = true, insertable=false, updatable=false)
-    private Long projectId;
+//    @Basic
+//    @Column(name = "project_id", nullable = true, insertable=false, updatable=false)
+//    private Long projectId;
 //    @Basic
     @Column(name = "data_planing", nullable = true)
     @Temporal(TemporalType.DATE)
@@ -57,15 +58,26 @@ public class docPlanPayProject {
     @Column(name = "payment_on_time", nullable = true)
     private Boolean paymentOnTime;
     @ManyToOne
-    @JoinColumn(name = "project_id", referencedColumnName = "id")
+    @JoinColumn(name = "division_id", referencedColumnName = "id")
     private libDivision libDivisionByProjectId;
+    @ManyToOne
+    @JoinColumn(name = "plan_project", referencedColumnName = "id")
+    private docProjectsList docProjectsListByPlanProject;
+    @OneToMany(mappedBy = "planPayProjectById")
+    private Collection<docFaсtPayment> docFaсtPaymentsById;
 
+    public Collection<docFaсtPayment> getDocFaсtPaymentsById() {
+        return docFaсtPaymentsById;
+    }
+    public void setDocFaсtPaymentsById(Collection<docFaсtPayment> docFaсtPaymentsById) {
+        this.docFaсtPaymentsById = docFaсtPaymentsById;
+    }
     @Override
     public String toString() {
         return "docPlanPayProject{" +
                 "id=" + id +
                 ", planYear=" + planYear +
-                ", projectId=" + projectId +
+//                ", projectId=" + projectId +
                 ", dataPlaning=" + dataPlaning +
                 ", opex=" + opex +
                 ", opexNds=" + opexNds +
@@ -96,13 +108,13 @@ public class docPlanPayProject {
         this.planYear = planYear;
     }
 
-    public Long getProjectId() {
-        return projectId;
-    }
-
-    public void setProjectId(Long projectId) {
-        this.projectId = projectId;
-    }
+//    public Long getProjectId() {
+//        return projectId;
+//    }
+//
+//    public void setProjectId(Long projectId) {
+//        this.projectId = projectId;
+//    }
 
     public Date getDataPlaning() {
         return dataPlaning;
@@ -201,7 +213,7 @@ public class docPlanPayProject {
 
         if (id != that.id) return false;
         if (planYear != null ? !planYear.equals(that.planYear) : that.planYear != null) return false;
-        if (projectId != null ? !projectId.equals(that.projectId) : that.projectId != null) return false;
+//        if (projectId != null ? !projectId.equals(that.projectId) : that.projectId != null) return false;
         if (dataPlaning != null ? !dataPlaning.equals(that.dataPlaning) : that.dataPlaning != null) return false;
         if (opex != null ? !opex.equals(that.opex) : that.opex != null) return false;
         if (opexNds != null ? !opexNds.equals(that.opexNds) : that.opexNds != null) return false;
@@ -222,7 +234,7 @@ public class docPlanPayProject {
     public int hashCode() {
         int result = (int) (id ^ (id >>> 32));
         result = 31 * result + (planYear != null ? planYear.hashCode() : 0);
-        result = 31 * result + (projectId != null ? projectId.hashCode() : 0);
+//        result = 31 * result + (projectId != null ? projectId.hashCode() : 0);
         result = 31 * result + (dataPlaning != null ? dataPlaning.hashCode() : 0);
         result = 31 * result + (opex != null ? opex.hashCode() : 0);
         result = 31 * result + (opexNds != null ? opexNds.hashCode() : 0);

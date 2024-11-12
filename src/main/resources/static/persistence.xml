@@ -13,6 +13,9 @@
         <class>kvo.menproject.project.entity.libDivision</class>
         <class>kvo.menproject.project.entity.docPlanPayProject</class>
         <class>kvo.menproject.project.entity.binStorage</class>
+        <class>kvo.menproject.project.entity.docFaсtPayment</class>
+        <class>kvo.menproject.project.Categorie</class>
+        planpayproject
         <properties>
             <property name="jakarta.persistence.jdbc.driver" value="org.postgresql.Driver"/>
             <property name="jakarta.persistence.jdbc.url" value="jdbc:postgresql://localhost:5432/dev;shutdown=true"/>

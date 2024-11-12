@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Bin Storage List</title>
+    <title>Fact pay project List</title>
     <link rel="stylesheet" href="/jquery.dataTables.min.css">
     <link rel="stylesheet" href="/bootstrap.min.css">
     <link rel="stylesheet" href="/menu/menu.css">
@@ -35,40 +35,52 @@
 <div class="container-fluid">
     <div class="row">
         <div class="col min-vh-100 py-3">
+
             <!--моя вставка-->
-            <!--            <div class="container my-2" align="center">-->
             <div align="center">
-                <h3>Список [хранилище файлов]</h3>
-                <a th:href="@{/addbinstorage}" class="btn btn-primary btn-sm mb-3">Добавить файл</a>
+                <h3>Список факта оплат проектов</h3>
+                <a th:href="@{/addfactpayment}" class="btn btn-primary btn-sm mb-3">Добавить оплату проекта</a>
                 <table style="width:80%" border="1" class="table table-striped table-responsive-xxl">
                     <thead>
                     <tr>
-                        <th>Наименование проекта</th>
+                        <th>Дата платежа</th>
+                        <th>Проект</th>
                         <th>Этап проекта</th>
-<!--                        <th>Название файла</th>-->
-                        <th>Размер файла</th>
-                        <th>Дата создания</th>
-                        <th>Комментарий</th>
+
+                        <th>Сумма OPEX</th>
+                        <th>НДС OPEX</th>
+                        <th>Сумма CAPEX</th>
+                        <th>НДС CAPEX</th>
+
                         <th>Файл</th>
                         <th>Добавить файл</th>
+
+                        <th>Комментарий</th>
+                        <th>Оплачен</th>
+                        <th>Статус</th>
+<!--                        <th>Завершен в срок</th>-->
+
                         <th>Редакция</th>
                     </tr>
                     </thead>
                     <tbody>
-                    <tr th:each="binstorage:${binstorages}">
-                        <td th:hidden="${binstorage.id}"></td>
-                        <td th:text="${binstorage.projectsListByNameProject.name}"></td>
-                        <td th:text="${binstorage.libStepProjectByStepProject.nameStepProject}"></td>
-<!--                        &lt;!&ndash;                        <td th:text="${#dates.format(schemdoc.getDateCreate(), 'dd-MM-yyyy')}"></td>&ndash;&gt;-->
-<!--                        <td th:text="${binstorage.nameFile}"></td>-->
-                        <td th:text="${binstorage.dateCreate}"></td>
-                        <td th:text="${#dates.format(binstorage.getDateCreate(), 'dd-MM-yyyy')}"></td>
-                        <td th:text="${binstorage.comments}"></td>
+                    <tr th:each="factpayment : ${factpayments}">
+                        <td th:hidden="${factpayment.id}"></td>
+                        <td th:text="${#dates.format(factpayment.dataPayDoc, 'dd-MM-yyyy')}"></td>
+
+                        <td th:text="${factpayment.projectsListByProjectId.name}"></td>
+                        <td th:text="${factpayment.planPayProjectById.stepProject}"></td>
+
+                        <td th:text="${factpayment.sumOpex}"></td>
+                        <td th:text="${factpayment.sumOpexNds}"></td>
+                        <td th:text="${factpayment.sumCapex}"></td>
+                        <td th:text="${factpayment.sumCapexNds}"></td>
+
                         <td>
                             <!--                            <li th:text="${file.getName()}" th:each="file:${fileData}"></li>-->
                             <ul>
                                 <li th:each="file : ${fileData}"
-                                    th:if="${file.getId_Data() == binstorage.getId()}">
+                                    th:if="${file.getId_Data() == factpayment.id}">
                                     <a th:href="@{/download/{id}(id=${file.getId()})}"
                                        th:text="${file.getName()}" target="_blank"
                                        download="true">
@@ -78,9 +90,9 @@
                         </td>
 
                         <td>
-                            <form action="/uploadbinstorage" method="post" enctype="multipart/form-data" id="uploadForm">
+                            <form action="/uploadfactpayment" method="post" enctype="multipart/form-data" id="uploadForm" style="width:240px">
                                 <div>
-                                    <input type="hidden" name="binstorageId" th:value="${binstorage.id}"/>
+                                    <input type="hidden" name="factpaymentId" th:value="${factpayment.Id}"/>
                                     <style>
                                         .form-control {
                                             bs-border-color: #0d6efd;
@@ -103,16 +115,23 @@
                             } else if (file) {
                                 document.getElementById('uploadForm').submit();
 
-                            }
-                            ;
+                            };
                         </script>
-                        <!--                        const allowedExtensions = /(\.jpg|\.jpeg|\.png|\.gif|\.txt|\.doc|\.docx|\.xls|\.xlsx|\.pdf|\.cer|\.vsdx|\.sql)$/i; // Задайте разрешенные типы файлов-->
-                        <td><a th:href="@{/showbinstorage/{id}(id=${binstorage.id})}"
+                        <td th:text="${factpayment.commetns}"></td>
+                        <td th:text="${factpayment.statusFact} ? ${factpayment.statusFact} : '-'"></td>
+                        <td th:text="${factpayment.paid} ? 'Оплачен' : '-'"></td>
+<!--                        <td th:text="${factpayment.completed && factpayment.paymentOnTime} ? 'Оплачен вне графика'-->
+<!--                        : (${factpayment.completed && !factpayment.paymentOnTime} ? 'Оплачен по графику'-->
+<!--                        : '-')"></td>-->
+
+                        <td><a th:href="@{/showfactpayment/{id}(id=${factpayment.id})}"
                                class="btn btn-outline-primary btn-sm">Изменить</a>
-                            <a th:href="@{/deletebinstorage/{id}(id=${binstorage.id})}"
-                               class="btn btn-outline-danger btn-sm">Удалить</a></td>
+                            <a th:href="@{/deletefactpayment/{id}(id=${factpayment.id})}"
+                               class="btn btn-outline-danger btn-sm">Удалить</a>
+                        </td>
                     </tr>
                     </tbody>
+
                 </table>
                 <div class="container my-2" align="center" style="width:80%">
                     <span th:text="'Страница ' + ${currentPage} + ' из ' + ${totalPages}"></span>
@@ -120,20 +139,21 @@
                     <nav align="center" aria-label="Page navigation">
                         <ul align="center" class="pagination">
                             <li class="page-item" th:classappend="${currentPage == 0 ? 'disabled' : ''}">
-                                <a class="page-link" th:href="@{binstorage#(page=0)}">Первая</a>
+                                <a class="page-link" th:href="@{factpayment#(page=0)}">Первая</a>
                             </li>
                             <li class="page-item" th:classappend="${currentPage == 0 ? 'disabled' : ''}">
-                                <a class="page-link" th:href="@{binstorage#(page=${currentPage - 1})}">Предыдущая</a>
+                                <a class="page-link"
+                                   th:href="@{factpayment#(page=${currentPage - 1})}">Предыдущая</a>
                             </li>
                             <li class="page-item" th:each="i : ${#numbers.sequence(0, totalPages - 1)}"
                                 th:classappend="${currentPage == i ? 'active' : ''}">
-                                <a class="page-link" th:href="@{binstorage#(page=${i})}" th:text="${i + 1}"></a>
+                                <a class="page-link" th:href="@{factpayment#(page=${i})}" th:text="${i + 1}"></a>
                             </li>
                             <li class="page-item" th:classappend="${currentPage == totalPages - 1 ? 'disabled' : ''}">
-                                <a class="page-link" th:href="@{binstorage#(page=${currentPage + 1})}">Следующая</a>
+                                <a class="page-link" th:href="@{factpayment#(page=${currentPage + 1})}">Следующая</a>
                             </li>
                             <li class="page-item" th:classappend="${currentPage == totalPages - 1 ? 'disabled' : ''}">
-                                <a class="page-link" th:href="@{binstorage#(page=${totalPages - 1})}">Последняя</a>
+                                <a class="page-link" th:href="@{factpayment#(page=${totalPages - 1})}">Последняя</a>
                             </li>
                         </ul>
                     </nav>
@@ -144,6 +164,7 @@
         </div>
     </div>
 </div>
+
 
 </body>
 </html>

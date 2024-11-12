@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.Data;
 
 import java.util.Arrays;
+import java.util.Collection;
 
 @Data
 @Entity
@@ -26,7 +27,15 @@ public class FileData {
     @Basic
     @Column(name = "id_data", insertable = true, updatable = true)
     private Long idData;
+    @OneToMany(mappedBy = "binFilesByBinfilesId")
+    private Collection<docFaсtPayment> docFaсtPaymentsById;
 
+    public Collection<docFaсtPayment> getDocFaсtPaymentsById() {
+        return docFaсtPaymentsById;
+    }
+    public void setDocFaсtPaymentsById(Collection<docFaсtPayment> docFaсtPaymentsById) {
+        this.docFaсtPaymentsById = docFaсtPaymentsById;
+    }
     public String getSizeFile() {
         return sizeFile;
     }

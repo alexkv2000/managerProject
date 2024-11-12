@@ -85,11 +85,20 @@ public class docProjectsList {
     private libEmployee libJobEmployeeByOwner;
     @OneToMany(mappedBy = "projectsListByNameProject")
     private Collection<binStorage> binProjectsById;
+    @OneToMany(mappedBy = "docProjectsListByPlanProject")
+    private Collection<docPlanPayProject> docPlanPayProject;
+    @OneToMany(mappedBy = "projectsListByProjectId")
+    private Collection<docFaсtPayment> docFaсtPaymentsById;
 
+    public Collection<docFaсtPayment> getDocFaсtPaymentsById() {
+        return docFaсtPaymentsById;
+    }
+    public void setDocFaсtPaymentsById(Collection<docFaсtPayment> docFaсtPaymentsById) {
+        this.docFaсtPaymentsById = docFaсtPaymentsById;
+    }
     public Collection<binStorage> getBinProjectsById() {
         return binProjectsById;
     }
-
     public void setBinProjectsById(Collection<binStorage> binProjectsById) {
         this.binProjectsById = binProjectsById;
     }

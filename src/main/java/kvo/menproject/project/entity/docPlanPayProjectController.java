@@ -16,16 +16,18 @@ public class docPlanPayProjectController implements CommandLineRunner {
     //    private final JdbcTemplate jdbcTemplate;
     private final docPlanPayProjectRepository docPlanPayProjectRepo;
     private libDivisionRepository libDivisionRepo;
+    private docProjectsListRepository docProjectsListRepo;
 
-    public docPlanPayProjectController(docPlanPayProjectRepository docPlanPayProjectRepo, libDivisionRepository libDivisionRepo) {
+    public docPlanPayProjectController(docPlanPayProjectRepository docPlanPayProjectRepo, libDivisionRepository libDivisionRepo, docProjectsListRepository docProjectsListRepo) {
         this.docPlanPayProjectRepo = docPlanPayProjectRepo;
         this.libDivisionRepo = libDivisionRepo;
+        this.docProjectsListRepo = docProjectsListRepo;
     }
 
     @GetMapping("/planpayproject")
     public String viewHomePage(Model model,
                                @RequestParam(defaultValue = "0") int page,
-                               @RequestParam(defaultValue = "15") int size) {
+                               @RequestParam(defaultValue = "10") int size) {
 
         Pageable pageable = PageRequest.of(page, size);
         Page<docPlanPayProject> rows = docPlanPayProjectRepo.findAll(pageable);
@@ -38,6 +40,7 @@ public class docPlanPayProjectController implements CommandLineRunner {
         System.out.println("Content: " + rows.getContent()); // Вывод содержимого
         model.addAttribute("divisions", libDivisionRepo.findAll());
         model.addAttribute("planpayprojects", docPlanPayProjectRepo.findAll(pageable));
+//        model.addAttribute("planpayprojects", docPlanPayProjectRepo.findAll());
         model.addAttribute("totalPages", rows.getTotalPages());
         model.addAttribute("currentPage", page);
         return "/planpayproject/mainplanpayproject";
@@ -48,7 +51,7 @@ public class docPlanPayProjectController implements CommandLineRunner {
     public String addNewProject(Model model) {
 //        List<libDivision> division = libDivisionRepo.findAllByActiveIsTrue();
 //        List<libEmployee> employee = libEmployeeRepo.findAllByActiveIsTrue();
-
+        model.addAttribute("projectslists", docProjectsListRepo.findAllByClosedIsFalse());
         model.addAttribute("PlanPayProject", new docPlanPayProject());
         model.addAttribute("divisions", libDivisionRepo.findAllByActiveIsTrue());
 
@@ -77,6 +80,7 @@ public class docPlanPayProjectController implements CommandLineRunner {
     @GetMapping(path = "/showplanpayproject/{id}")
     public String updateForm(@PathVariable(value = "id") long id, Model model) {
         docPlanPayProject planpayproject = docPlanPayProjectRepo.getById(id);
+        model.addAttribute("projectslists", docProjectsListRepo.findAll());
         model.addAttribute("planpayproject", planpayproject);
         model.addAttribute("divisions", libDivisionRepo.findAllByActiveIsTrue());
         return "/planpayproject/showplanpayproject";
@@ -98,7 +102,7 @@ public class docPlanPayProjectController implements CommandLineRunner {
         }
 
 
-        System.out.println("Division ID: " + list.getProjectId()); // Проверка ID Division
+        System.out.println("Division ID: " + list.getId()); // Проверка ID Division
 
         docPlanPayProjectRepo.saveAndFlush(list);
         return "redirect:/planpayproject";
