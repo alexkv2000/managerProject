@@ -13,6 +13,7 @@ public interface BlogRepository extends JpaRepository<Blog, Long> {
     Page<Blog> findAllByShowIsFalse(Pageable pageable);
     List<Blog> findAllByShowIsTrueOrderByDcreateDesc();
     Page<Blog> findAll(Pageable pageable);
+    List<Blog> findByOrderByIdDesc();
 
     //    Page<docFaсtPayment> findAllByPaidIsFalseOrderByProjectsListByProjectIdAscPlanPayProjectByStepProjectIdAsc(Pageable pageable);
 //    Page<docFaсtPayment> findAllByPaidIsTrueOrderByProjectsListByProjectIdAscPlanPayProjectByStepProjectIdAsc(Pageable pageable);

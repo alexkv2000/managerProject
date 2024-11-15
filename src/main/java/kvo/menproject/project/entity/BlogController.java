@@ -48,7 +48,7 @@ public class BlogController implements CommandLineRunner {
             model.addAttribute("blog", map);
             return "blog/newblog";
         }
-        model.addAttribute("blogs", blogRepo.findAll());
+        model.addAttribute("blogs", blogRepo.findByOrderByIdDesc());
 //        model.addAttribute("title", "Заголовок");
 //        model.addAttribute("content", "Это пример параграфа текста для вашего блога.");
         return "blog/blogall";
@@ -83,9 +83,9 @@ public class BlogController implements CommandLineRunner {
         if (blog.getTitle() == null) {
             blog.setTitle("Заголовок блога");
         }
-        if (blog.getShow() == null) {
-            blog.setShow(true);
-        }
+//        if (blog.getShow() == null) {
+            blog.setShow(false);
+//        }
 
 
         blogRepo.saveAndFlush(blog);

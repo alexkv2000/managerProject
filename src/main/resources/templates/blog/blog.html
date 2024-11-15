@@ -63,8 +63,8 @@
         <tr th:each="blog : ${blogs}">
             <td th:hidden="${blog.id}"></td>
             <td th:text="${#dates.format(blog.getDcreate(), 'dd-MM-yyyy')}"></td>
-            <td th:text="${blog.getTitle()}"></td>
-            <!--            <td><h3 th:text="${blog.getTitle()}"></h3></td>-->
+<!--            <td th:text="${blog.getTitle()}"></td>-->
+                        <td><h4 th:text="${blog.getTitle()}"></h4></td>
             <td th:utext="${blog.getContent()}"></td>
             <!--            <td th:text="${blog.getShow()} ? 'для публикации': 'закрыто'"></td>-->
 
