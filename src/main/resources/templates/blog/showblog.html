@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Blog</title>
+    <!--    <link rel="stylesheet" href="/bootstrap.min.css">-->
+    <link rel="stylesheet" href="/menu/menu.css">
+
+</head>
+<body>
+<nav>
+    <ul class="topmenu">
+        <li><a href="/">Главная -</a></li>
+        <li><a href="" class="down">Справочник -</a>
+            <ul class="submenu">
+                <li><a href="/entity">Юр. лица</a></li>
+                <li><a href="/division">Отдел / подразделения</a></li>
+                <li><a href="/employee">Сотрудники</a></li>
+                <li><a href="/jobplace">Рабочие места</a></li>
+                <li><a href="/stepproject">Этапы проекта</a></li>
+            </ul>
+        </li>
+        <li><a href="" class="down">Проекты -</a>
+            <ul class="submenu">
+                <li><a href="/projectlist">Проекты</a></li>
+                <li><a href="/planpayproject">План оплат проектов</a></li>
+                <li><a href="/factpayment">Факт оплаты проектов</a></li>
+                <li><a href="/binstorage">Хранилице файлов</a></li>
+            </ul>
+        </li>
+        <li><a href="/schemadoc" class="down">Шаблоны -</a></li>
+        <li><a href="/blog">Блог</a></li>
+    </ul>
+</nav>
+<div class="container">
+    <div class="row mb-4 justify-content-center align-items-center form-control">
+        <form th:action="@{/updateBlogPost}" th:object="${blog}" method="POST">
+            <div align="center">
+                <table id="showbot" class="display">
+                    <input type="hidden" th:field="*{id}"/>
+                    <div class="d-flex align-items-center mb-2">
+                        <label for="datablog" class="me-2" style="flex: 1; max-width: 230px;">Дата блога :</label>
+                        <input type="date" id="datablog" th:field="*{dcreate}" placeholder="Дата создания блога"
+                               class="form-control"
+                               style="flex: 1; max-width: 120px;"/>
+                    </div>
+                    <div class="d-flex align-items-center mb-2">
+                        <label for="title" class="me-2" style="flex: 1; max-width: 230px;">Заголовок :</label>
+                        <input type="text" id="title" th:field="*{title}" placeholder="Заголовок" class="form-control"
+                               style="flex: 1; max-width: 400px;"/>
+                    </div>
+                    <div class="d-flex align-items-center mb-2">
+                        <label for="contentEditor" class="me-2" style="flex: 1; max-width: 230px;">Публикация :</label>
+                        <!--                <input type="text" id="contentEditor" th:field="*{content}" placeholder="Публикация" class="form-control"-->
+                        <!--                       style="flex: 1; max-width: 400px;"/>-->
+                        <textarea id="contentEditor" name="content" th:utext="*{content}"></textarea>
+                    </div>
+                    <div class="form-check form-switch d-flex align-items-center">
+                        <label for="show" style="flex: 1; max-width: 230px;">Оплачен: </label>
+                        <input class="form-check-input me-1" role="switch" type="checkbox" id="show" th:name="show"
+                               th:field="*{show}" placeholder="Оплачен"/>
+
+                        <!--                <label for="paymentOnTime" style="flex: 1; max-width: 230px;">Оплачен по плану: </label>-->
+                        <!--                <input class="form-check-input" role="switch" type="checkbox" id="paymentOnTime"-->
+                        <!--                       th:name="paymentOnTime" th:field="*{paymentOnTime}" placeholder="Оплачен в срок"/>-->
+                    </div>
+                </table>
+            </div>
+            <button type="submit">Сохранить</button>
+        </form>
+    </div>
+</div>
+<!--<h1 th:text="${blog.title}">Заголовок страницы</h1>-->
+<!--<form action="/saveBlogPost" method="post" th:object="${blog}">-->
+<!--    <textarea id="contentEditor1" name="content" th:utext="${blog.content}"></textarea>-->
+<!--    <button type="submit">Сохранить</button>-->
+<!--</form>-->
+
+
+<!--<script type="text/javascript">-->
+<!--    $(document).ready(function () {-->
+<!--        $('#productTable tfoot th').each(function () {-->
+<!--            var title = $('#productTable thead th').eq($(this).index()).text();-->
+<!--            $(this).html('<input type="text" placeholder="Search ' + title + '" />');-->
+<!--        });-->
+
+<!--        $('#productTable').DataTable({-->
+<!--            order: [-->
+<!--                [0, 'asc'],-->
+<!--                [1, 'asc'],-->
+<!--                [2, 'asc']-->
+
+<!--            ],-->
+<!--            columnDefs: [{-->
+<!--                visible: false,-->
+<!--                targets: [1]-->
+<!--            } // Hide grouped columns-->
+<!--            ],-->
+<!--            rowGroup: {-->
+<!--                visible: false,-->
+<!--                dataSrc: [1]-->
+<!--            },-->
+<!--            paging: true,-->
+<!--            ordering: true,-->
+<!--            searching: true,-->
+<!--            searchDelay: 500-->
+<!--        });-->
+<!--        $('#dropdown1').on('change', function () {-->
+<!--            tableTab.columns(2).search(this.value).draw();-->
+<!--        });-->
+<!--        $('#dropdown2').on('change', function () {-->
+<!--            tableTab.columns(3).search(this.value).draw();-->
+<!--        });-->
+<!--        $("#productTable tfoot input").on('keyup change', function () {-->
+<!--            tableTab-->
+<!--                .column($(this).parent().index() + ':visible')-->
+<!--                .search(this.value)-->
+<!--                .draw();-->
+<!--        });-->
+<!--    });-->
+<!--</script>-->
+
+<!-- Place the first <script> tag in your HTML's <head> -->
+<script src="https://cdn.tiny.cloud/1/o0oxvbihfwv9vyvkzej8d772o57saextbl5mdgz1o2x6eibb/tinymce/7/tinymce.min.js"
+        referrerpolicy="origin"></script>
+<!-- Place the following <script> and <textarea> tags your HTML's <body> -->
+<script>
+    tinymce.init({
+        menubar: false,
+        statusbar: false,
+        selector: 'textarea',
+        plugins: [
+            // Core editing features
+            'anchor', 'autolink', 'charmap', 'codesample', 'emoticons', 'image', 'link', 'lists', 'media', 'searchreplace', 'table', 'visualblocks', 'wordcount',
+            // Your account includes a free trial of TinyMCE premium features
+            // Try the most popular premium features until Nov 25, 2024:
+            'checklist', 'mediaembed', 'casechange', 'export', 'formatpainter', 'pageembed', 'a11ychecker', 'tinymcespellchecker', 'permanentpen', 'powerpaste', 'advtable', 'advcode', 'editimage', 'advtemplate', 'ai', 'mentions', 'tinycomments', 'tableofcontents', 'footnotes', 'mergetags', 'autocorrect', 'typography', 'inlinecss', 'markdown',
+            // Early access to document converters
+            'importword', 'exportword', 'exportpdf'
+        ],
+        toolbar: 'undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | link image media table mergetags | addcomment showcomments | spellcheckdialog a11ycheck typography | align lineheight | checklist numlist bullist indent outdent | emoticons charmap | removeformat',
+        tinycomments_mode: 'embedded',
+        tinycomments_author: 'Author name',
+        mergetags_list: [
+            {value: 'First.Name', title: 'First Name'},
+            {value: 'Email', title: 'Email'},
+        ],
+        ai_request: (request, respondWith) => respondWith.string(() => Promise.reject('See docs to implement AI Assistant')),
+        exportpdf_converter_options: {
+            'format': 'Letter',
+            'margin_top': '1in',
+            'margin_right': '1in',
+            'margin_bottom': '1in',
+            'margin_left': '1in'
+        },
+        exportword_converter_options: {'document': {'size': 'Letter'}},
+        importword_converter_options: {'formatting': {'styles': 'inline', 'resets': 'inline', 'defaults': 'inline',}},
+    });
+</script>
+
+</body>
+</html>

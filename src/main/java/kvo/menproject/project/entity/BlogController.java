@@ -5,6 +5,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 @Controller
@@ -16,28 +18,87 @@ public class BlogController implements CommandLineRunner {
     }
 
     @GetMapping("/blog")
-    public String getBlogPage(Model model) {
-        model.addAttribute("blogs", blogRepo.findAllByOrderByDcreateDesc());
+    public String getBlogPage(Model model) throws ParseException {
+        if (blogRepo.findAllByShowIsTrueOrderByDcreateDesc().isEmpty()) {
+            SimpleDateFormat format = new SimpleDateFormat("dd-MM-yyyy");
+            Date date = new Date();
+            Date dateFormate = format.parse(String.valueOf(date));
+
+            Blog map = new Blog();
+            map.setTitle("Заголовок от " + dateFormate);
+            map.setDcreate(date);
+            model.addAttribute("blog", map);
+            return "blog/newblog";
+        }
+        model.addAttribute("blogs", blogRepo.findAllByShowIsTrueOrderByDcreateDesc());
 //        model.addAttribute("title", "Заголовок");
 //        model.addAttribute("content", "Это пример параграфа текста для вашего блога.");
         return "blog/blog";
     }
+    @GetMapping("/blogall")
+    public String getBlogPageAll(Model model) throws ParseException {
+        if (blogRepo.findAll().isEmpty()) {
+            SimpleDateFormat format = new SimpleDateFormat("dd-MM-yyyy");
+            Date date = new Date();
+            Date dateFormate = format.parse(String.valueOf(date));
 
+            Blog map = new Blog();
+            map.setTitle("Заголовок от " + dateFormate);
+            map.setDcreate(date);
+            model.addAttribute("blog", map);
+            return "blog/newblog";
+        }
+        model.addAttribute("blogs", blogRepo.findAll());
+//        model.addAttribute("title", "Заголовок");
+//        model.addAttribute("content", "Это пример параграфа текста для вашего блога.");
+        return "blog/blogall";
+    }
+    @GetMapping("/newblog")
+    public String getNewBlogPage(Model model) throws ParseException {
+        Blog blog = new Blog();
+
+        SimpleDateFormat format = new SimpleDateFormat("dd-MM-yyyy");
+        Date date = new Date();
+        String dateFormate = format.format(date);
+
+
+        blog.setTitle("Заголовок от " + dateFormate);
+        blog.setDcreate(date);
+        model.addAttribute("blog", blog);
+
+        return "blog/newblog";
+    }
+    @GetMapping(path = "/showblog/{id}")
+    public String updateForm(@PathVariable(value = "id") long id, Model model) {
+        Blog blog = blogRepo.getById(id);
+        model.addAttribute("blog", blog);
+        return "/blog/showblog";
+    }
     @PostMapping("/saveBlogPost")
     public String saveBlogPost(@ModelAttribute("blog") Blog blog) {
         // Сохраните заголовок и контент в базе данных
+        if (blog.getDcreate() == null) {
+            blog.setDcreate(new Date());
+        }
+        if (blog.getTitle() == null) {
+            blog.setTitle("Заголовок блога");
+        }
+        if (blog.getShow() == null) {
+            blog.setShow(true);
+        }
 
-            if (blog.getDcreate() == null) {
-                blog.setDcreate(new Date());
-            }
-            if (blog.getTitle() == null) {
-                blog.setTitle("Заголовок блога");
-            }
-            if(blog.getShow() == null){
-                blog.setShow(true);
-            }
 
-
+        blogRepo.saveAndFlush(blog);
+        return "redirect:/blog";
+    }
+    @PostMapping("/updateBlogPost")
+    public String updateBlogPost(@ModelAttribute("showblog") Blog blog) {
+        if (blog.getDcreate() == null) {
+            blog.setDcreate(new Date());
+        }
+//        if (blog.getStatusFact().startsWith("ОПЛАЧЕН")) {
+//            blog.setPaid(true);
+//        }
         blogRepo.saveAndFlush(blog);
         return "redirect:/blog";
     }
@@ -46,6 +107,7 @@ public class BlogController implements CommandLineRunner {
         blogRepo.deleteById(id);
         return "redirect:/blog";
     }
+
     @Override
     public void run(String... args) throws Exception {
 

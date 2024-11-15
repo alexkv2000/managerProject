@@ -42,6 +42,7 @@ public class docProjectsListController implements CommandLineRunner {
         System.out.println("Total elements: " + rows.getTotalElements()); // Вывод количества элементов
         System.out.println("Content: " + rows.getContent()); // Вывод содержимого
         model.addAttribute("projectlists", docProjectsListRepo.findAllByClosedIsFalse(pageable));
+        model.addAttribute("projectlists", docProjectsListRepo.findAllByClosedIsFalse(pageable));
         model.addAttribute("totalPages", rows.getTotalPages());
         model.addAttribute("currentPage", page);
         return "/projectlist/mainprojectlist";

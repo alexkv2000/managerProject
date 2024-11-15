@@ -8,8 +8,6 @@
     <link rel="stylesheet" href="/menu/menu.css">
 </head>
 <body>
-
-
 <nav>
     <ul class="topmenu">
         <li><a href="/">Главная -</a></li>
@@ -34,9 +32,7 @@
         <li><a href="/blog">Блог</a></li>
     </ul>
 </nav>
-
 <div align="center">
-
     <h3>Список плана оплат проектов</h3>
     <a th:href="@{/addplanpayproject}" class="btn btn-primary btn-sm mb-3">Добавить план оплат проектов</a>
 
@@ -45,6 +41,7 @@
         <thead>
         <div id="navbar">
             <tr>
+                <th hidden="hidden"></th>
                 <th width="6%">План на ГОД</th>
                 <th>Отдел / подразделение</th>
                 <th width="17%">Проект</th>
@@ -61,7 +58,7 @@
                 <!--                                <th>Завершен в срок</th>-->
 
                 <th>Редакция</th>
-                <th></th>
+<!--                <th hidden="hidden"></th>-->
             </tr>
         </div>
         </thead>
@@ -115,9 +112,9 @@
 
         $('#productTable').DataTable({
             order: [
-                [0, 'asc'],
+                // [0, 'asc'],
                 [1, 'asc'],
-                [2, 'asc'],
+                // [2, 'asc'],
                 [3, 'asc'],
                 [5, 'asc'],
                 [6, 'asc'],
@@ -144,10 +141,13 @@
             searchDelay: 500
         });
         $('#dropdown1').on('change', function () {
-            tableTab.columns(2).search(this.value).draw();
+            tableTab.columns(1).search(this.value).draw();
         });
-        $('#dropdown2').on('change', function () {
-            tableTab.columns(3).search(this.value).draw();
+        $('#dropdown8').on('change', function () {
+            tableTab.columns(8).search(this.value).draw();
+        });
+        $('#dropdown9').on('change', function () {
+            tableTab.columns(9).search(this.value).draw();
         });
         $("#productTable tfoot input").on('keyup change', function () {
             tableTab

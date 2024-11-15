@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Blog</title>
+<!--    <link rel="stylesheet" href="/jquery.dataTables.min.css">-->
+        <link rel="stylesheet" href="/bootstrap.min.css">
+    <link rel="stylesheet" href="/menu/menu.css">
+
+</head>
+<body>
+<nav>
+    <ul class="topmenu">
+        <li><a href="/">Главная -</a></li>
+        <li><a href="" class="down">Справочник -</a>
+            <ul class="submenu">
+                <li><a href="/entity">Юр. лица</a></li>
+                <li><a href="/division">Отдел / подразделения</a></li>
+                <li><a href="/employee">Сотрудники</a></li>
+                <li><a href="/jobplace">Рабочие места</a></li>
+                <li><a href="/stepproject">Этапы проекта</a></li>
+            </ul>
+        </li>
+        <li><a href="" class="down">Проекты -</a>
+            <ul class="submenu">
+                <li><a href="/projectlist">Проекты</a></li>
+                <li><a href="/planpayproject">План оплат проектов</a></li>
+                <li><a href="/factpayment">Факт оплаты проектов</a></li>
+                <li><a href="/binstorage">Хранилице файлов</a></li>
+            </ul>
+        </li>
+        <li><a href="/schemadoc" class="down">Шаблоны -</a></li>
+        <li><a href="/blog">Блог</a></li>
+    </ul>
+</nav>
+<div class="container">
+    <h1 style="display: flex; justify-content: center; align-items: center;">Новая публикация</h1>
+    <hr>
+    <h2 style="width: max-content" textAlign = "center">Сохранить публикацию</h2>
+    <div class="row mb-4 justify-content-center align-items-center form-control">
+        <form th:action="@{/saveBlogPost}" method="POST" th:object="${blog}"
+              enctype="multipart/form-data">
+            <input type="hidden" th:field="*{id}"/>
+            <div class="d-flex align-items-center mb-2">
+                <label for="planYear" class="me-2" style="flex: 1; max-width: 230px;">Дата блога :</label>
+                <input type="date" id="planYear" th:field="*{dcreate}" placeholder="Дата блога"
+                       class="form-control" style="flex: 1; max-width: 120px;"/>
+                <span id="dateError"
+                      style="color: red; display: none;">Пожалуйста, введите дату в формате dd-MM-yyyy</span>
+            </div>
+
+            <div class="d-flex align-items-center mb-2">
+                <label for="title" class="me-2" style="flex: 1; max-width: 230px;">Заголовок :</label>
+                <input type="text" id="title" th:field="*{title}" placeholder="Заголовок"
+                       class="form-control" style="flex: 1; max-width: 800px;"/>
+            </div>
+
+            <div class="form-check form-switch d-flex align-items-center mb-2">
+                <label for="show" class="me-2" style="flex: 1; max-width: 230px;">Для публикации: </label>
+                <input class="form-check-input me-1" role="switch" type="checkbox" id="show" th:name="show"
+                       th:field="*{show}" placeholder="публиковать?"/>
+
+            </div>
+
+            <div class="d-flex align-items-center mb-2">
+                <label class="me-2" style="flex: 1; max-width: 230px;">описание :</label>
+<!--                <input utype="text" id="content" th:field="*{content}" placeholder="описание"-->
+<!--                       class="form-control" style="flex: 1; max-width: 120px;"/>-->
+                <textarea id="contentEditor" name="content" th:utext="${blog.content}"></textarea>
+            </div>
+
+            <div class="row mt-3 mb-5 justify-content-center align-items-center" style="flex: 0; max-width: 600px;">
+                <div class="d-flex justify-content-center">
+                    <button type="submit" class="btn btn-info" style="white-space: nowrap; min-width: 150px;">Сохранить публикацию
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+    <hr>
+    <a th:href="@{/schemadoc}"> Возврат к списоку проектов </a>
+    <a th:href="@{/}"> Возврат основная страница </a>
+</div>
+
+
+<!--<script src="/jquery-3.6.0.min.js"></script>-->
+<!--<script src="/jquery.dataTables.min.js"></script>-->
+<!--<script src="/dataTables.rowGroup.min.js"></script>-->
+<!--<script type="text/javascript">-->
+<!--    $(document).ready(function () {-->
+<!--        // $('#example thead tfoot th').each(function() {-->
+<!--        //     var title = $('#example thead th').eq($(this).index() ).text();-->
+<!--        //     $(this).html('<input type="text" placeholder="Search '+title+'" />' );-->
+<!--        // });-->
+<!--        // // Инициализация DataTable-->
+<!--        // var table = $('#productTable').DataTable();-->
+<!--        // // Применение фильтра-->
+<!--        // $("#example thead tfoot input").on('keyup change', function() {-->
+<!--        //     table.column($(this).parent().index()+':visible').search(this.value).draw();-->
+<!--        // });-->
+<!--        $('#productTable tfoot th').each(function () {-->
+<!--            var title = $('#productTable thead th').eq($(this).index()).text();-->
+<!--            $(this).html('<input type="text" placeholder="Search ' + title + '" />');-->
+<!--        });-->
+
+<!--        $('#productTable').DataTable({-->
+<!--            order: [-->
+<!--                [0, 'asc'],-->
+<!--                [1, 'asc'],-->
+<!--                [2, 'asc']-->
+
+<!--            ],-->
+<!--            columnDefs: [{-->
+<!--                visible: false,-->
+<!--                targets: [1]-->
+<!--            } // Hide grouped columns-->
+<!--            ],-->
+<!--            rowGroup: {-->
+<!--                visible: false,-->
+<!--                dataSrc: [1]-->
+<!--            },-->
+<!--            paging: true,-->
+<!--            ordering: true,-->
+<!--            searching: true,-->
+<!--            searchDelay: 500-->
+<!--        });-->
+<!--        $('#dropdown1').on('change', function () {-->
+<!--            tableTab.columns(2).search(this.value).draw();-->
+<!--        });-->
+<!--        $('#dropdown2').on('change', function () {-->
+<!--            tableTab.columns(3).search(this.value).draw();-->
+<!--        });-->
+<!--        $("#productTable tfoot input").on('keyup change', function () {-->
+<!--            tableTab-->
+<!--                .column($(this).parent().index() + ':visible')-->
+<!--                .search(this.value)-->
+<!--                .draw();-->
+<!--        });-->
+<!--    });-->
+<!--</script>-->
+
+
+<!-- Place the first <script> tag in your HTML's <head> -->
+<script src="https://cdn.tiny.cloud/1/o0oxvbihfwv9vyvkzej8d772o57saextbl5mdgz1o2x6eibb/tinymce/7/tinymce.min.js"
+        referrerpolicy="origin"></script>
+<!-- Place the following <script> and <textarea> tags your HTML's <body> -->
+<script>
+    tinymce.init({
+        menubar:false,
+        statusbar: false,
+        selector: 'textarea',
+        plugins: [
+            // Core editing features
+            'anchor', 'autolink', 'charmap', 'codesample', 'emoticons', 'image', 'link', 'lists', 'media', 'searchreplace', 'table', 'visualblocks', 'wordcount',
+            // Your account includes a free trial of TinyMCE premium features
+            // Try the most popular premium features until Nov 25, 2024:
+            'checklist', 'mediaembed', 'casechange', 'export', 'formatpainter', 'pageembed', 'a11ychecker', 'tinymcespellchecker', 'permanentpen', 'powerpaste', 'advtable', 'advcode', 'editimage', 'advtemplate', 'ai', 'mentions', 'tinycomments', 'tableofcontents', 'footnotes', 'mergetags', 'autocorrect', 'typography', 'inlinecss', 'markdown',
+            // Early access to document converters
+            'importword', 'exportword', 'exportpdf'
+        ],
+        toolbar: 'undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | link image media table mergetags | addcomment showcomments | spellcheckdialog a11ycheck typography | align lineheight | checklist numlist bullist indent outdent | emoticons charmap | removeformat',
+        tinycomments_mode: 'embedded',
+        tinycomments_author: 'Author name',
+        mergetags_list: [
+            {value: 'First.Name', title: 'First Name'},
+            {value: 'Email', title: 'Email'},
+        ],
+        ai_request: (request, respondWith) => respondWith.string(() => Promise.reject('See docs to implement AI Assistant')),
+        exportpdf_converter_options: {
+            'format': 'Letter',
+            'margin_top': '1in',
+            'margin_right': '1in',
+            'margin_bottom': '1in',
+            'margin_left': '1in'
+        },
+        exportword_converter_options: {'document': {'size': 'Letter'}},
+        importword_converter_options: {'formatting': {'styles': 'inline', 'resets': 'inline', 'defaults': 'inline',}}
+    });
+</script>
+
+
+</body>
+</html>

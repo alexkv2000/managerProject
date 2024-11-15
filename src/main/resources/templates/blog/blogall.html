@@ -39,10 +39,10 @@
     </ul>
 </nav>
 
-<h1>Заголовок страницы</h1>
+<h1 th:text>Заголовок страницы</h1>
 <!--<p th:utext="${blogs.get(0).content}">Это пример параграфа текста, который вы можете использовать для написания блога.</p>-->
 <div class="container mb-4 justify-content-center align-items-center form-control" style="width: 800px;">
-    <table id="productTable" class="display">
+    <table id="productTable" class="display compact">
         <thead>
         <div id="navbar">
             <tr>
@@ -51,9 +51,9 @@
                 <th>Дата блога</th>
                 <th>Заголовок</th>
                 <th>Контент</th>
-                <!--                <th>Для публикации</th>-->
-                <!--                <th>Редакция</th>-->
+                <th>Для публикации</th>
 
+                <th>Редакция</th>
 
             </tr>
         </div>
@@ -63,15 +63,16 @@
             <td th:hidden="${blog.id}"></td>
             <td th:text="${#dates.format(blog.getDcreate(), 'dd-MM-yyyy')}"></td>
             <td th:text="${blog.getTitle()}"></td>
-<!--            <td><h3 th:text="${blog.getTitle()}"></h3></td>-->
+            <!--            <td><h3 th:text="${blog.getTitle()}"></h3></td>-->
             <td th:utext="${blog.getContent()}"></td>
-            <!--            <td th:text="${blog.getShow()} ? 'для публикации': 'закрыто'"></td>-->
+            <td th:text="${blog.getShow()} ? 'для публикации': 'закрыто'"></td>
 
-            <!--            <td><a th:href="@{/showblog/{id}(id=${blog.id})}"-->
-            <!--                   class="btn btn-outline-primary btn-sm">Изменить</a>-->
-            <!--                <a th:href="@{/deleteblog/{id}(id=${blog.id})}"-->
-            <!--                   class="btn btn-outline-danger btn-sm">Удалить</a>-->
-            <!--            </td>-->
+
+            <td><a th:href="@{/showblog/{id}(id=${blog.id})}"
+                   class="btn btn-outline-primary btn-sm">Изменить</a>
+                <a th:href="@{/deleteblog/{id}(id=${blog.id})}"
+                   class="btn btn-outline-danger btn-sm">Удалить</a>
+            </td>
         </tr>
         </tbody>
     </table>
@@ -91,17 +92,17 @@
         $('#productTable').DataTable({
             aoColumns: [
                 {"sWidth": "5%"},
-                {"sWidth": "10%"},
-                {"sWidth": "20%"},
-                {"sWidth": "55%"}
-                // { "sWidth": "5%"},
-                // {"sWidth": "5%"}
+                {"sWidth": "15%"},
+                {"sWidth": "25%"},
+                {"sWidth": "45%"},
+                {"sWidth": "5%"},
+                {"sWidth": "5%"}
             ],
             order: [
-                [0, 'asc'],
                 [1, 'asc'],
                 [2, 'asc'],
-                [3, 'asc']
+                [3, 'asc'],
+                [4, 'asc']
             ],
             // columnDefs: [{
             //     visible: false,

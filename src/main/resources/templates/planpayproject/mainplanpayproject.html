@@ -2,18 +2,18 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Plan pay project List</title>
+    <title>Сортировка и группировка таблицы</title>
     <link rel="stylesheet" href="/jquery.dataTables.min.css">
     <link rel="stylesheet" href="/bootstrap.min.css">
     <link rel="stylesheet" href="/menu/menu.css">
 </head>
-<body class="min-vh-100">
+<body>
 <nav>
     <ul class="topmenu">
         <li><a href="/">Главная -</a></li>
         <li><a href="" class="down">Справочник -</a>
             <ul class="submenu">
-                <li><a href="/entity">Юр. лица</a></li>
+                <li><a href="/jobplace">Юр. лица</a></li>
                 <li><a href="/division">Отдел / подразделения</a></li>
                 <li><a href="/employee">Сотрудники</a></li>
                 <li><a href="/jobplace">Рабочие места</a></li>
@@ -32,95 +32,132 @@
         <li><a href="/blog">Блог</a></li>
     </ul>
 </nav>
-<div class="container-fluid">
-    <div class="row">
-        <div class="col min-vh-100 py-3">
-            <!--моя вставка-->
-            <div align="center">
-                <h3>Список плана оплат проектов</h3>
-                <a th:href="@{/addplanpayproject}" class="btn btn-primary btn-sm mb-3">Добавить план оплат проектов</a>
-                <table style="width:80%" border="1" class="table table-striped table-responsive-xxl">
-                    <thead>
-                    <tr>
-                        <th>План на ГОД</th>
-                        <th>Отдел / подразделение</th>
-                        <th>Проект</th>
-                        <th>Дата оплаты</th>
-                        <th>Сумма OPEX</th>
-                        <th>НДС OPEX</th>
-                        <th>Сумма CAPEX</th>
-                        <th>НДС CAPEX</th>
-                        <th>Комментарий</th>
-                        <th>Этапы оплат проекта</th>
-                        <th>Длительность (неделя / месяц)</th>
-                        <th>Интервал</th>
-                        <th>Завершен</th>
-<!--                        <th>Завершен в срок</th>-->
+<div class="mt-5 mb-4" style="text-align:center;">
+    <h3>Список плана оплат проектов</h3>
+    <a th:href="@{/addplanpayproject}" class="btn btn-primary btn-sm mb-3">Добавить план оплат проектов</a>
+</div>
+<div class="mb-4 justify-content-center align-items-center form-control">
+    <table id="productTable" class="display">
 
-                        <th>Редакция</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr th:each="planpayproject : ${planpayprojects}">
-                        <td th:hidden="${planpayproject.id}"></td>
-                        <td th:text="${#dates.format(planpayproject.getPlanYear(), 'dd-MM-yyyy')}"></td>
-                        <td th:text="${planpayproject.libDivisionByProjectId.namedivision}">
-                        <td th:text="${planpayproject.docProjectsListByPlanProject.name}">
-                        <td th:text="${#dates.format(planpayproject.getDataPlaning(),'dd-MM-yyyy')}" ></td>
-                        <td th:text="${planpayproject.opex}"></td>
-                        <td th:text="${planpayproject.opexNds}"></td>
-                        <td th:text="${planpayproject.capex}"></td>
-                        <td th:text="${planpayproject.capexNds}"></td>
-                        <td th:text="${planpayproject.comment}"></td>
-                        <td th:text="${planpayproject.stepProject}"></td>
-                        <td th:text="${planpayproject.duration}"></td>
-                        <td th:text="${planpayproject.interval}"></td>
-<!--                        <td th:text="${planpayproject.completed} ? 'Оплачен' : '-'"></td>-->
-                        <td th:text="${planpayproject.completed && planpayproject.paymentOnTime} ? 'Оплачен вне графика'
-                        : (${planpayproject.completed && !planpayproject.paymentOnTime} ? 'Оплачен по графику'
-                        : '-')"></td>
+        <thead>
+        <div id="navbar">
+            <tr>
+                <th hidden="hidden"></th>
+                <th width="6%">План на ГОД</th>
+                <th>Отдел / подразделение</th>
+                <th width="17%">Проект</th>
+                <th width="6%">Дата оплаты</th>
+                <th>Сумма OPEX</th>
+                <th>НДС OPEX</th>
+                <th>Сумма CAPEX</th>
+                <th>НДС CAPEX</th>
+                <th>Комментарий</th>
+                <th>Этапы оплат проекта</th>
+                <th>Длительность (неделя / месяц)</th>
+                <th>Интервал</th>
+                <th>Завершен</th>
+                <!--                                <th>Завершен в срок</th>-->
 
-                        <td><a th:href="@{/showplanpayproject/{id}(id=${planpayproject.id})}"
-                               class="btn btn-outline-primary btn-sm">Изменить</a>
-                            <a th:href="@{/deleteplanpayproject/{id}(id=${planpayproject.id})}"
-                               class="btn btn-outline-danger btn-sm">Удалить</a>
-                        </td>
-                    </tr>
-                    </tbody>
-
-                </table>
-                <div class="container my-2" align="center" style="width:80%">
-                    <span th:text="'Страница ' + ${currentPage} + ' из ' + ${totalPages}"></span>
-                    <!-- Добавьте ссылки на навигацию между страницами -->
-                    <nav align="center" aria-label="Page navigation">
-                        <ul align="center" class="pagination">
-                            <li class="page-item" th:classappend="${currentPage == 0 ? 'disabled' : ''}">
-                                <a class="page-link" th:href="@{planpayproject#(page=0)}">Первая</a>
-                            </li>
-                            <li class="page-item" th:classappend="${currentPage == 0 ? 'disabled' : ''}">
-                                <a class="page-link"
-                                   th:href="@{planpayproject#(page=${currentPage - 1})}">Предыдущая</a>
-                            </li>
-                            <li class="page-item" th:each="i : ${#numbers.sequence(0, totalPages - 1)}"
-                                th:classappend="${currentPage == i ? 'active' : ''}">
-                                <a class="page-link" th:href="@{planpayproject#(page=${i})}" th:text="${i + 1}"></a>
-                            </li>
-                            <li class="page-item" th:classappend="${currentPage == totalPages - 1 ? 'disabled' : ''}">
-                                <a class="page-link" th:href="@{planpayproject#(page=${currentPage + 1})}">Следующая</a>
-                            </li>
-                            <li class="page-item" th:classappend="${currentPage == totalPages - 1 ? 'disabled' : ''}">
-                                <a class="page-link" th:href="@{planpayproject#(page=${totalPages - 1})}">Последняя</a>
-                            </li>
-                        </ul>
-                    </nav>
-                </div>
-                <!-- Bootstrap JS -->
-                <script src="/bootstrap.bundle.min.js"></script>
-            </div>
+                <th>Редакция</th>
+                <!--                <th hidden="hidden"></th>-->
+            </tr>
         </div>
-    </div>
+        </thead>
+        <tbody>
+        <tr th:each="planpayproject : ${planpayprojects}">
+            <td th:hidden="${planpayproject.id}"></td>
+            <td th:text="${#dates.format(planpayproject.getPlanYear(), 'dd-MM-yyyy')}"></td>
+            <td th:text="${planpayproject.libDivisionByProjectId.namedivision}"></td>
+            <td th:text="${planpayproject.docProjectsListByPlanProject.name}"></td>
+            <td th:text="${#dates.format(planpayproject.getDataPlaning(),'dd-MM-yyyy')}"></td>
+            <td th:text="${planpayproject.opex}"></td>
+            <td th:text="${planpayproject.opexNds}"></td>
+            <td th:text="${planpayproject.capex}"></td>
+            <td th:text="${planpayproject.capexNds}"></td>
+            <td th:text="${planpayproject.comment}"></td>
+            <td th:text="${planpayproject.stepProject}"></td>
+            <td th:text="${planpayproject.duration}"></td>
+            <td th:text="${planpayproject.interval}"></td>
+            <!--        <td th:text="${planpayproject.completed} ? 'Оплачен' : '-'"></td>-->
+            <td th:text="${planpayproject.completed && planpayproject.paymentOnTime}?'Оплачен вне графика': (${planpayproject.completed && !planpayproject.paymentOnTime} ? 'Оплачен по графику' : '-')"></td>
+
+            <td><a th:href="@{/showplanpayproject/{id}(id=${planpayproject.id})}"
+                   class="btn btn-outline-primary btn-sm">Изменить</a>
+                <a th:href="@{/deleteplanpayproject/{id}(id=${planpayproject.id})}"
+                   class="btn btn-outline-danger btn-sm">Удалить</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
 </div>
 
+<script src="/jquery-3.6.0.min.js"></script>
+<script src="/jquery.dataTables.min.js"></script>
+<script src="/dataTables.rowGroup.min.js"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        // $('#example thead tfoot th').each(function() {
+        //     var title = $('#example thead th').eq($(this).index() ).text();
+        //     $(this).html('<input type="text" placeholder="Search '+title+'" />' );
+        // });
+        // // Инициализация DataTable
+        // var table = $('#productTable').DataTable();
+        // // Применение фильтра
+        // $("#example thead tfoot input").on('keyup change', function() {
+        //     table.column($(this).parent().index()+':visible').search(this.value).draw();
+        // });
+        $('#productTable tfoot th').each(function () {
+            var title = $('#productTable thead th').eq($(this).index()).text();
+            $(this).html('<input type="text" placeholder="Search ' + title + '" />');
+        });
+
+        $('#productTable').DataTable({
+            order: [
+                // [0, 'asc'],
+                [1, 'asc'],
+                // [2, 'asc'],
+                [3, 'asc'],
+                [5, 'asc'],
+                [6, 'asc'],
+                [7, 'asc'],
+                [8, 'asc'],
+                [9, 'asc'],
+                [10, 'asc'],
+                [11, 'asc'],
+                [12, 'asc'],
+                [13, 'asc'],
+            ],
+            columnDefs: [{
+                visible: false,
+                targets: [2]
+            } // Hide grouped columns
+            ],
+            rowGroup: {
+                visible: false,
+                dataSrc: [2]
+            },
+            paging: true,
+            ordering: true,
+            searching: true,
+            searchDelay: 500
+        });
+        // $('#dropdown1').on('change', function () {
+        //     tableTab.columns(1).search(this.value).draw();
+        // });
+        // $('#dropdown8').on('change', function () {
+        //     tableTab.columns(8).search(this.value).draw();
+        // });
+        // $('#dropdown9').on('change', function () {
+        //     tableTab.columns(9).search(this.value).draw();
+        // });
+        $("#productTable tfoot input").on('keyup change', function () {
+            tableTab
+                .column($(this).parent().index() + ':visible')
+                .search(this.value)
+                .draw();
+        });
+    });
+</script>
 
 </body>
 </html>
