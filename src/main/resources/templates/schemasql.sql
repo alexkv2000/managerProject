@@ -77,7 +77,7 @@ insert into library.plan_pay_project
 (plan_year, division_id, data_planing, opex, opex_nds, capex, capex_nds, comment, step_project, duration, "interval", completed, payment_on_time, plan_project)
 values (
            '01.01.2024',	2, '07.05.2024',	542000.00,0,0,0,'Блок 1 - 1. Протокол проведения тестирования. 2. Реестр требований, выявленных по результатам тестирования 3. Протокол проведения обучения 4. Акт сдачи-приёмки оказанных услуг.',
-           'Этап 4. Тестовая эксплуатация и исправление замечаний Блок 1',	6,	'Неделя',false,false, 2);
+           'Этап 4. Тестовая эксплуатация и исправление замечаний Блок 1',	6,	'Неделя', true, false, 2);
 insert into library.plan_pay_project
 (plan_year, division_id, data_planing, opex, opex_nds, capex, capex_nds, comment, step_project, duration, "interval", completed, payment_on_time, plan_project)
 values (
@@ -117,7 +117,7 @@ insert into library.plan_pay_project
 (plan_year, division_id, data_planing, opex, opex_nds, capex, capex_nds, comment, step_project, duration, "interval", completed, payment_on_time, plan_project)
 values (
            '01.01.2024',	2, '01.02.2025',	30000.00,0,0,0,'Блок 2 - 1. Протокол ввода в промышленную эксплуатацию 2. Журнал проведения ОПЭ 3. Акта сдачи-приёмки оказанных усл',
-           'Этап 5. Опытно-промышленная эксплуатация',	2,	'Неделя',false,false, 2);
+           'Этап 5. Опытно-промышленная эксплуатация',	2,	'Неделя',true,false, 2);
 insert into library.plan_pay_project
 (plan_year, division_id, data_planing, opex, opex_nds, capex, capex_nds, comment, step_project, duration, "interval", completed, payment_on_time, plan_project)
 values (
@@ -256,3 +256,79 @@ values (
            '01.01.2024',	1, ' 21.10.2024',	1210000.00,0,0,0,'Тех поддержка 2025г Договор с РКИТ 2025 - РКИТ (1210т.р.) ДС №1 № Р-ТП-187-2022 / № ДУ02/0027/017/23 от 16.10.2023 : https://sdo.gaz.ru/docsvision/?CardID={86B0540E-DDA4-4047-BB15-6538432D8C72}&ShowPanels=2048&',
            'Создан договор Ид договора 1847387 ,№ договора ""."" от 16.10.2024 ,статус - проект .Контрагент ИНН - 3812087917   РКИТ(Иркутск) Ид контрагента 628253 Предприятие ООО ЦИТРБ',	12,	'Неделя', false,false, 2);
 
+insert into doc_blog (content, data_create, show, title)
+values (
+           '<p><strong>Начало проекта</strong></p>
+           <p><strong>ДЛЯ НУТРЕННЕГО ИСПОЛЬЗОВАНИЯ</strong></p>
+           <p><strong>Проект система учета проектов</strong></p>
+           <p><strong>(Разработка силами подразделения Документооборота)</strong></p>
+           <p><strong>старт проекта - 30.09.2024г.</strong></p>
+           <p><strong>Инициатор: Квочкин А.Ю.</strong></p>
+           <p><strong>Идеолог : Мергазымова О.В.</strong></p></p>
+           <p><strong><em>Проект включает в себя: </em></strong></p>
+           <ul>
+           <li>&hellip; ведения справочника ответственных за проект;</li>
+           <li>&hellip; ведения справочника подразделений проекта;</li>
+           <li>&hellip; ведения реестра проектов;</li>
+           <li>&hellip; ведения реестра плана оплат;</li>
+           <li>&hellip; ведения реестра факта оплат;</li>
+           <li>&hellip; ведения справочника этапов закрытия проекта;</li>
+           <li>&hellip; ведения реестра документов по этапам проекта;</li>
+           </ul>'
+           ,2024-09-30,true,'DV:Управление Проектом. Старт проекта.');
+insert into doc_blog (content, data_create, show, title)
+values (
+           '<p><strong>Подготовлены схемы таблиц.</strong></p>
+           <p><strong>Проверен механизм каскадного удаления подчиненных данных.</strong></p>'
+           ,2024-10-14,true,'DV:Управление Проектом. Подготовка, базы данных.');
+insert into doc_blog (content, data_create, show, title)
+values (
+        '<p><strong>Разработан первый шаблон формы на web страницы</strong></p>
+        <p><strong>Новая веха в жизни автоматизации процессо.</strong></p>'
+        ,2024-10-21,true,'DV:Управление Проектом. Шаблоны форм - старт.');
+insert into doc_blog (content, data_create, show, title)
+values (
+           '<p><strong>Разработаны все шаблоны карточек.</strong></p>'
+           ,2024-10-28,true,'DV:Управление Проектом. Шаблоны форм для всех таблиц.');
+insert into doc_blog (content, data_create, show, title)
+values (
+           '<h1>Разработано основное меню.</h1>
+           <h2>Основное меню делится на :</h2>
+           <ul class=""tox-checklist"">
+           <li>Справочники</li>
+           <li>Документы</li>
+           <li>Шаблоны документов</li>
+           <li>Блог</li>
+           </ul>
+           <p>Интересное решение было доработано для отображения таблиц.</p>
+           <ol>
+           <li>&mdash;&nbsp;Таблица имеет поисковую строку</li>
+           <li>&mdash;&nbsp;Удобная навигация, включена пагинация (постраничный выбор)</li>
+           <li>&mdash;&nbsp;Возможность сортировки по всем столбцам</li>
+           <li>&mdash;&nbsp;Возможсноть выбора отображения кол-во строк на странице</li>
+           </ol>'
+           ,2024-11-11,true,'DV:Управление Проектом. Основное МЕНЮ.');
+insert into doc_blog (content, data_create, show, title)
+values (
+         '<p><span style="font-size: 14pt;">Процесс работы с заявками на оплату:</span></p>
+           <ol>
+           <li style="font-size: 14pt;"><span style="font-size: 14pt;">Формирование потребности в 1С.ГИМС (может показать Трущева Ю.Ю.). <br>Потребность автоматически загружается в 1С.Документооборот. Возможно ли настроить выгрузку в DV?</span></li>
+           <li style="font-size: 14pt;"><span style="font-size: 14pt;">Загрузка документов в 1С.Документооборот: договоры, акты, счета, счета-фактуры.</span></li>
+<li style="font-size: 14pt;"><span style="font-size: 14pt;">Формирование заявки на оплату (ручное). <u>Связь с документами-основаниями</u>.</span></li>
+<li style="font-size: 14pt;"><span style="font-size: 14pt;">Согласование заявки на оплату.</span></li>
+<li style="font-size: 14pt;"><span style="font-size: 14pt;">Включение заявки в реестр платежей (ручное).</span></li>
+<li style="font-size: 14pt;"><span style="font-size: 14pt;">Отметка об исполнении задания.</span></li>
+</ol>
+<p>Кроме работы с ЮЛ, очень большое количество контрагентов &ndash; физ.лиц. <u>По физ.лицам минимум данных</u>, не запрашивается ИНН.</p>
+<p>Физ.лицам на основе заявки в личном документе выставляется счет. Непосредственно в личном кабинете, счет готовит центр обслуживания клиентов (в подчинении зам.генерального по реализации Исакова Е.В.).</p>
+<p>Если переходим на регистрацию договоров в КИСУ, необходимо обеспечить выгрузку ранее зарегистрированных договоров из 1С.Документооборот по шаблону от Мергазымовой О.В.</p>
+<p>Встретиться с Трущевой Ю.Ю. для демонстрации работы с потребностью, анализа выгрузки потребности в 1С.Документооборот.</p>
+<table style="border-collapse: collapse; width: 46.7454%;" border="0"><colgroup><col style="width: 63.1076%;"><col style="width: 36.9315%;"></colgroup>
+<tbody>
+<tr>
+<td>С&nbsp;уважением,<br>Мигунова&nbsp;Любовь,<br>г.&nbsp;Ярославль,&nbsp;пр-кт&nbsp;Октября, 75,</td>
+<td>Тел. (4852) 58-78-78(доб.73039)<br>e-mail:&nbsp;<a href="mailto:MigunovaLA@itsnn.ru">MigunovaLA@itsnn.ru</a></td>
+</tr>
+</tbody>
+</table>'
+           ,2024-08-28,true,'Процесс работы с заявками на оплату.');

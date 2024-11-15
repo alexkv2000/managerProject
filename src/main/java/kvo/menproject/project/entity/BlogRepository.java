@@ -11,7 +11,7 @@ import java.util.List;
 public interface BlogRepository extends JpaRepository<Blog, Long> {
     Page<Blog> findAllByShowIsTrue(Pageable pageable);
     Page<Blog> findAllByShowIsFalse(Pageable pageable);
-    List<Blog> findAllByOrderByDcreateDesc();
+    List<Blog> findAllByShowIsTrueOrderByDcreateDesc();
     Page<Blog> findAll(Pageable pageable);
 
     //    Page<docFaсtPayment> findAllByPaidIsFalseOrderByProjectsListByProjectIdAscPlanPayProjectByStepProjectIdAsc(Pageable pageable);
