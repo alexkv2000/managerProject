@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.Data;
 import org.springframework.format.annotation.DateTimeFormat;
 
+import java.math.BigDecimal;
 import java.util.Collection;
 import java.util.Date;
 @Data
@@ -28,17 +29,17 @@ public class docPlanPayProject {
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date dataPlaning;
     @Basic
-    @Column(name = "opex", nullable = true)
-    private Long opex;
+    @Column(name = "opex", nullable = true, columnDefinition = "DECIMAL(15, 2)")
+    private BigDecimal opex;
     @Basic
-    @Column(name = "opex_nds", nullable = true)
-    private Long opexNds;
+    @Column(name = "opex_nds", nullable = true, columnDefinition = "DECIMAL(15, 2)")
+    private BigDecimal opexNds;
     @Basic
-    @Column(name = "capex", nullable = true)
-    private Long capex;
+    @Column(name = "capex", nullable = true, columnDefinition = "DECIMAL(15, 2)")
+    private BigDecimal capex;
     @Basic
-    @Column(name = "capex_nds", nullable = true)
-    private Long capexNds;
+    @Column(name = "capex_nds", nullable = true, columnDefinition = "DECIMAL(15, 2)")
+    private BigDecimal capexNds;
     @Basic
     @Column(name = "comment", nullable = true, length = -1)
     private String comment;
@@ -124,35 +125,35 @@ public class docPlanPayProject {
         this.dataPlaning = dataPlaning;
     }
 
-    public Long getOpex() {
+    public BigDecimal getOpex() {
         return opex;
     }
 
-    public void setOpex(Long opex) {
+    public void setOpex(BigDecimal opex) {
         this.opex = opex;
     }
 
-    public Long getOpexNds() {
+    public BigDecimal getOpexNds() {
         return opexNds;
     }
 
-    public void setOpexNds(Long opexNds) {
+    public void setOpexNds(BigDecimal opexNds) {
         this.opexNds = opexNds;
     }
 
-    public Long getCapex() {
+    public BigDecimal getCapex() {
         return capex;
     }
 
-    public void setCapex(Long capex) {
+    public void setCapex(BigDecimal capex) {
         this.capex = capex;
     }
 
-    public Long getCapexNds() {
+    public BigDecimal getCapexNds() {
         return capexNds;
     }
 
-    public void setCapexNds(Long capexNds) {
+    public void setCapexNds(BigDecimal capexNds) {
         this.capexNds = capexNds;
     }
 

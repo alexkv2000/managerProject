@@ -8,7 +8,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.math.BigDecimal;
+import java.text.NumberFormat;
 import java.util.Date;
+import java.util.List;
+import java.util.Locale;
+import java.util.Optional;
 
 @Controller
 public class docPlanPayProjectController implements CommandLineRunner {
@@ -24,7 +29,7 @@ public class docPlanPayProjectController implements CommandLineRunner {
     }
 
     @GetMapping("/planpayproject")
-    public String viewHomePage(Model model){
+    public String viewHomePage(Model model) {
 //    public String viewHomePage(Model model,
 //                               @RequestParam(defaultValue = "0") int page,
 //                               @RequestParam(defaultValue = "10") int size) {
@@ -41,7 +46,7 @@ public class docPlanPayProjectController implements CommandLineRunner {
 //        model.addAttribute("planpayprojects", docPlanPayProjectRepo.findAll(pageable));
 //        model.addAttribute("planpayprojects", docPlanPayProjectRepo.findAll());
         model.addAttribute("planpayprojects", docPlanPayProjectRepo.findAll());
-//        model.addAttribute("totalPages", rows.getTotalPages());
+        //        model.addAttribute("totalPages", rows.getTotalPages());
 //        model.addAttribute("currentPage", page);
         return "/planpayproject/mainplanpayproject";
     }
@@ -92,6 +97,7 @@ public class docPlanPayProjectController implements CommandLineRunner {
         return "redirect:/planpayproject";
 
     }
+
     @PostMapping(path = "/updateplanpayproject")
     public String updateProject(@ModelAttribute("showplanpayproject") docPlanPayProject list) {
         if (list.getDataPlaning() == null) {
@@ -107,6 +113,7 @@ public class docPlanPayProjectController implements CommandLineRunner {
         docPlanPayProjectRepo.saveAndFlush(list);
         return "redirect:/planpayproject";
     }
+
     @Override
     public void run(String... args) throws Exception {
     }
