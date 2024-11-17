@@ -47,10 +47,10 @@
                 <th>Отдел / подразделение</th>
                 <th width="17%">Проект</th>
                 <th width="6%">Дата оплаты</th>
-                <th width="7%">Сумма OPEX</th>
-                <th width="6%">НДС OPEX</th>
-                <th width="7%">Сумма CAPEX</th>
-                <th width="6%">НДС CAPEX</th>
+                <th width="5%">Сумма OPEX</th>
+                <th width="4%">НДС OPEX</th>
+                <th width="5%">Сумма CAPEX</th>
+                <th width="4%">НДС CAPEX</th>
                 <th>Комментарий</th>
                 <th>Этапы оплат проекта</th>
                 <th>Длительность (неделя / месяц)</th>
@@ -70,15 +70,9 @@
             <td th:text="${planpayproject.libDivisionByProjectId.namedivision}"></td>
             <td th:text="${planpayproject.docProjectsListByPlanProject.name}"></td>
             <td th:text="${#dates.format(planpayproject.getDataPlaning(),'dd-MM-yyyy')}"></td>
-<!--            <td th:text="${planpayproject.opex}"></td>-->
-<!--            <td th:text="${planpayproject.opex}"></td>-->
-<!--            <td th:text="${#numbers.formatDecimal(planpayproject.opex, 2, 'point')}"></td>-->
             <td align="right"> <span th:text="${#numbers.formatDecimal(planpayproject.opex, 1, 'WHITESPACE', 2, 'POINT')} + ' ₽'">0.00</span></td>
-<!--            <td th:text="${planpayproject.opexNds}"></td>-->
             <td align="right"> <span th:text="${#numbers.formatDecimal(planpayproject.opexNds, 1, 'WHITESPACE', 2, 'POINT')} + ' ₽'">0.00</span></td>
-<!--            <td th:text="${planpayproject.capex}"></td>-->
             <td align="right"> <span th:text="${#numbers.formatDecimal(planpayproject.capex, 1, 'WHITESPACE', 2, 'POINT')} + ' ₽'">0.00</span></td>
-<!--            <td th:text="${planpayproject.capexNds}"></td>-->
             <td align="right"> <span th:text="${#numbers.formatDecimal(planpayproject.capexNds, 1, 'WHITESPACE', 2, 'POINT')} + ' ₽'">0.00</span></td>
             <td th:text="${planpayproject.comment}"></td>
             <td th:text="${planpayproject.stepProject}"></td>

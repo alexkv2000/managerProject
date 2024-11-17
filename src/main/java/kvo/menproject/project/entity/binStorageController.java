@@ -42,8 +42,8 @@ public class binStorageController implements CommandLineRunner {
         } else {
             System.out.println("No plan pay project retrieved");
         }
-        System.out.println("Total elements: " + rows.getTotalElements()); // Вывод количества элементов
-        System.out.println("Content: " + rows.getContent()); // Вывод содержимого
+//        System.out.println("Total elements: " + rows.getTotalElements()); // Вывод количества элементов
+//        System.out.println("Content: " + rows.getContent()); // Вывод содержимого
         model.addAttribute("fileData", fileDataRepo.findAllByTypeDoc("binStorage"));
         model.addAttribute("projectslists", docProjectsListRepo.findAllByClosedIsFalse());
         model.addAttribute("stepprojects", libStepProjectRepo.findAll());
