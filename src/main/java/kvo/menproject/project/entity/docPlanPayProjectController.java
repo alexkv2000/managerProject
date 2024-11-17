@@ -1,19 +1,12 @@
 package kvo.menproject.project.entity;
 
 import org.springframework.boot.CommandLineRunner;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.math.BigDecimal;
-import java.text.NumberFormat;
 import java.util.Date;
-import java.util.List;
-import java.util.Locale;
-import java.util.Optional;
 
 @Controller
 public class docPlanPayProjectController implements CommandLineRunner {
@@ -77,7 +70,9 @@ public class docPlanPayProjectController implements CommandLineRunner {
         }
 
 
-        System.out.println("Division ID: " + list.getLibDivisionByProjectId().getId()); // Проверка ID
+//        Если сумм NULL запоняем 0.00
+        changeNullToZero(list);
+
         docPlanPayProjectRepo.saveAndFlush(list);
         return "redirect:/planpayproject";
     }
@@ -108,10 +103,21 @@ public class docPlanPayProjectController implements CommandLineRunner {
         }
 
 
-        System.out.println("Division ID: " + list.getId()); // Проверка ID Division
+        changeNullToZero(list);
 
         docPlanPayProjectRepo.saveAndFlush(list);
         return "redirect:/planpayproject";
+    }
+
+    private static void changeNullToZero(docPlanPayProject list) {
+        if (list.getOpex() == null){
+            list.setOpex(BigDecimal.valueOf(0));}
+        if (list.getOpexNds() == null){
+            list.setOpexNds(BigDecimal.valueOf(0));}
+        if (list.getCapex() == null){
+            list.setCapex(BigDecimal.valueOf(0));}
+        if (list.getCapexNds() == null){
+            list.setCapexNds(BigDecimal.valueOf(0));}
     }
 
     @Override

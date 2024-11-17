@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Fact pay project List</title>
+    <title>Список фактических оплат</title>
     <link rel="stylesheet" href="/jquery.dataTables.min.css">
     <link rel="stylesheet" href="/bootstrap.min.css">
     <link rel="stylesheet" href="/menu/menu.css">
@@ -32,139 +32,195 @@
         <li><a href="/blog">Блог</a></li>
     </ul>
 </nav>
-<div class="container-fluid">
-    <div class="row">
-        <div class="col min-vh-100 py-3">
 
-            <!--моя вставка-->
-            <div align="center">
-                <h3>Список факта оплат проектов</h3>
-                <a th:href="@{/addfactpayment}" class="btn btn-primary btn-sm mb-3">Добавить оплату проекта</a>
-                <table style="width:80%" border="1" class="table table-striped table-responsive-xxl">
-                    <thead>
-                    <tr>
-                        <th>Дата платежа</th>
-                        <th>Проект</th>
-                        <th>Этап проекта</th>
-
-                        <th>Сумма OPEX</th>
-                        <th>НДС OPEX</th>
-                        <th>Сумма CAPEX</th>
-                        <th>НДС CAPEX</th>
-
-                        <th>Файл</th>
-                        <th>Добавить файл</th>
-
-                        <th>Комментарий</th>
-                        <th>Оплачен</th>
-                        <th>Статус</th>
-<!--                        <th>Завершен в срок</th>-->
-
-                        <th>Редакция</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr th:each="factpayment : ${factpayments}">
-                        <td th:hidden="${factpayment.id}"></td>
-                        <td th:text="${#dates.format(factpayment.dataPayDoc, 'dd-MM-yyyy')}"></td>
-
-                        <td th:text="${factpayment.projectsListByProjectId.name}"></td>
-                        <td th:text="${factpayment.planPayProjectById.stepProject}"></td>
-
-                        <td th:text="${factpayment.sumOpex}"></td>
-                        <td th:text="${factpayment.sumOpexNds}"></td>
-                        <td th:text="${factpayment.sumCapex}"></td>
-                        <td th:text="${factpayment.sumCapexNds}"></td>
-
-                        <td>
-                            <!--                            <li th:text="${file.getName()}" th:each="file:${fileData}"></li>-->
-                            <ul>
-                                <li th:each="file : ${fileData}"
-                                    th:if="${file.getId_Data() == factpayment.id}">
-                                    <a th:href="@{/download/{id}(id=${file.getId()})}"
-                                       th:text="${file.getName()}" target="_blank"
-                                       download="true">
-                                    </a>
-                                </li>
-                            </ul>
-                        </td>
-
-                        <td>
-                            <form action="/uploadfactpayment" method="post" enctype="multipart/form-data" id="uploadForm" style="width:240px">
-                                <div>
-                                    <input type="hidden" name="factpaymentId" th:value="${factpayment.Id}"/>
-                                    <style>
-                                        .form-control {
-                                            bs-border-color: #0d6efd;
-                                            color: #0d6efd;
-                                        }
-                                    </style>
-                                    <input class="form-control form-control-sm" type="file" name="file" id="fileInput"
-                                           onchange="this.form.submit();"/>
-                                </div>
-                            </form>
-                        </td>
-                        <script>
-                            // Дополнительно можно добавить проверку, если вы хотите
-                            const file = this.files[0];
-                            const allowedExtensions = /(\.jpg|\.jpeg|\.png|\.gif|\.pdf)$/i; // Задайте разрешенные типы файлов
-
-                            if (file && !allowedExtensions.exec(file.name)) {
-                                alert('Недопустимый файл типа! Выберите jpg, jpeg, png, gif или pdf.');
-                                this.value.file.name = ''; // Отменяем выбор файла
-                            } else if (file) {
-                                document.getElementById('uploadForm').submit();
-
-                            };
-                        </script>
-                        <td th:text="${factpayment.commetns}"></td>
-                        <td th:text="${factpayment.statusFact} ? ${factpayment.statusFact} : '-'"></td>
-                        <td th:text="${factpayment.paid} ? 'Оплачен' : '-'"></td>
-<!--                        <td th:text="${factpayment.completed && factpayment.paymentOnTime} ? 'Оплачен вне графика'-->
-<!--                        : (${factpayment.completed && !factpayment.paymentOnTime} ? 'Оплачен по графику'-->
-<!--                        : '-')"></td>-->
-
-                        <td><a th:href="@{/showfactpayment/{id}(id=${factpayment.id})}"
-                               class="btn btn-outline-primary btn-sm">Изменить</a>
-                            <a th:href="@{/deletefactpayment/{id}(id=${factpayment.id})}"
-                               class="btn btn-outline-danger btn-sm">Удалить</a>
-                        </td>
-                    </tr>
-                    </tbody>
-
-                </table>
-                <div class="container my-2" align="center" style="width:80%">
-                    <span th:text="'Страница ' + ${currentPage} + ' из ' + ${totalPages}"></span>
-                    <!-- Добавьте ссылки на навигацию между страницами -->
-                    <nav align="center" aria-label="Page navigation">
-                        <ul align="center" class="pagination">
-                            <li class="page-item" th:classappend="${currentPage == 0 ? 'disabled' : ''}">
-                                <a class="page-link" th:href="@{factpayment#(page=0)}">Первая</a>
-                            </li>
-                            <li class="page-item" th:classappend="${currentPage == 0 ? 'disabled' : ''}">
-                                <a class="page-link"
-                                   th:href="@{factpayment#(page=${currentPage - 1})}">Предыдущая</a>
-                            </li>
-                            <li class="page-item" th:each="i : ${#numbers.sequence(0, totalPages - 1)}"
-                                th:classappend="${currentPage == i ? 'active' : ''}">
-                                <a class="page-link" th:href="@{factpayment#(page=${i})}" th:text="${i + 1}"></a>
-                            </li>
-                            <li class="page-item" th:classappend="${currentPage == totalPages - 1 ? 'disabled' : ''}">
-                                <a class="page-link" th:href="@{factpayment#(page=${currentPage + 1})}">Следующая</a>
-                            </li>
-                            <li class="page-item" th:classappend="${currentPage == totalPages - 1 ? 'disabled' : ''}">
-                                <a class="page-link" th:href="@{factpayment#(page=${totalPages - 1})}">Последняя</a>
-                            </li>
-                        </ul>
-                    </nav>
-                </div>
-                <!-- Bootstrap JS -->
-                <script src="/bootstrap.bundle.min.js"></script>
-            </div>
-        </div>
-    </div>
+<div class="mt-5 mb-4" style="text-align:center;">
+    <h3>Список фактических оплат проектов</h3>
+    <a th:href="@{/addfactpayment}" class="btn btn-primary btn-sm mb-3">Добавить оплату по проекту</a>
 </div>
+<div class="mb-4 justify-content-center align-items-center form-control">
+    <table id="productTable" class="display">
 
+        <thead>
+        <div id="navbar">
+            <tr>
+                <th hidden="hidden"></th>
+                <th width="6%">Дата платежа</th>
+                <th>Проект</th>
+                <th>Этап проекта</th>
 
+                <th width="5%">Сумма OPEX</th>
+                <th width="4%">НДС OPEX</th>
+                <th width="5%">Сумма CAPEX</th>
+                <th width="4%">НДС CAPEX</th>
+
+                <th>Файл</th>
+                <th>Добавить файл</th>
+
+                <th>Комментарий</th>
+                <th>Оплачен</th>
+                <th>Статус</th>
+                <!--                        <th>Завершен в срок</th>-->
+
+                <th>Редакция</th>
+            </tr>
+        </div>
+        </thead>
+        <tbody>
+        <tr th:each="factpayment : ${factpayments}">
+            <td th:hidden="${factpayment.id}"></td>
+            <td th:text="${#dates.format(factpayment.dataPayDoc, 'dd-MM-yyyy')}"></td>
+            <td><h5 th:text="${factpayment.projectsListByProjectId.name}"></h5></td>
+            <td th:text="${factpayment.planPayProjectById.stepProject}"></td>
+            <td align="right"><span
+                    th:text="${#numbers.formatDecimal(factpayment.sumOpex, 1, 'WHITESPACE', 2, 'POINT')} + ' ₽'">0.00</span>
+            </td>
+            <td align="right"><span
+                    th:text="${#numbers.formatDecimal(factpayment.sumOpexNds, 1, 'WHITESPACE', 2, 'POINT')} + ' ₽'">0.00</span>
+            </td>
+            <td align="right"><span
+                    th:text="${#numbers.formatDecimal(factpayment.sumCapex, 1, 'WHITESPACE', 2, 'POINT')} + ' ₽'">0.00</span>
+            </td>
+            <td align="right"><span
+                    th:text="${#numbers.formatDecimal(factpayment.sumCapexNds, 1, 'WHITESPACE', 2, 'POINT')} + ' ₽'">0.00</span>
+            </td>
+            <td>
+                <ul>
+                    <li th:each="file : ${fileData}"
+                        th:if="${file.getId_Data() == factpayment.id}">
+                        <a th:href="@{/download/{id}(id=${file.getId()})}"
+                           th:text="${file.getName()}" target="_blank"
+                           download="true">
+                        </a>
+                    </li>
+                </ul>
+            </td>
+
+            <td>
+                <form action="/uploadfactpayment" method="post" enctype="multipart/form-data" id="uploadForm"
+                      style="width:240px">
+                    <div>
+                        <input type="hidden" name="factpaymentId" th:value="${factpayment.id}"/>
+                        <input class="form-control form-control-sm" type="file" name="file" id="fileInput"
+                               accept=".jpg,.jpeg,.png,.gif,.doc,.docx,.xls,.xlsx,.dot,.xlst,.txt,.srv,.reg,.pdf"
+                               style="bs-border-color:#0d6efd; color:#0d6efd;"
+                               onchange="this.form.submit();"/>
+
+                    </div>
+                </form>
+                <script type="text/javascript">
+                        document.getElementById("fileInput").addEventListener('change', function () {
+                            const file = this.files[0];
+                            const allowedExtensions = /(\.jpg|\.jpeg|\.png|\.gif|\.pdf|\.doc|\.docx|\.xls|\.xlsx|\.dot|\.xlst|\.txt|\.srv|\.reg)$/i; // Задайте разрешенные типы файлов
+
+                            if (file) {
+                                if (!allowedExtensions.exec(file.name)) {
+                                    this.value = ''; // Отменяем выбор файла
+                                    // this.files[0] = null;
+                                    alert('Недопустимый файл типа! Выберите jpg,jpeg,png,gif,doc,docx,xls,xlsx,dot,xlst,txt,srv,reg или pdf.');
+                                } else {
+                                    document.getElementById('uploadForm').submit(); // Отправляем форму, если файл правильного типа
+                                }
+                            }
+                        });
+                </script>
+            </td>
+            <!--            <script>-->
+            <!--                document.getElementById("fileInput").addEventListener('change', function () {-->
+            <!--                    // Дополнительно можно добавить проверку, если вы хотите-->
+            <!--                    const file = this.files[0];-->
+            <!--                    const allowedExtensions = /(\.jpg|\.jpeg|\.png|\.gif|\.pdf|\.doc|\.docx|\.xls|\.xlsx|\.dot|\.xlst|\.txt|\.srv|\.reg)$/i; // Задайте разрешенные типы файлов-->
+
+            <!--                    if (file && !allowedExtensions.exec(file.name)) {-->
+            <!--                        alert('Недопустимый файл типа! Выберите jpg,jpeg,png,gif,doc,docx,xls,xlsx,dot,xlst,txt,srv,reg или pdf.');-->
+            <!--                        this.value.file.name = ''; // Отменяем выбор файла-->
+            <!--                    } else if (file) {-->
+            <!--                        document.getElementById("uploadForm").submit();-->
+            <!--                    }-->
+            <!--                    ;-->
+            <!--                });-->
+            <!--            </script>-->
+            <td th:text="${factpayment.commetns}"></td>
+            <td th:text="${factpayment.statusFact} ? ${factpayment.statusFact} : '-'"></td>
+            <td th:text="${factpayment.paid} ? 'Оплачен' : '-'"></td>
+            <!--                        <td th:text="${factpayment.completed && factpayment.paymentOnTime} ? 'Оплачен вне графика'-->
+            <!--                        : (${factpayment.completed && !factpayment.paymentOnTime} ? 'Оплачен по графику'-->
+            <!--                        : '-')"></td>-->
+
+            <td><a th:href="@{/showfactpayment/{id}(id=${factpayment.id})}"
+                   class="btn btn-outline-primary btn-sm">Изменить</a>
+                <a th:href="@{/deletefactpayment/{id}(id=${factpayment.id})}"
+                   class="btn btn-outline-danger btn-sm">Удалить</a>
+            </td>
+        </tr>
+        </tbody>
+
+    </table>
+    <script src="/jquery-3.6.0.min.js"></script>
+    <script src="/jquery.dataTables.min.js"></script>
+    <script src="/dataTables.rowGroup.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            // $('#example thead tfoot th').each(function() {
+            //     var title = $('#example thead th').eq($(this).index() ).text();
+            //     $(this).html('<input type="text" placeholder="Search '+title+'" />' );
+            // });
+            // // Инициализация DataTable
+            // var table = $('#productTable').DataTable();
+            // // Применение фильтра
+            // $("#example thead tfoot input").on('keyup change', function() {
+            //     table.column($(this).parent().index()+':visible').search(this.value).draw();
+            // });
+            $('#productTable tfoot th').each(function () {
+                var title = $('#productTable thead th').eq($(this).index()).text();
+                $(this).html('<input type="text" placeholder="Поиск ' + title + '" />');
+            });
+
+            $('#productTable').DataTable({
+                order: [
+                    // [0, 'asc'],
+                    [1, 'asc'],
+                    [2, 'asc'],
+                    [3, 'asc'],
+                    [5, 'asc'],
+                    [6, 'asc'],
+                    [7, 'asc'],
+                    // [8, 'asc'],
+                    // [9, 'asc'],
+                    [10, 'asc'],
+                    [11, 'asc'],
+                    [12, 'asc']
+                ],
+                // columnDefs: [{
+                //     visible: false,
+                //     targets: [2]
+                // } // Hide grouped columns
+                // ],
+                // rowGroup: {
+                //     visible: false,
+                //     dataSrc: [2]
+                // },
+                paging: true,
+                ordering: true,
+                searching: true,
+                searchDelay: 500
+            });
+            // $('#dropdown1').on('change', function () {
+            //     tableTab.columns(1).search(this.value).draw();
+            // });
+            // $('#dropdown8').on('change', function () {
+            //     tableTab.columns(8).search(this.value).draw();
+            // });
+            // $('#dropdown9').on('change', function () {
+            //     tableTab.columns(9).search(this.value).draw();
+            // });
+            $("#productTable tfoot input").on('keyup change', function () {
+                tableTab
+                    .column($(this).parent().index() + ':visible')
+                    .search(this.value)
+                    .draw();
+            });
+        });
+    </script>
+</div>
 </body>
 </html>

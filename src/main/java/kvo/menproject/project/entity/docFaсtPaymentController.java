@@ -12,6 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
 
@@ -95,7 +96,8 @@ public class docFaсtPaymentController implements CommandLineRunner {
 //            list.setStatus(list.getStatus().toString());
 //        }
 
-        System.out.println(" ID: " + list.getId()); // Проверка ID
+//        System.out.println(" ID: " + list.getId()); // Проверка ID
+        changeNullToZero(list);
         docFaсtPaymentRepo.saveAndFlush(list);
         return "redirect:/factpayment";
     }
@@ -136,8 +138,19 @@ public class docFaсtPaymentController implements CommandLineRunner {
         if (list.getStatusFact().startsWith("ОПЛАЧЕН")) {
             list.setPaid(true);
         }
+        changeNullToZero(list);
         docFaсtPaymentRepo.saveAndFlush(list);
         return "redirect:/factpayment";
+    }
+    private static void changeNullToZero(docFaсtPayment list) {
+        if (list.getSumOpex() == null){
+            list.setSumOpex(BigDecimal.valueOf(0));}
+        if (list.getSumOpexNds() == null){
+            list.setSumOpexNds(BigDecimal.valueOf(0));}
+        if (list.getSumCapex() == null){
+            list.setSumCapex(BigDecimal.valueOf(0));}
+        if (list.getSumCapexNds() == null){
+            list.setSumCapexNds(BigDecimal.valueOf(0));}
     }
     @Override
     public void run(String... args) throws Exception {

@@ -1,8 +1,10 @@
 package kvo.menproject.project.entity;
 
+import org.apache.commons.io.FilenameUtils;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -21,11 +23,12 @@ public class FileUploadController {
         this.fileDataService = fileDataService;
 //        this.docSchemaDocRepo = docSchemaDocRepo;
     }
+
     @PostMapping("/upload")
     public String handleFileUpload(@RequestParam("file") MultipartFile file, @ModelAttribute("schemaId") docSchemaDoc schemdoc, RedirectAttributes redirectAttributes) {
         if (file.isEmpty()) {
             redirectAttributes.addFlashAttribute("message", "Вы не выбрали файл!");
-            return "redirect:/uploadStatus";
+            return "redirect:/schemadoc";
         }
         try {
             // Создаем объект FileData и заполняем его данными
@@ -44,12 +47,15 @@ public class FileUploadController {
         }
         return "redirect:/schemadoc";
     }
+
     @PostMapping("/uploadbinstorage")
     public String handleFileUploadBinStorage(@RequestParam("file") MultipartFile file, @ModelAttribute("binstorageId") binStorage binstorage, RedirectAttributes redirectAttributes) {
         if (file.isEmpty()) {
             redirectAttributes.addFlashAttribute("message", "Вы не выбрали файл!");
-            return "redirect:/uploadStatus";
+            return "redirect:/binstorage";
         }
+//        boolean x = typeCorrect(file);
+        if (!typeCorrect(file)) return "redirect:/binstorage";
         try {
             // Создаем объект FileData и заполняем его данными
             FileData fileData = new FileData();
@@ -68,12 +74,29 @@ public class FileUploadController {
         }
         return "redirect:/binstorage";
     }
+
+    @Nullable
+    private static boolean typeCorrect(MultipartFile file) {
+        String ext;
+        ext = FilenameUtils.getExtension(file.getOriginalFilename());
+        if ("jpg.jpeg.png.gif.doc.docx.xls.xlsx.dot.xlst.txt.srv.reg.pdf".indexOf(ext) < 0) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+
     @PostMapping("/uploadfactpayment")
     public String handleFileUploadBinStorageFactpayment(@RequestParam("file") MultipartFile file, @ModelAttribute("factpaymentId") docFaсtPayment factPayment, RedirectAttributes redirectAttributes) {
         if (file.isEmpty()) {
             redirectAttributes.addFlashAttribute("message", "Вы не выбрали файл!");
-            return "redirect:/uploadStatus";
+            return "redirect:/factpayment";
         }
+        String ext;
+        ext = FilenameUtils.getExtension(file.getOriginalFilename());
+        if ("jpg.jpeg.png.gif.doc.docx.xls.xlsx.dot.xlst.txt.srv.reg.pdf".indexOf(ext) < 0)
+            return "redirect:/factpayment";
+
         try {
             // Создаем объект FileData и заполняем его данными
             FileData fileData = new FileData();

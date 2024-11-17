@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.Data;
 import org.springframework.format.annotation.DateTimeFormat;
 
+import java.math.BigDecimal;
 import java.util.Date;
 
 @Data
@@ -33,17 +34,17 @@ public class docFaсtPayment {
     @Column(name = "step_project_id", nullable = true, insertable=false, updatable=false)
     private Long stepProjectId;
     @Basic
-    @Column(name = "sum_capex", nullable = true)
-    private Long sumCapex;
+    @Column(name = "sum_capex", nullable = true, columnDefinition = "DECIMAL(15, 2)")
+    private BigDecimal sumCapex;
     @Basic
-    @Column(name = "sum_capex_nds", nullable = true)
-    private Long sumCapexNds;
+    @Column(name = "sum_capex_nds", nullable = true, columnDefinition = "DECIMAL(15, 2)")
+    private BigDecimal sumCapexNds;
     @Basic
-    @Column(name = "sum_opex", nullable = true)
-    private Long sumOpex;
+    @Column(name = "sum_opex", nullable = true, columnDefinition = "DECIMAL(15, 2)")
+    private BigDecimal sumOpex;
     @Basic
-    @Column(name = "sum_opex_nds", nullable = true)
-    private Long sumOpexNds;
+    @Column(name = "sum_opex_nds", nullable = true, columnDefinition = "DECIMAL(15, 2)")
+    private BigDecimal sumOpexNds;
     @Basic
     @Column(name = "binfiles_id", nullable = true, insertable=false, updatable=false)
     private Long binfilesId;
@@ -126,35 +127,35 @@ public class docFaсtPayment {
         this.stepProjectId = stepProjectId;
     }
 
-    public Long getSumCapex() {
+    public BigDecimal getSumCapex() {
         return sumCapex;
     }
 
-    public void setSumCapex(Long sumCapex) {
+    public void setSumCapex(BigDecimal sumCapex) {
         this.sumCapex = sumCapex;
     }
 
-    public Long getSumCapexNds() {
+    public BigDecimal getSumCapexNds() {
         return sumCapexNds;
     }
 
-    public void setSumCapexNds(Long sumCapexNds) {
+    public void setSumCapexNds(BigDecimal sumCapexNds) {
         this.sumCapexNds = sumCapexNds;
     }
 
-    public Long getSumOpex() {
+    public BigDecimal getSumOpex() {
         return sumOpex;
     }
 
-    public void setSumOpex(Long sumOpex) {
+    public void setSumOpex(BigDecimal sumOpex) {
         this.sumOpex = sumOpex;
     }
 
-    public Long getSumOpexNds() {
+    public BigDecimal getSumOpexNds() {
         return sumOpexNds;
     }
 
-    public void setSumOpexNds(Long sumOpexNds) {
+    public void setSumOpexNds(BigDecimal sumOpexNds) {
         this.sumOpexNds = sumOpexNds;
     }
 
