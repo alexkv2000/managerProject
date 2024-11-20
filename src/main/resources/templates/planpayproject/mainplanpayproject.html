@@ -6,6 +6,22 @@
     <link rel="stylesheet" href="/jquery.dataTables.min.css">
     <link rel="stylesheet" href="/bootstrap.min.css">
     <link rel="stylesheet" href="/menu/menu.css">
+<!--    <script type="text/javascript">-->
+<!--        //Для фильтрации данных-->
+<!--        function filterByName(){-->
+<!--            const selectName = document.getElementById('id').valueOf();-->
+<!--            const rows = document.querySelectorAll('.entity-row');-->
+
+<!--            rows.forEach(row => {-->
+<!--                const name = row.getAttribute('name');-->
+<!--                if(name === selectName){-->
+<!--                    row.style.display = ''; //Показываем строку-->
+<!--                } else {-->
+<!--                    row.style.display = 'none'; //Скрываем строку-->
+<!--                }-->
+<!--            });-->
+<!--        }-->
+<!--    </script>-->
 </head>
 <body>
 <nav>
@@ -32,10 +48,35 @@
         <li><a href="/blog">Блог</a></li>
     </ul>
 </nav>
+
 <div class="mt-5 mb-4" style="text-align:center;">
     <h3>Список плана оплат проектов</h3>
     <a th:href="@{/addplanpayproject}" class="btn btn-primary btn-sm mb-3">Добавить план оплат проектов</a>
 </div>
+<!--Выпадающий список-->
+<form method="get" th:action="@{/planpayproject}">
+    <label for="idProject">Выберите проект:</label>
+    <select name="idProject" id="idProject" onchange="this.form.submit()">
+        <option value="" disabled th:if="${projectId == null}" selected>- Выберите проект -</option>
+        <option th:each="projectslist : ${projectslists}"
+                th:value="${projectslist.id}"
+                th:text="${projectslist.name}"
+                th:selected="${projectslist.id == projectId}"></option>
+    </select>
+</form>
+
+<style>
+    /* Пример простого стилизования */
+    select {
+        width: 200px; /* Ширина выпадающего списка */
+        padding: 5px; /* Внутренние отступы */
+        margin-top: 10px; /* Отступ сверху */
+    }
+    label {
+        font-weight: bold; /* Делаем текст метки жирным */
+        margin-right: 10px; /* Отступ справа от метки */
+    }
+</style>
 <div class="mb-4 justify-content-center align-items-center form-control">
     <table id="productTable" class="display">
 
