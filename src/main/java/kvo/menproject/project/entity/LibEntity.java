@@ -2,10 +2,21 @@ package kvo.menproject.project.entity;
 
 import jakarta.persistence.*;
 import lombok.Data;
+import org.hibernate.envers.AuditOverride;
+import org.hibernate.envers.AuditOverrides;
+import org.hibernate.envers.AuditTable;
+import org.hibernate.envers.Audited;
+
+import java.util.Date;
 
 @Entity
 @Table(name = "lib_entity", schema = "library", catalog = "dev")
 @Data
+@AuditTable(value = "entity_audit", schema="history")
+@Audited
+@AuditOverrides({
+        @AuditOverride(forClass = LibEntity.class, name="modifiedDate")
+})
 public class LibEntity {
     @Basic
     @Column(name = "nameentity", nullable = true, length = -1)
@@ -20,7 +31,16 @@ public class LibEntity {
     @Id
     @Column(name = "id", nullable = false)
     private long id;
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "modification_date")
+    private Date modifiedDate;
 
+    // Геттеры и сеттеры...
+
+    @PreUpdate
+    public void preUpdate() {
+        this.modifiedDate = new Date();
+    }
     public String getNameentity() {
         return nameentity;
     }

@@ -35,7 +35,7 @@ public class CategorieController implements CommandLineRunner {
     public String showForm(Model model) {
 
         List<Object[]> tt = categorieRepo.getAllByIdSub();
-        System.out.println(tt.get(0).toString() + ' ' + tt.get(1).toString());
+//        System.out.println(tt.get(0).toString() + ' ' + tt.get(1).toString());
         model.addAttribute("categories", tt);
 
         return "index1";
