@@ -11,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.math.BigDecimal;
 import java.util.Date;
@@ -39,21 +40,10 @@ public class docFaсtPaymentController implements CommandLineRunner {
     }
     @Transactional
     @GetMapping("/factpayment")
-    public String viewHomePage(@RequestParam(required = false, defaultValue = "0") Long idProject, Model model,
-                               @RequestParam(defaultValue = "0") int page,
-                               @RequestParam(defaultValue = "10") int size) {
+    public String viewHomePage(@RequestParam(name = "idProject", required = false, defaultValue = "0") Long idProject, Model model) {
 
-        Pageable pageable = PageRequest.of(page, size);
-//        Page<docFaсtPayment> rows = docFaсtPaymentRepo.findAll(pageable);
-        Page<docFaсtPayment> rows = docFaсtPaymentRepo.findAllByProjectId(idProject, pageable);
+        List<docFaсtPayment> rows = docFaсtPaymentRepo.findAllByProjectId(idProject);
 
-        if (rows != null) {
-            System.out.println("Retrieved " + rows.getContent().size() + " fact pay project");
-        } else {
-            System.out.println("No fact pay project retrieved");
-        }
-        System.out.println("Total elements: " + rows.getTotalElements()); // Вывод количества элементов
-        System.out.println("Content: " + rows.getContent()); // Вывод содержимого
         model.addAttribute("fileData", fileDataRepo.findAllByTypeDoc("factPayment"));
 //        model.addAttribute("stepprojects", libStepProjectRepo.findAll());
         model.addAttribute("idProject", idProject);
@@ -62,8 +52,6 @@ public class docFaсtPaymentController implements CommandLineRunner {
         model.addAttribute("factpayments", rows);
         model.addAttribute("planpayprojects", docPlanPayProjectRepo.findAll());
 
-        model.addAttribute("totalPages", rows.getTotalPages());
-        model.addAttribute("currentPage", page);
         return "/factpayment/mainfactpayment";
     }
 
@@ -85,7 +73,8 @@ public class docFaсtPaymentController implements CommandLineRunner {
     }
 
     @PostMapping(path = "/savefactpayment")
-    public String saveProject(@ModelAttribute("newfactpayment") docFaсtPayment list) {
+    public String saveProject(@RequestParam("projectsListByProjectId") Long idProject, @ModelAttribute("newfactpayment") docFaсtPayment list,
+                              RedirectAttributes redirectAttributes) {
         if (list.getDataPayDoc() == null) {
             list.setDataPayDoc(new Date());
         }
@@ -108,6 +97,7 @@ public class docFaсtPaymentController implements CommandLineRunner {
 //        System.out.println(" ID: " + list.getId()); // Проверка ID
         changeNullToZero(list);
         docFaсtPaymentRepo.saveAndFlush(list);
+        redirectAttributes.addAttribute("idProject", idProject);
         return "redirect:/factpayment";
     }
 
@@ -124,19 +114,24 @@ public class docFaсtPaymentController implements CommandLineRunner {
     }
     @Transactional
     @GetMapping("/deletefactpayment/{id}")
-    public String deleteThroughId(@PathVariable(value = "id") long id) {
+    public String deleteThroughId(@PathVariable(value = "id") long id,
+                                  RedirectAttributes redirectAttributes) {
         List<FileData> fakt = fileDataRepo.findAllByTypeDocAndIdData("factPayment", id);
         for (FileData fileData : fakt) {
             long idDataDelete = fileData.getId();
             fileDataRepo.deleteById(idDataDelete);
         }
+        Long idProject = docFaсtPaymentRepo.findById(id).get().getProjectId();
         docFaсtPaymentRepo.deleteById(id);
+        redirectAttributes.addAttribute("idProject", idProject);
+
         return "redirect:/factpayment";
 
     }
 
     @PostMapping(path = "/updatefactpayment")
-    public String updateProject(@ModelAttribute("showfactpayment") docFaсtPayment list) {
+    public String updateProject(@ModelAttribute("showfactpayment") docFaсtPayment list,
+                                RedirectAttributes redirectAttributes) {
         if (list.getDataPayDoc() == null) {
             list.setDataPayDoc(new Date());
         }
@@ -148,7 +143,10 @@ public class docFaсtPaymentController implements CommandLineRunner {
             list.setPaid(true);
         }
         changeNullToZero(list);
+        long idProject = list.getProjectsListByProjectId().getId();
+        list.setProjectId(idProject);
         docFaсtPaymentRepo.saveAndFlush(list);
+        redirectAttributes.addAttribute("idProject", idProject);
         return "redirect:/factpayment";
     }
     private static void changeNullToZero(docFaсtPayment list) {

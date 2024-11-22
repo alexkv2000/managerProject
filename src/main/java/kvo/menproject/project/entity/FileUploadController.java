@@ -87,7 +87,9 @@ public class FileUploadController {
     }
 
     @PostMapping("/uploadfactpayment")
-    public String handleFileUploadBinStorageFactpayment(@RequestParam("file") MultipartFile file, @ModelAttribute("factpaymentId") docFaсtPayment factPayment, RedirectAttributes redirectAttributes) {
+    public String handleFileUploadBinStorageFactpayment(@RequestParam("file") MultipartFile file,
+                                                        @ModelAttribute("factpaymentId") docFaсtPayment factPayment,
+                                                        RedirectAttributes redirectAttributes) {
         if (file.isEmpty()) {
             redirectAttributes.addFlashAttribute("message", "Вы не выбрали файл!");
             return "redirect:/factpayment";
@@ -113,6 +115,8 @@ public class FileUploadController {
         } catch (Exception e) {
             redirectAttributes.addFlashAttribute("message", "Ошибка при загрузке файла: " + e.getMessage());
         }
+        long idProject = factPayment.getProjectsListByProjectId().getId();
+        redirectAttributes.addAttribute("idProject", idProject);
         return "redirect:/factpayment";
     }
 }
