@@ -39,21 +39,22 @@ public class docFaсtPaymentController implements CommandLineRunner {
     }
     @Transactional
     @GetMapping("/factpayment")
-    public String viewHomePage(@RequestParam(required = false, defaultValue = "0") Long idProject, Model model,
-                               @RequestParam(defaultValue = "0") int page,
-                               @RequestParam(defaultValue = "10") int size) {
+    public String viewHomePage(@RequestParam(name = "idProject", required = false, defaultValue = "0") Long idProject, Model model) {
+//            ,@RequestParam(defaultValue = "0") int page,
+//             @RequestParam(defaultValue = "10") int size) {
 
-        Pageable pageable = PageRequest.of(page, size);
+//        Pageable pageable = PageRequest.of(page, size);
 //        Page<docFaсtPayment> rows = docFaсtPaymentRepo.findAll(pageable);
-        Page<docFaсtPayment> rows = docFaсtPaymentRepo.findAllByProjectId(idProject, pageable);
+//        Page<docFaсtPayment> rows = docFaсtPaymentRepo.findAllByProjectId(idProject, pageable);
+        List<docFaсtPayment> rows = docFaсtPaymentRepo.findAllByProjectId(idProject);
 
-        if (rows != null) {
-            System.out.println("Retrieved " + rows.getContent().size() + " fact pay project");
-        } else {
-            System.out.println("No fact pay project retrieved");
-        }
-        System.out.println("Total elements: " + rows.getTotalElements()); // Вывод количества элементов
-        System.out.println("Content: " + rows.getContent()); // Вывод содержимого
+//        if (rows != null) {
+//            System.out.println("Retrieved " + rows..getContent().size() + " fact pay project");
+//        } else {
+//            System.out.println("No fact pay project retrieved");
+//        }
+//        System.out.println("Total elements: " + rows.getTotalElements()); // Вывод количества элементов
+//        System.out.println("Content: " + rows.getContent()); // Вывод содержимого
         model.addAttribute("fileData", fileDataRepo.findAllByTypeDoc("factPayment"));
 //        model.addAttribute("stepprojects", libStepProjectRepo.findAll());
         model.addAttribute("idProject", idProject);
@@ -62,8 +63,8 @@ public class docFaсtPaymentController implements CommandLineRunner {
         model.addAttribute("factpayments", rows);
         model.addAttribute("planpayprojects", docPlanPayProjectRepo.findAll());
 
-        model.addAttribute("totalPages", rows.getTotalPages());
-        model.addAttribute("currentPage", page);
+//        model.addAttribute("totalPages", rows.getTotalPages());
+//        model.addAttribute("currentPage", page);
         return "/factpayment/mainfactpayment";
     }
 
