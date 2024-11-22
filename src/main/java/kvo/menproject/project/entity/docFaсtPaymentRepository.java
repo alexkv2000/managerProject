@@ -10,6 +10,7 @@ public interface docFaсtPaymentRepository extends JpaRepository<docFaсtPayment
     Page<docFaсtPayment> findAllByPaidIsTrue(Pageable pageable);
     Page<docFaсtPayment> findAllByPaidIsFalse(Pageable pageable);
     Page<docFaсtPayment> findAll(Pageable pageable);
+    Page<docFaсtPayment> findAllByProjectId(long projectId, Pageable pageable);
 //    Page<docFaсtPayment> findAllByPaidIsFalseOrderByProjectsListByProjectIdAscPlanPayProjectByStepProjectIdAsc(Pageable pageable);
 //    Page<docFaсtPayment> findAllByPaidIsTrueOrderByProjectsListByProjectIdAscPlanPayProjectByStepProjectIdAsc(Pageable pageable);
     void deleteById(long id);

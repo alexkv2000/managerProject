@@ -13,7 +13,7 @@ import java.util.List;
 public interface docProjectsListRepository extends JpaRepository<docProjectsList, Long> {
     Page<docProjectsList> findAllByClosedIsFalse(Pageable pageable);
     List<docProjectsList> findAllByClosedIsFalse();
-
+    docProjectsList findAllById(long idProject);
     @Query("SELECT e.name, e.headManager, e.responsibleFromBusiness, e.curator, e.closed, e.dogovorNumber, e.linkDogovor," +
             "e.dateCreate, e.dateEnd, e.dateStart, e.summaProject, e.opex, e.opexNds, e.capex, e.capexNds, e.comment, d.namedivision, emp.fio " +
             "FROM docProjectsList e " +

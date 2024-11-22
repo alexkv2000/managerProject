@@ -35,8 +35,33 @@
 
 <div class="mt-5 mb-4" style="text-align:center;">
     <h3>Список фактических оплат проектов</h3>
-    <a th:href="@{/addfactpayment}" class="btn btn-primary btn-sm mb-3">Добавить оплату по проекту</a>
+    <a th:href="@{/addfactpayment(idProject=${idProject})}" class="btn btn-primary btn-sm mb-3">Добавить оплату по проекту</a>
 </div>
+
+<!--Выпадающий список-->
+<form method="get" th:action="@{/factpayment}">
+    <label for="idProject">Выберите проект:</label>
+    <select name="idProject" id="idProject" onchange="this.form.submit()">
+        <option value="" disabled th:if="${projectId == null}" selected>- Выберите проект -</option>
+        <option th:each="projectslist : ${projectslists}"
+                th:value="${projectslist.id}"
+                th:text="${projectslist.name}"
+                th:selected="${projectslist.id == projectId}"></option>
+    </select>
+</form>
+
+<style>
+    /* Пример простого стилизования */
+    select {
+        width: 200px; /* Ширина выпадающего списка */
+        padding: 5px; /* Внутренние отступы */
+        margin-top: 10px; /* Отступ сверху */
+    }
+    label {
+        font-weight: bold; /* Делаем текст метки жирным */
+        margin-right: 10px; /* Отступ справа от метки */
+    }
+</style>
 <div class="mb-4 justify-content-center align-items-center form-control">
     <table id="productTable" class="display">
 

@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 
 
 @Controller
@@ -38,12 +39,14 @@ public class docFaсtPaymentController implements CommandLineRunner {
     }
     @Transactional
     @GetMapping("/factpayment")
-    public String viewHomePage(Model model,
+    public String viewHomePage(@RequestParam(required = false, defaultValue = "0") Long idProject, Model model,
                                @RequestParam(defaultValue = "0") int page,
                                @RequestParam(defaultValue = "10") int size) {
 
         Pageable pageable = PageRequest.of(page, size);
-        Page<docFaсtPayment> rows = docFaсtPaymentRepo.findAll(pageable);
+//        Page<docFaсtPayment> rows = docFaсtPaymentRepo.findAll(pageable);
+        Page<docFaсtPayment> rows = docFaсtPaymentRepo.findAllByProjectId(idProject, pageable);
+
         if (rows != null) {
             System.out.println("Retrieved " + rows.getContent().size() + " fact pay project");
         } else {
@@ -52,10 +55,11 @@ public class docFaсtPaymentController implements CommandLineRunner {
         System.out.println("Total elements: " + rows.getTotalElements()); // Вывод количества элементов
         System.out.println("Content: " + rows.getContent()); // Вывод содержимого
         model.addAttribute("fileData", fileDataRepo.findAllByTypeDoc("factPayment"));
-        model.addAttribute("stepprojects", libStepProjectRepo.findAll());
+//        model.addAttribute("stepprojects", libStepProjectRepo.findAll());
+        model.addAttribute("idProject", idProject);
         model.addAttribute("projectslists", docProjectsListRepo.findAll());
 
-        model.addAttribute("factpayments", docFaсtPaymentRepo.findAll(pageable));
+        model.addAttribute("factpayments", rows);
         model.addAttribute("planpayprojects", docPlanPayProjectRepo.findAll());
 
         model.addAttribute("totalPages", rows.getTotalPages());
@@ -65,12 +69,17 @@ public class docFaсtPaymentController implements CommandLineRunner {
 
 
     @GetMapping(path = "/addfactpayment")
-    public String addNewProject(Model model) {
+    public String addNewProject(@RequestParam(required = false, defaultValue = "0") Long idProject, Model model) {
+        List<docPlanPayProject> allPlanPayProjects = docPlanPayProjectRepo.findAll();
+        List<docPlanPayProject> filteredPlanPayProjects = allPlanPayProjects.stream()
+                .filter(docPlanPayProject -> docPlanPayProject.getLibDivisionByProjectId().getId() == idProject)
+                .collect(Collectors.toList());
+        model.addAttribute("idProject", idProject);
         model.addAttribute("statuss", Status.values());
         model.addAttribute("stepprojects", libStepProjectRepo.findAll());
-        model.addAttribute("projectslists", docProjectsListRepo.findAll());
+        model.addAttribute("projectslists", docProjectsListRepo.findById(idProject));
         model.addAttribute("factpayments", new docFaсtPayment());
-        model.addAttribute("planpayprojects", docPlanPayProjectRepo.findAll());
+        model.addAttribute("planpayprojects", filteredPlanPayProjects);
 
         return "/factpayment/newfactpayment";
     }
@@ -80,7 +89,7 @@ public class docFaсtPaymentController implements CommandLineRunner {
         if (list.getDataPayDoc() == null) {
             list.setDataPayDoc(new Date());
         }
-        System.out.println(list.getStatusFact());
+        System.out.println("Project ID: " + list.getProjectId()); // отладочный вывод
         String ее = list.getStatusFact();
         if (list.getPaid()) {
             list.setStatusFact(Status.ОПЛАЧЕН.toString());
