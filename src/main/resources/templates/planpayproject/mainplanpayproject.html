@@ -55,13 +55,13 @@
 </div>
 <!--Выпадающий список-->
 <form method="get" th:action="@{/planpayproject}">
-    <label for="idProject">Выберите проект:</label>
-    <select name="idProject" id="idProject" onchange="this.form.submit()">
-        <option value="" disabled th:if="${projectId == null}" selected>- Выберите проект -</option>
+    <label for="id_Project">Выберите проект:</label>
+    <select name="idProject" id="id_Project" onchange="this.form.submit()">
+        <option value="" disabled th:if="${project == null}" selected>- Выберите проект -</option>
         <option th:each="projectslist : ${projectslists}"
-                th:value="${projectslist.id}"
-                th:text="${projectslist.name}"
-                th:selected="${projectslist.id == projectId}"></option>
+                th:value="${projectslist.getId()}"
+                th:text="${projectslist.getName()}"
+                th:selected="${projectslist.getId() == project}"></option>
     </select>
 </form>
 

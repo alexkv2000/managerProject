@@ -5,10 +5,10 @@
     <title>Project List</title>
     <link rel="stylesheet" href="/bootstrap.min.css">
     <link rel="stylesheet" href="/jquery.dataTables.min.css">
-    <link rel="stylesheet" href="/bootstrap.min.css">
     <link rel="stylesheet" href="/menu/menu.css">
 </head>
-<body class="min-vh-100">
+<!--<body class="min-vh-100">-->
+<body>
 <nav>
     <ul class="topmenu">
         <li><a href="/">Главная -</a></li>
@@ -33,99 +33,186 @@
         <li><a href="/blog">Блог</a></li>
     </ul>
 </nav>
-<div class="container-fluid">
-    <div class="row">
-        <div class="col min-vh-100 py-3">
-            <!--моя вставка-->
-            <div align="center">
-                <h3>Список проектов</h3>
-                <a th:href="@{/addprojectlist}" class="btn btn-primary btn-sm mb-3">Добавить проект</a>
-                <table id="productTable" style="width:80%" border="1" class="table table-striped table-responsive-xxl">
-                    <thead>
-                    <tr>
-                        <th>Подразделение</th>
-                        <th>Наименование</th>
-                        <th>Руководитель</th>
-                        <th>Куратор</th>
-                        <th>Участники проекта</th>
-                        <th>Ответственный исполнитель</th>
-                        <th>Договор</th>
-                        <th>Ссылка</th>
-                        <th>Дата создания</th>
-                        <th>Дата старта</th>
-                        <th>Дата окончания</th>
-                        <th>Сумма</th>
-                        <th>OPEX</th>
-                        <th>OPEX НДС</th>
-                        <th>CAPEX</th>
-                        <th>CAPEX НДС</th>
-                        <th>Комментарий</th>
-                        <th>Завершено</th>
-
-                        <th>Редакция</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr th:each="projectlist : ${projectlists}">
-                        <td th:hidden="${projectlist.id}"></td>
-                        <td th:text="${projectlist.libDivisionByIdDivision.namedivision}">
-                        <td th:text="${projectlist.name}"></td>
-                        <td th:text="${projectlist.headManager}"></td>
-                        <td th:text="${projectlist.curator}"></td>
-                        <td th:text="${projectlist.responsibleFromBusiness}"></td>
-                        <td th:text="${projectlist.libJobEmployeeByOwner.fio}"></td>
-                        <td th:text="${projectlist.dogovorNumber}"></td>
-                        <td th:text="${projectlist.linkDogovor}"></td>
-                        <td th:text="${#dates.format(projectlist.dateCreate, 'dd-MM-yyyy')}"></td>
-                        <td th:text="${#dates.format(projectlist.dateStart, 'dd-MM-yyyy')}"></td>
-                        <td th:text="${#dates.format(projectlist.dateEnd, 'dd-MM-yyyy')}"></td>
-                        <td th:text="${projectlist.summaProject}"></td>
-                        <td th:text="${projectlist.opex}"></td>
-                        <td th:text="${projectlist.opexNds}"></td>
-                        <td th:text="${projectlist.capex}"></td>
-                        <td th:text="${projectlist.capexNds}"></td>
-                        <td th:text="${projectlist.comment}"></td>
-                        <td th:text="${projectlist.closed}  ? 'Закрыт' : 'Открыт'"></td>
-
-                        <td><a th:href="@{/showprojectlist/{id}(id=${projectlist.id})}"
-                               class="btn btn-outline-primary btn-sm">Изменить</a>
-                            <a th:href="@{/deleteprojectlist/{id}(id=${projectlist.id})}"
-                               class="btn btn-outline-danger btn-sm">Удалить</a>
-                        </td>
-                    </tr>
-                    </tbody>
-
-                </table>
-                <div class="container my-2" align="center" style="width:80%">
-                    <span th:text="'Страница ' + ${currentPage} + ' из ' + ${totalPages}"></span>
-                    <!-- Добавьте ссылки на навигацию между страницами -->
-                    <nav align="center" aria-label="Page navigation">
-                        <ul align="center" class="pagination">
-                            <li class="page-item" th:classappend="${currentPage == 0 ? 'disabled' : ''}">
-                                <a class="page-link" th:href="@{projectlist#(page=0)}">Первая</a>
-                            </li>
-                            <li class="page-item" th:classappend="${currentPage == 0 ? 'disabled' : ''}">
-                                <a class="page-link" th:href="@{projectlist#(page=${currentPage - 1})}">Предыдущая</a>
-                            </li>
-                            <li class="page-item" th:each="i : ${#numbers.sequence(0, totalPages - 1)}"
-                                th:classappend="${currentPage == i ? 'active' : ''}">
-                                <a class="page-link" th:href="@{projectlist#(page=${i})}" th:text="${i + 1}"></a>
-                            </li>
-                            <li class="page-item" th:classappend="${currentPage == totalPages - 1 ? 'disabled' : ''}">
-                                <a class="page-link" th:href="@{projectlist#(page=${currentPage + 1})}">Следующая</a>
-                            </li>
-                            <li class="page-item" th:classappend="${currentPage == totalPages - 1 ? 'disabled' : ''}">
-                                <a class="page-link" th:href="@{projectlist#(page=${totalPages - 1})}">Последняя</a>
-                            </li>
-                        </ul>
-                    </nav>
-                </div>
-                <!-- Bootstrap JS -->
-                <script src="/bootstrap.bundle.min.js"></script>
-            </div>
-        </div>
-    </div>
+<div class="mt-5 mb-4" style="text-align:center;">
+    <h3>Список проектов</h3>
+    <a th:href="@{/addprojectlist}" class="btn btn-primary btn-sm mb-3">Добавить новый проект</a>
 </div>
+<!--Выпадающий список-->
+<form method="get" th:action="@{/projectlist}">
+    <label for="id_Division">Выберите отдел:</label>
+    <select name="idDivision" id="id_Division" onchange="this.form.submit()">
+        <option value="" disabled th:if="${libbivision == null}" selected>- Выберите отдел -</option>
+        <option th:each="idDivision : ${libbivisions}"
+                th:value="${idDivision.id}"
+                th:text="${idDivision.namedivision}"
+                th:selected="${idDivision.id == libbivision}"></option>
+    </select>
+</form>
+
+<style>
+    /* Пример простого стилизования */
+    select {
+        width: 200px; /* Ширина выпадающего списка */
+        padding: 5px; /* Внутренние отступы */
+        margin-top: 10px; /* Отступ сверху */
+    }
+    label {
+        font-weight: bold; /* Делаем текст метки жирным */
+        margin-right: 10px; /* Отступ справа от метки */
+    }
+</style>
+<div class="mb-4 justify-content-center align-items-center form-control">
+    <table id="productTable" class="display">
+
+        <thead>
+        <div id="navbar">
+            <tr>
+                <th hidden="hidden"></th>
+                <th>Подразделение</th>
+                <th>Наименование</th>
+                <th>Руководитель</th>
+                <th>Куратор</th>
+                <th>Участники проекта</th>
+                <th>Ответственный исполнитель</th>
+                <th>Договор</th>
+                <th>Ссылка</th>
+                <th>Дата создания</th>
+                <th>Дата старта</th>
+                <th>Дата окончания</th>
+                <th>Сумма</th>
+                <th>OPEX</th>
+                <th>OPEX НДС</th>
+                <th>CAPEX</th>
+                <th>CAPEX НДС</th>
+                <th>Комментарий</th>
+                <th>Завершено</th>
+
+                <th>Редакция</th>
+        </div>
+        </thead>
+        <tbody>
+        <tr th:each="projectlist : ${projectlists}">
+            <td th:hidden="${projectlist.id}"></td>
+            <td th:text="${projectlist.libDivisionByIdDivision.namedivision}">
+            <td th:text="${projectlist.name}"></td>
+            <td th:text="${projectlist.headManager}"></td>
+            <td th:text="${projectlist.curator}"></td>
+            <td th:text="${projectlist.responsibleFromBusiness}"></td>
+            <td th:text="${projectlist.libJobEmployeeByOwner.fio}"></td>
+            <td th:text="${projectlist.dogovorNumber}"></td>
+            <td th:text="${projectlist.linkDogovor}"></td>
+            <td th:text="${#dates.format(projectlist.dateCreate, 'dd-MM-yyyy')}"></td>
+            <td th:text="${#dates.format(projectlist.dateStart, 'dd-MM-yyyy')}"></td>
+            <td th:text="${#dates.format(projectlist.dateEnd, 'dd-MM-yyyy')}"></td>
+            <td th:text="${projectlist.summaProject}"></td>
+            <td th:text="${projectlist.opex}"></td>
+            <td th:text="${projectlist.opexNds}"></td>
+            <td th:text="${projectlist.capex}"></td>
+            <td th:text="${projectlist.capexNds}"></td>
+            <td th:text="${projectlist.comment}"></td>
+            <td th:text="${projectlist.closed}  ? 'Закрыт' : 'Открыт'"></td>
+
+            <td><a th:href="@{/showprojectlist/{id}(id=${projectlist.id})}"
+                   class="btn btn-outline-primary btn-sm">Изменить</a>
+                <a th:href="@{/deleteprojectlist/{id}(id=${projectlist.id})}"
+                   class="btn btn-outline-danger btn-sm">Удалить</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+<!--    <div class="container my-2" align="center" style="width:80%">-->
+<!--        <span th:text="'Страница ' + ${currentPage} + ' из ' + ${totalPages}"></span>-->
+<!--        &lt;!&ndash; Добавьте ссылки на навигацию между страницами &ndash;&gt;-->
+<!--        <nav align="center" aria-label="Page navigation">-->
+<!--            <ul align="center" class="pagination">-->
+<!--                <li class="page-item" th:classappend="${currentPage == 0 ? 'disabled' : ''}">-->
+<!--                    <a class="page-link" th:href="@{projectlist#(page=0)}">Первая</a>-->
+<!--                </li>-->
+<!--                <li class="page-item" th:classappend="${currentPage == 0 ? 'disabled' : ''}">-->
+<!--                    <a class="page-link" th:href="@{projectlist#(page=${currentPage - 1})}">Предыдущая</a>-->
+<!--                </li>-->
+<!--                <li class="page-item" th:each="i : ${#numbers.sequence(0, totalPages - 1)}"-->
+<!--                    th:classappend="${currentPage == i ? 'active' : ''}">-->
+<!--                    <a class="page-link" th:href="@{projectlist#(page=${i})}" th:text="${i + 1}"></a>-->
+<!--                </li>-->
+<!--                <li class="page-item" th:classappend="${currentPage == totalPages - 1 ? 'disabled' : ''}">-->
+<!--                    <a class="page-link" th:href="@{projectlist#(page=${currentPage + 1})}">Следующая</a>-->
+<!--                </li>-->
+<!--                <li class="page-item" th:classappend="${currentPage == totalPages - 1 ? 'disabled' : ''}">-->
+<!--                    <a class="page-link" th:href="@{projectlist#(page=${totalPages - 1})}">Последняя</a>-->
+<!--                </li>-->
+<!--            </ul>-->
+<!--        </nav>-->
+<!--    </div>-->
+    <!-- Bootstrap JS -->
+<script src="/jquery-3.6.0.min.js"></script>
+<script src="/jquery.dataTables.min.js"></script>
+<script src="/dataTables.rowGroup.min.js"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        // $('#example thead tfoot th').each(function() {
+        //     var title = $('#example thead th').eq($(this).index() ).text();
+        //     $(this).html('<input type="text" placeholder="Search '+title+'" />' );
+        // });
+        // // Инициализация DataTable
+        // var table = $('#productTable').DataTable();
+        // // Применение фильтра
+        // $("#example thead tfoot input").on('keyup change', function() {
+        //     table.column($(this).parent().index()+':visible').search(this.value).draw();
+        // });
+        $('#productTable tfoot th').each(function () {
+            var title = $('#productTable thead th').eq($(this).index()).text();
+            $(this).html('<input type="text" placeholder="Search ' + title + '" />');
+        });
+
+        $('#productTable').DataTable({
+            order: [
+                // [0, 'asc'],
+                // [1, 'asc'],
+                [2, 'asc'],
+                [3, 'asc'],
+                [5, 'asc'],
+                [6, 'asc'],
+                [7, 'asc'],
+                [8, 'asc'],
+                [9, 'asc'],
+                [10, 'asc'],
+                [11, 'asc'],
+                [12, 'asc'],
+                [13, 'asc'],
+            ],
+            columnDefs: [{
+                visible: false,
+                targets: [1]
+            } // Hide grouped columns
+            ],
+            rowGroup: {
+                visible: false,
+                dataSrc: [1]
+            },
+            paging: true,
+            ordering: true,
+            searching: true,
+            searchDelay: 500
+        });
+        // $('#dropdown1').on('change', function () {
+        //     tableTab.columns(1).search(this.value).draw();
+        // });
+        // $('#dropdown8').on('change', function () {
+        //     tableTab.columns(8).search(this.value).draw();
+        // });
+        // $('#dropdown9').on('change', function () {
+        //     tableTab.columns(9).search(this.value).draw();
+        // });
+        $("#productTable tfoot input").on('keyup change', function () {
+            tableTab
+                .column($(this).parent().index() + ':visible')
+                .search(this.value)
+                .draw();
+        });
+    });
+</script>
 
 
 </body>

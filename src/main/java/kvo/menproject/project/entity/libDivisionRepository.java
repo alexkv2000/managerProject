@@ -14,11 +14,11 @@ import java.util.List;
 @Repository
 public interface libDivisionRepository extends JpaRepository<libDivision, Long> {
     Page<libDivision> findAllByActiveIsTrue(Pageable pageable);
-
     <S extends libDivision> List<S> findAllByActiveIsTrue();
     libDivision findById(long id);
 
     Page<libDivision> findAll(Pageable pageable);
+    List<libDivision> findAll();
     void deleteById(long id);
 
 

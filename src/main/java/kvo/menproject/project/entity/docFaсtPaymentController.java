@@ -14,8 +14,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.math.BigDecimal;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 
 
@@ -60,8 +59,11 @@ public class docFaсtPaymentController implements CommandLineRunner {
     public String addNewProject(@RequestParam(required = false, defaultValue = "0") Long idProject, Model model) {
         List<docPlanPayProject> allPlanPayProjects = docPlanPayProjectRepo.findAll();
         List<docPlanPayProject> filteredPlanPayProjects = allPlanPayProjects.stream()
-                .filter(docPlanPayProject -> docPlanPayProject.getLibDivisionByProjectId().getId() == idProject)
+                .filter(docPlanPayProject -> docPlanPayProject.getDocProjectsListByPlanProject().getId() == idProject)
                 .collect(Collectors.toList());
+        if (filteredPlanPayProjects==null) {
+            filteredPlanPayProjects.add(new docPlanPayProject());
+        }
         model.addAttribute("idProject", idProject);
         model.addAttribute("statuss", Status.values());
         model.addAttribute("stepprojects", libStepProjectRepo.findAll());

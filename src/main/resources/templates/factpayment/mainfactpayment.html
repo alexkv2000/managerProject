@@ -40,7 +40,7 @@
 
 <!--Выпадающий список-->
 <form method="get" th:action="@{/factpayment}">
-    <label for="idProject">Выберите проект:</label>
+    <label for="idProject" value="${idProject}">Выберите проект:</label>
     <select name="idProject" id="idProject" onchange="this.form.submit()">
         <option value="" disabled th:if="${projectId == null}" selected>- Выберите проект -</option>
         <option th:each="projectslist : ${projectslists}"

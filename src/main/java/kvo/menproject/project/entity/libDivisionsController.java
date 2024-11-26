@@ -32,7 +32,6 @@ public class libDivisionsController implements CommandLineRunner {
         } else {
             System.out.println("No divisions retrieved");
         }
-
         model.addAttribute("divisions", libDivisionRepo.findAllByActiveIsTrue(pageable));
         model.addAttribute("totalPages", rows.getTotalPages());
         model.addAttribute("currentPage", page);

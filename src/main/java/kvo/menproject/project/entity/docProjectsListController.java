@@ -25,26 +25,36 @@ public class docProjectsListController implements CommandLineRunner {
     }
 
     @GetMapping("/projectlist")
-    public String viewHomePage(Model model,
-                               @RequestParam(defaultValue = "0") int page,
-                               @RequestParam(defaultValue = "5") int size) {
+    public String viewHomePage(@RequestParam(required = false, defaultValue = "0") Long idDivision, Model model) {
+//    public String viewHomePage(Model model,
+//                               @RequestParam(defaultValue = "0") int page,
+//                               @RequestParam(defaultValue = "5") int size) {
 //        List<serLibDivision> rows = jdbcTemplate.query("select id, \"nameDivision\", organisation, active from library.\"libDivision\" where active = true order by id", BeanPropertyRowMapper.newInstance(serLibDivision.class));
 //        for (serLibDivision q: rows) {
 //            System.out.println(q.toString());
 //        }
-        Pageable pageable = PageRequest.of(page, size);
-        Page<docProjectsList> rows = docProjectsListRepo.findAllByClosedIsFalseSortedByName(pageable);
-        if (rows != null) {
-            System.out.println("Retrieved " + rows.getContent().size() + " projects");
-        } else {
-            System.out.println("No projects retrieved");
+//        Pageable pageable = PageRequest.of(page, size);
+//        Page<docProjectsList> rows = docProjectsListRepo.findAllByClosedIsFalseSortedByName(pageable);
+//        if (rows != null) {
+//            System.out.println("Retrieved " + rows.getContent().size() + " projects");
+//        } else {
+//            System.out.println("No projects retrieved");
+//        }
+//        System.out.println("Total elements: " + rows.getTotalElements()); // Вывод количества элементов
+//        System.out.println("Content: " + rows.getContent()); // Вывод содержимого
+//        if(idDivision>0) {
+//            model.addAttribute("idDivisions", docProjectsListRepo.findAllByLibDivisionByIdDivision_Id(idDivision));
+//        } else {
+//            model.addAttribute("idDivisions", libDivisionRepo.findAll());
+//        }
+        model.addAttribute("libbivisions", libDivisionRepo.findAll());
+        if (idDivision != 0) {
+            model.addAttribute("libbivision", libDivisionRepo.findById(idDivision).get().getId());
         }
-        System.out.println("Total elements: " + rows.getTotalElements()); // Вывод количества элементов
-        System.out.println("Content: " + rows.getContent()); // Вывод содержимого
-        model.addAttribute("projectlists", docProjectsListRepo.findAllByClosedIsFalse(pageable));
-        model.addAttribute("projectlists", docProjectsListRepo.findAllByClosedIsFalse(pageable));
-        model.addAttribute("totalPages", rows.getTotalPages());
-        model.addAttribute("currentPage", page);
+        model.addAttribute("projectlists", docProjectsListRepo.findAllByLibDivisionByIdDivision_Id(idDivision));
+//        model.addAttribute("projectlists", docProjectsListRepo.findAllByClosedIsFalse(pageable));
+//        model.addAttribute("totalPages", rows.getTotalPages());
+//        model.addAttribute("currentPage", page);
         return "/projectlist/mainprojectlist";
     }
 
@@ -56,7 +66,7 @@ public class docProjectsListController implements CommandLineRunner {
 
         model.addAttribute("project", new docProjectsList());
         model.addAttribute("divisions", libDivisionRepo.findAllByActiveIsTrue());
-        model.addAttribute("employees",libEmployeeRepo.findAllByActiveIsTrue());
+        model.addAttribute("employees", libEmployeeRepo.findAllByActiveIsTrue());
         return "/projectlist/newprojectlist";
     }
 
@@ -101,6 +111,7 @@ public class docProjectsListController implements CommandLineRunner {
         return "redirect:/projectlist";
 
     }
+
     @PostMapping(path = "/updateprojectlist")
     public String updateProject(@ModelAttribute("showprojectlist") docProjectsList list) {
         if (list.getDateCreate() == null) {
@@ -119,6 +130,7 @@ public class docProjectsListController implements CommandLineRunner {
         docProjectsListRepo.saveAndFlush(list);
         return "redirect:/projectlist";
     }
+
     @Override
     public void run(String... args) throws Exception {
     }

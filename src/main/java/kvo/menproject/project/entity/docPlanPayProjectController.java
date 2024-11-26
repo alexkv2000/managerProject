@@ -28,6 +28,9 @@ public class docPlanPayProjectController implements CommandLineRunner {
 
         List<docProjectsList> projectsLists = docProjectsListRepo.findAll();
         model.addAttribute("projectslists", projectsLists);
+        if (idProject != 0) {
+            model.addAttribute("project", docProjectsListRepo.findById(idProject).get().getId());
+        }
 
         model.addAttribute("planpayprojects", docPlanPayProjectRepo.findAllByDocProjectsListByPlanProject_Id(idProject));
 
@@ -98,14 +101,18 @@ public class docPlanPayProjectController implements CommandLineRunner {
     }
 
     private static void changeNullToZero(docPlanPayProject list) {
-        if (list.getOpex() == null){
-            list.setOpex(BigDecimal.valueOf(0));}
-        if (list.getOpexNds() == null){
-            list.setOpexNds(BigDecimal.valueOf(0));}
-        if (list.getCapex() == null){
-            list.setCapex(BigDecimal.valueOf(0));}
-        if (list.getCapexNds() == null){
-            list.setCapexNds(BigDecimal.valueOf(0));}
+        if (list.getOpex() == null) {
+            list.setOpex(BigDecimal.valueOf(0));
+        }
+        if (list.getOpexNds() == null) {
+            list.setOpexNds(BigDecimal.valueOf(0));
+        }
+        if (list.getCapex() == null) {
+            list.setCapex(BigDecimal.valueOf(0));
+        }
+        if (list.getCapexNds() == null) {
+            list.setCapexNds(BigDecimal.valueOf(0));
+        }
     }
 
     @Override
