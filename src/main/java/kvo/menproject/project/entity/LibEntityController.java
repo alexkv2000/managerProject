@@ -17,7 +17,7 @@ public class LibEntityController implements CommandLineRunner {
     @GetMapping("/entity")
     public String viewHomePage(Model model,
                                @RequestParam(defaultValue = "0") int page,
-                               @RequestParam(defaultValue = "5") int size) {
+                               @RequestParam(defaultValue = "15") int size) {
 
         Pageable pageable = PageRequest.of(page, size);
         Page<LibEntity> rows = LibEntityRepo.findAll(pageable);

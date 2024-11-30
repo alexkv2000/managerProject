@@ -88,7 +88,7 @@
 <!--                                            color: #0d6efd;-->
 <!--                                        }-->
 <!--                                    </style>-->
-                                    <input class="form-control form-control-sm" type="file" name="file" id="fileInput" accept=".jpg,.jpeg,.png,.gif,.doc,.docx,.xls,.xlsx,.dot,.xlst,.txt,.srv,.reg,.pdf"
+                                    <input class="form-control form-control-sm" type="file" name="file" id="fileInput" accept=".jpg,.jpeg,.png,.gif,.doc,.docx,.xls,.xlsm,.xlsx,.dot,.xlst,.txt,.srv,.reg,.pdf"
                                            onchange="this.form.submit();" style="bs-border-color:#0d6efd; color:#0d6efd;"/>
                                 </div>
                             </form>
@@ -96,7 +96,7 @@
                         <script type="text/javascript">
                             document.getElementById("fileInput").addEventListener('change', function () {
                                 const file = this.files[0];
-                                const allowedExtensions = /(\.jpg|\.jpeg|\.png|\.gif|\.pdf|\.doc|\.docx|\.xls|\.xlsx|\.dot|\.xlst|\.txt|\.srv|\.reg)$/i; // Задайте разрешенные типы файлов
+                                const allowedExtensions = /(\.jpg|\.jpeg|\.png|\.gif|\.pdf|\.doc|\.docx|\.xls.|\.xlsm|\.xlsx|\.dot|\.xlst|\.txt|\.srv|\.reg)$/i; // Задайте разрешенные типы файлов
 
                                 if (file) {
                                     if (!allowedExtensions.exec(file.name)) {

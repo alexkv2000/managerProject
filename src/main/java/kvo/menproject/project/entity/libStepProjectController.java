@@ -21,7 +21,7 @@ public class libStepProjectController implements CommandLineRunner {
     @GetMapping("/stepproject")
     public String viewHomePage(Model model,
                                @RequestParam(defaultValue = "0") int page,
-                               @RequestParam(defaultValue = "5") int size) {
+                               @RequestParam(defaultValue = "15") int size) {
 
         Pageable pageable = PageRequest.of(page, size);
         Page<libStepProject> rows = libStepProjectRepo.findAll(pageable);

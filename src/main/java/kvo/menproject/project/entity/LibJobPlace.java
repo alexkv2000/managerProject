@@ -2,10 +2,12 @@ package kvo.menproject.project.entity;
 
 import jakarta.persistence.*;
 import lombok.Data;
-
 import java.util.Objects;
+//import org.springframework.ldap.odm.annotations.Entry;
+
 
 @Entity
+//@Entry(base = "dc=gaz,dc=ru", objectClasses = {"inetOrgPerson"})
 @Table(name = "lib_job_place", schema = "library", catalog = "dev")
 @Data
 public class LibJobPlace {
