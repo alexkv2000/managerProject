@@ -135,13 +135,13 @@
                 <script type="text/javascript">
                         document.getElementById("fileInput").addEventListener('change', function () {
                             const file = this.files[0];
-                            const allowedExtensions = /(\.jpg|\.jpeg|\.png|\.gif|\.pdf|\.doc|\.docx|\.xls|\.xlsx|\.dot|\.xlst|\.txt|\.srv|\.reg)$/i; // Задайте разрешенные типы файлов
+                            const allowedExtensions = /(\.jpg|\.jpeg|\.png|\.gif|\.pdf|\.doc|\.docx|\.xls|\.xlsm|\.xlsx|\.dot|\.xlst|\.txt|\.srv|\.reg)$/i; // Задайте разрешенные типы файлов
 
                             if (file) {
                                 if (!allowedExtensions.exec(file.name)) {
                                     this.value = ''; // Отменяем выбор файла
                                     // this.files[0] = null;
-                                    alert('Недопустимый файл типа! Выберите jpg,jpeg,png,gif,doc,docx,xls,xlsx,dot,xlst,txt,srv,reg или pdf.');
+                                    alert('Недопустимый файл типа! Выберите jpg,jpeg,png,gif,doc,docx,xls,xlsm,xlsx,dot,xlst,txt,srv,reg или pdf.');
                                 } else {
                                     document.getElementById('uploadForm').submit(); // Отправляем форму, если файл правильного типа
                                 }

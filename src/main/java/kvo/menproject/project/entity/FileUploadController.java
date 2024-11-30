@@ -79,7 +79,7 @@ public class FileUploadController {
     private static boolean typeCorrect(MultipartFile file) {
         String ext;
         ext = FilenameUtils.getExtension(file.getOriginalFilename());
-        if ("jpg.jpeg.png.gif.doc.docx.xls.xlsx.dot.xlst.txt.srv.reg.pdf".indexOf(ext) < 0) {
+        if ("jpg.jpeg.png.gif.doc.docx.xls.xlsm.xlsx.dot.xlst.txt.srv.reg.pdf".indexOf(ext) < 0) {
             return false;
         } else {
             return true;
@@ -96,7 +96,7 @@ public class FileUploadController {
         }
         String ext;
         ext = FilenameUtils.getExtension(file.getOriginalFilename());
-        if ("jpg.jpeg.png.gif.doc.docx.xls.xlsx.dot.xlst.txt.srv.reg.pdf".indexOf(ext) < 0)
+        if ("jpg.jpeg.png.gif.doc.docx.xls.xlsm.xlsx.dot.xlst.txt.srv.reg.pdf".indexOf(ext) < 0)
             return "redirect:/factpayment";
 
         try {

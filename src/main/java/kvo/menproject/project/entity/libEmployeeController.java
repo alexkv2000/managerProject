@@ -18,7 +18,7 @@ public class libEmployeeController implements CommandLineRunner {
     @GetMapping("/employee")
     public String viewHomePage(Model model,
                                @RequestParam(defaultValue = "0") int page,
-                               @RequestParam(defaultValue = "5") int size) {
+                               @RequestParam(defaultValue = "15") int size) {
 //        List<serLibDivision> rows = jdbcTemplate.query("select id, \"nameDivision\", organisation, active from library.\"libDivision\" where active = true order by id", BeanPropertyRowMapper.newInstance(serLibDivision.class));
 //        for (serLibDivision q: rows) {
 //            System.out.println(q.toString());

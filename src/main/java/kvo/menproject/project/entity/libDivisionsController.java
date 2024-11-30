@@ -23,7 +23,7 @@ public class libDivisionsController implements CommandLineRunner {
     @GetMapping("/division")
     public String viewHomePage(Model model,
                                @RequestParam(defaultValue = "0") int page,
-                               @RequestParam(defaultValue = "5") int size) {
+                               @RequestParam(defaultValue = "15") int size) {
 
         Pageable pageable = PageRequest.of(page, size);
         Page<libDivision> rows = libDivisionRepo.findAllByActiveIsTrue(pageable);
