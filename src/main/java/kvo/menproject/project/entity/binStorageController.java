@@ -53,6 +53,7 @@ public class binStorageController implements CommandLineRunner {
         model.addAttribute("stepprojects", libStepProjectRepo.findAll());
         model.addAttribute("projectslists", docProjectsListRepo.findAllById(idProject));
         model.addAttribute("binstorage", new binStorage());
+        model.addAttribute("fileData", fileDataRepo.findAllByTypeDocAndIdData("binStorage", idProject));
         return "/binstorage/newbinstorage";
     }
 

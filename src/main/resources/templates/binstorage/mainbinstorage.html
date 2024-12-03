@@ -55,7 +55,7 @@
         const select = document.getElementById('id_Project');
         const selectedId = select.value;
         if (selectedId) {
-            window.location.href = '/api/export/planpayproject/' + selectedId;
+            window.location.href = '/api/export/binstorage/' + selectedId;
         } else {
             alert('Пожалуйста, выберите проект перед экспортом.');
         }
@@ -85,9 +85,9 @@
                 <th>Наименование проекта</th>
                 <th>Этап проекта</th>
                 <!--                        <th>Название файла</th>-->
-                <th>Размер файла</th>
                 <th>Дата создания</th>
                 <th>Комментарий</th>
+                <th>Размер файла</th>
                 <th>Файл</th>
                 <th>Добавить файл</th>
                 <th width="5%">Редакция</th>
@@ -101,9 +101,16 @@
             <td th:text="${binstorage.libStepProjectByStepProject.nameStepProject}"></td>
             <!--                        &lt;!&ndash;                        <td th:text="${#dates.format(schemdoc.getDateCreate(), 'dd-MM-yyyy')}"></td>&ndash;&gt;-->
             <!--                        <td th:text="${binstorage.nameFile}"></td>-->
-            <td th:text="${binstorage.dateCreate}"></td>
+            <!--            <td th:text="${fileData.get(0).sizeFile}"></td>-->
             <td th:text="${#dates.format(binstorage.getDateCreate(), 'dd-MM-yyyy')}"></td>
             <td th:text="${binstorage.comments}"></td>
+            <td>
+                <ul th:each="file : ${fileData}"
+                    th:if="${file.getId_Data() == binstorage.getId()}" style="margin-bottom: 0px;">
+                    <p th:text="${file.sizeFile}" style="margin-bottom: 0px;"/>
+                </ul>
+
+            </td>
             <td>
                 <!--                            <li th:text="${file.getName()}" th:each="file:${fileData}"></li>-->
                 <ul>
