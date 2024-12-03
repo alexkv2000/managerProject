@@ -59,9 +59,11 @@
                         <td th:text="${employee.coments}"></td>
                         <td th:text="${employee.active}"></td>
                         <td><a th:href="@{/showemployee/{id}(id=${employee.id})}"
-                               class="btn btn-outline-primary btn-sm">Изменить</a>
+                               class="btn btn-outline-primary btn-sm" title="изменить">
+                            <img src="/icon/pen.png" alt="изменить" width="20" height="20"></a>
                             <a th:href="@{/deleteemployee/{id}(id=${employee.id})}"
-                               class="btn btn-outline-danger btn-sm">Удалить</a>
+                               class="btn btn-outline-danger btn-sm" title="удалить">
+                                <img src="/icon/del.png" alt="удалить" width="20" height="20"></a>
                         </td>
                     </tr>
                     </tbody>

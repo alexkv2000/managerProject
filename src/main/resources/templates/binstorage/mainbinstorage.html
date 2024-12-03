@@ -39,7 +39,7 @@
             <!--            <div class="container my-2" align="center">-->
             <div align="center">
                 <h3>Список [хранилище файлов]</h3>
-                <a th:href="@{/addbinstorage}" class="btn btn-primary btn-sm mb-3">Добавить файл</a>
+                <a th:href="@{/addbinstorage}" class="btn btn-primary btn-sm mb-3">Добавить документ</a>
                 <table style="width:80%" border="1" class="table table-striped table-responsive-xxl">
                     <thead>
                     <tr>
@@ -111,9 +111,11 @@
                         </script>
                         <!--                        const allowedExtensions = /(\.jpg|\.jpeg|\.png|\.gif|\.txt|\.doc|\.docx|\.xls|\.xlsx|\.pdf|\.cer|\.vsdx|\.sql)$/i; // Задайте разрешенные типы файлов-->
                         <td><a th:href="@{/showbinstorage/{id}(id=${binstorage.id})}"
-                               class="btn btn-outline-primary btn-sm">Изменить</a>
+                               class="btn btn-outline-primary btn-sm" title="изменить">
+                            <img src="/icon/pen.png" alt="изменить" width="20" height="20"></a>
                             <a th:href="@{/deletebinstorage/{id}(id=${binstorage.id})}"
-                               class="btn btn-outline-danger btn-sm">Удалить</a></td>
+                               class="btn btn-outline-danger btn-sm" title="удалить">
+                                <img src="/icon/del.png" alt="удалить" width="20" height="20"></a>
                     </tr>
                     </tbody>
                 </table>

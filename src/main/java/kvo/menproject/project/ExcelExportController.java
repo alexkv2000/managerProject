@@ -37,6 +37,13 @@ public class ExcelExportController {
         Workbook workbook = new XSSFWorkbook();
         Sheet planPay = workbook.createSheet("PlanPay");
 
+        CellStyle style = workbook.createCellStyle(); //Create new style
+        style.setWrapText(true); //Set wordwrap
+        planPay.setColumnWidth(0, 870);
+        planPay.setColumnWidth(7, 18000);
+        planPay.setColumnWidth(12, 18000);
+        planPay.setColumnWidth(13, 18000);
+        planPay.setColumnWidth(14, 18000);
         List<docPlanPayProject> docPlanPayProjects = docPlanPayProjectRepo.findAllByDocProjectsListByPlanProject_Id(fileId);
 
         // Пример данных для заполнения таблицы
@@ -68,6 +75,7 @@ public class ExcelExportController {
             Cell cellCapexNds = row.createCell(j++);
             cellCapexNds.setCellValue(docPlanPayProjects.get(i).getCapexNds().toString());
             Cell cellStepProject = row.createCell(j++);
+            cellStepProject.setCellStyle(style); //Apply style to cell
             cellStepProject.setCellValue(docPlanPayProjects.get(i).getStepProject());
             Cell cellDuration = row.createCell(j++);
             cellDuration.setCellValue(docPlanPayProjects.get(i).getDuration());
@@ -78,64 +86,81 @@ public class ExcelExportController {
             Cell cellPaymentOnTime = row.createCell(j++);
             cellPaymentOnTime.setCellValue(docPlanPayProjects.get(i).getPaymentOnTime().toString());
             Cell cellDivision = row.createCell(j++);
+            cellDivision.setCellStyle(style); //Apply style to cell
             cellDivision.setCellValue(docPlanPayProjects.get(i).getLibDivisionByProjectId().getNamedivision());
             Cell cellComment = row.createCell(j++);
+            cellComment.setCellStyle(style); //Apply style to cell
             cellComment.setCellValue(docPlanPayProjects.get(i).getComment());
             Cell cellPlanPay = row.createCell(j++);
+            cellPlanYear.setCellStyle(style); //Apply style to cell
             cellPlanPay.setCellValue(docPlanPayProjects.get(i).getDocProjectsListByPlanProject().getName());
 //            Cell cellPlan = row.createCell(j++);
 //            cellPlan.setCellValue(docPlanPayProjects.get(i).getDocProjectsListByPlanProject().toString());
             j = 0;
         }
 
+
+
         Sheet factPay = workbook.createSheet("Project");
+        factPay.setColumnWidth(0, 870);
+        factPay.setColumnWidth(1, 18000);
+        factPay.setColumnWidth(8, 18000);
+        factPay.setColumnWidth(9, 18000);
+        factPay.setColumnWidth(11, 18000);
+        factPay.setColumnWidth(13, 18000);
 
         // Пример данных для заполнения таблицы
         String[] headersFakt = {"№ п/п", "Name", "Data_start", "Date_end", "Opex", "Opex_NDS", "Capex", "Capex_nds", "Dogovor_numbers", "Head_manager", "Summa_project", "Link_dogovor", "Closed", "Сomment"};
         // Заполнение заголовков
         Row headerRowFact = factPay.createRow(0);
-        for (int i = 0; i < headers.length; i++) {
+        for (int i = 0; i < headersFakt.length; i++) {
             Cell cell = headerRowFact.createCell(i);
-            cell.setCellValue(headers[i]);
+            cell.setCellValue(headersFakt[i]);
         }
 //TODO вывод factPay данных
-        int ipp = Math.toIntExact(fileId);
+        fileId.longValue();
+        long ipp_long = docPlanPayProjects.get(0).getDocProjectsListByPlanProject().getId();
+        int ipp = (int) ipp_long;
         int i=0;
         j = 0;
         // Заполнение данными
-        if (!docPlanPayProjects.get(ipp).getDocProjectsListByPlanProject().getName().isEmpty()) {
+        if (!docPlanPayProjects.isEmpty()) {
             Row row = factPay.createRow(1);
 
             Cell cellId = row.createCell(j++);
             cellId.setCellValue(i + 1);
 
             Cell cellPlanYear = row.createCell(j++);
-            cellPlanYear.setCellValue(docPlanPayProjects.get(ipp).getDocProjectsListByPlanProject().getName());
-
+            cellPlanYear.setCellStyle(style); //Apply style to cell
+            cellPlanYear.setCellValue(docPlanPayProjects.get(0).getDocProjectsListByPlanProject().getName());
             Cell cellDataPlaning = row.createCell(j++);
-            cellDataPlaning.setCellValue(docPlanPayProjects.get(ipp).getDocProjectsListByPlanProject().getDateStart());
+            cellDataPlaning.setCellValue(docPlanPayProjects.get(0).getDocProjectsListByPlanProject().getDateStart());
             Cell cellOpex = row.createCell(j++);
-            cellOpex.setCellValue(docPlanPayProjects.get(ipp).getDocProjectsListByPlanProject().getDateEnd());
+            cellOpex.setCellValue(docPlanPayProjects.get(0).getDocProjectsListByPlanProject().getDateEnd());
             Cell cellOpexNds = row.createCell(j++);
-            cellOpexNds.setCellValue(docPlanPayProjects.get(ipp).getDocProjectsListByPlanProject().getOpex());
+            cellOpexNds.setCellValue(docPlanPayProjects.get(0).getDocProjectsListByPlanProject().getOpex());
             Cell cellCapex = row.createCell(j++);
-            cellCapex.setCellValue(docPlanPayProjects.get(ipp).getDocProjectsListByPlanProject().getOpexNds());
+            cellCapex.setCellValue(docPlanPayProjects.get(0).getDocProjectsListByPlanProject().getOpexNds());
             Cell cellCapexNds = row.createCell(j++);
-            cellCapexNds.setCellValue(docPlanPayProjects.get(ipp).getDocProjectsListByPlanProject().getCapex());
+            cellCapexNds.setCellValue(docPlanPayProjects.get(0).getDocProjectsListByPlanProject().getCapex());
             Cell cellStepProject = row.createCell(j++);
-            cellStepProject.setCellValue(docPlanPayProjects.get(ipp).getDocProjectsListByPlanProject().getCapexNds());
+            cellStepProject.setCellValue(docPlanPayProjects.get(0).getDocProjectsListByPlanProject().getCapexNds());
             Cell cellDuration = row.createCell(j++);
-            cellDuration.setCellValue(docPlanPayProjects.get(ipp).getDocProjectsListByPlanProject().getDogovorNumber());
+            cellDuration.setCellStyle(style); //Apply style to cell
+            cellDuration.setCellValue(docPlanPayProjects.get(0).getDocProjectsListByPlanProject().getDogovorNumber());
             Cell cellInterval = row.createCell(j++);
-            cellInterval.setCellValue(docPlanPayProjects.get(ipp).getDocProjectsListByPlanProject().getHeadManager());
+            cellInterval.setCellStyle(style); //Apply style to cell
+            cellInterval.setCellValue(docPlanPayProjects.get(0).getDocProjectsListByPlanProject().getHeadManager());
             Cell cellCompleted = row.createCell(j++);
-            cellCompleted.setCellValue(docPlanPayProjects.get(ipp).getDocProjectsListByPlanProject().getSummaProject());
+            cellCompleted.setCellValue(docPlanPayProjects.get(0).getDocProjectsListByPlanProject().getSummaProject());
             Cell cellPaymentOnTime = row.createCell(j++);
-            cellPaymentOnTime.setCellValue(docPlanPayProjects.get(ipp).getDocProjectsListByPlanProject().getLinkDogovor());
+            cellPaymentOnTime.setCellStyle(style); //Apply style to cell
+            cellPaymentOnTime.setCellValue(docPlanPayProjects.get(0).getDocProjectsListByPlanProject().getLinkDogovor());
             Cell cellDivision = row.createCell(j++);
-            cellDivision.setCellValue(docPlanPayProjects.get(ipp).getDocProjectsListByPlanProject().isClosed());
+            cellDivision.setCellValue(docPlanPayProjects.get(0).getDocProjectsListByPlanProject().isClosed());
             Cell cellComment = row.createCell(j++);
-            cellComment.setCellValue(docPlanPayProjects.get(ipp).getDocProjectsListByPlanProject().getComment());
+            cellComment.setCellStyle(style); //Apply style to cell
+            cellComment.setCellValue(docPlanPayProjects.get(0).getDocProjectsListByPlanProject().getComment());
         }
 
         // Запись в ответ

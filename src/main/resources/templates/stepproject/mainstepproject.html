@@ -56,9 +56,11 @@
                         <td th:text="${stepproject.comment}"></td>
 <!--                        <td th:text="${jobplace.active}"></td>-->
                         <td><a th:href="@{/showstepproject/{id}(id=${stepproject.id})}"
-                               class="btn btn-primary">Изменить</a>
+                               class="btn btn-primary" title="изменить">
+                            <img src="/icon/pen.png" alt="изменить" width="20" height="20"></a>
                             <a th:href="@{/deletestepproject/{id}(id=${stepproject.id})}"
-                               class="btn btn-danger">Удалить</a>
+                               class="btn btn-danger" title="удалить">
+                                <img src="/icon/del.png" alt="удалить" width="20" height="20"></a>
                         </td>
                     </tr>
                     </tbody>

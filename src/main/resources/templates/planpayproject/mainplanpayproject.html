@@ -6,22 +6,22 @@
     <link rel="stylesheet" href="/jquery.dataTables.min.css">
     <link rel="stylesheet" href="/bootstrap.min.css">
     <link rel="stylesheet" href="/menu/menu.css">
-<!--    <script type="text/javascript">-->
-<!--        //Для фильтрации данных-->
-<!--        function filterByName(){-->
-<!--            const selectName = document.getElementById('id').valueOf();-->
-<!--            const rows = document.querySelectorAll('.entity-row');-->
+    <!--    <script type="text/javascript">-->
+    <!--        //Для фильтрации данных-->
+    <!--        function filterByName(){-->
+    <!--            const selectName = document.getElementById('id').valueOf();-->
+    <!--            const rows = document.querySelectorAll('.entity-row');-->
 
-<!--            rows.forEach(row => {-->
-<!--                const name = row.getAttribute('name');-->
-<!--                if(name === selectName){-->
-<!--                    row.style.display = ''; //Показываем строку-->
-<!--                } else {-->
-<!--                    row.style.display = 'none'; //Скрываем строку-->
-<!--                }-->
-<!--            });-->
-<!--        }-->
-<!--    </script>-->
+    <!--            rows.forEach(row => {-->
+    <!--                const name = row.getAttribute('name');-->
+    <!--                if(name === selectName){-->
+    <!--                    row.style.display = ''; //Показываем строку-->
+    <!--                } else {-->
+    <!--                    row.style.display = 'none'; //Скрываем строку-->
+    <!--                }-->
+    <!--            });-->
+    <!--        }-->
+    <!--    </script>-->
 </head>
 <body>
 <nav>
@@ -54,7 +54,7 @@
     <a th:href="@{/addplanpayproject}" class="btn btn-primary btn-sm mb-3">Добавить план оплат проектов</a>
 </div>
 <!--Выпадающий список-->
-<form method="get" th:action="@{/planpayproject}">
+<form method="get" th:action="@{/planpayproject}" class="justify-content:space-between">
     <label for="id_Project">Выберите проект:</label>
     <select name="idProject" id="id_Project" onchange="this.form.submit()">
         <option value="" disabled th:if="${project == null}" selected>- Выберите проект -</option>
@@ -63,7 +63,22 @@
                 th:text="${projectslist.getName()}"
                 th:selected="${projectslist.getId() == project}"></option>
     </select>
+    <button th:if="${project != null}" type="button" id="exportButton" onclick="exportProject()">
+        <img src="/icon/excel.png" alt="выгрузить в Excel" width="20" height="20">
+    </button>
 </form>
+
+<script>
+    function exportProject() {
+        const select = document.getElementById('id_Project');
+        const selectedId = select.value;
+        if (selectedId) {
+            window.location.href = '/api/export/planpayproject/' + selectedId;
+        } else {
+            alert('Пожалуйста, выберите проект перед экспортом.');
+        }
+    }
+</script>
 
 <style>
     /* Пример простого стилизования */
@@ -72,6 +87,7 @@
         padding: 5px; /* Внутренние отступы */
         margin-top: 10px; /* Отступ сверху */
     }
+
     label {
         font-weight: bold; /* Делаем текст метки жирным */
         margin-right: 10px; /* Отступ справа от метки */
@@ -111,10 +127,18 @@
             <td th:text="${planpayproject.libDivisionByProjectId.namedivision}"></td>
             <td th:text="${planpayproject.docProjectsListByPlanProject.name}"></td>
             <td th:text="${#dates.format(planpayproject.getDataPlaning(),'dd-MM-yyyy')}"></td>
-            <td align="right"> <span th:text="${#numbers.formatDecimal(planpayproject.opex, 1, 'WHITESPACE', 2, 'POINT')} + ' ₽'">0.00</span></td>
-            <td align="right"> <span th:text="${#numbers.formatDecimal(planpayproject.opexNds, 1, 'WHITESPACE', 2, 'POINT')} + ' ₽'">0.00</span></td>
-            <td align="right"> <span th:text="${#numbers.formatDecimal(planpayproject.capex, 1, 'WHITESPACE', 2, 'POINT')} + ' ₽'">0.00</span></td>
-            <td align="right"> <span th:text="${#numbers.formatDecimal(planpayproject.capexNds, 1, 'WHITESPACE', 2, 'POINT')} + ' ₽'">0.00</span></td>
+            <td align="right"><span
+                    th:text="${#numbers.formatDecimal(planpayproject.opex, 1, 'WHITESPACE', 2, 'POINT')} + ' ₽'">0.00</span>
+            </td>
+            <td align="right"><span
+                    th:text="${#numbers.formatDecimal(planpayproject.opexNds, 1, 'WHITESPACE', 2, 'POINT')} + ' ₽'">0.00</span>
+            </td>
+            <td align="right"><span
+                    th:text="${#numbers.formatDecimal(planpayproject.capex, 1, 'WHITESPACE', 2, 'POINT')} + ' ₽'">0.00</span>
+            </td>
+            <td align="right"><span
+                    th:text="${#numbers.formatDecimal(planpayproject.capexNds, 1, 'WHITESPACE', 2, 'POINT')} + ' ₽'">0.00</span>
+            </td>
             <td th:text="${planpayproject.comment}"></td>
             <td th:text="${planpayproject.stepProject}"></td>
             <td th:text="${planpayproject.duration}"></td>
@@ -123,9 +147,11 @@
             <td th:text="${planpayproject.completed && planpayproject.paymentOnTime}?'Оплачен вне графика': (${planpayproject.completed && !planpayproject.paymentOnTime} ? 'Оплачен по графику' : '-')"></td>
 
             <td><a th:href="@{/showplanpayproject/{id}(id=${planpayproject.id})}"
-                   class="btn btn-outline-primary btn-sm">Изменить</a>
+                   class="btn btn-outline-primary btn-sm" title="изменить">
+                <img src="/icon/pen.png" alt="изменить" width="20" height="20"></a>
                 <a th:href="@{/deleteplanpayproject/{id}(id=${planpayproject.id})}"
-                   class="btn btn-outline-danger btn-sm">Удалить</a>
+                   class="btn btn-outline-danger btn-sm" title="удалить">
+                    <img src="/icon/del.png" alt="удалить" width="20" height="20"></a>
             </td>
         </tr>
         </tbody>
