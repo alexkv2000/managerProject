@@ -4,10 +4,12 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 
+import java.util.List;
+
 public interface binStorageRepository extends JpaRepository<binStorage, Long> {
-    Page<binStorage> findAllByStepProjectOrderByStepProjectAsc(String stepProject, Pageable pageable);
-    Page<binStorage> findAllByNameProjectOrderByStepProjectAsc(String nameProject, Pageable pageable);
-    Page<binStorage> findAll(Pageable pageable);
+    List<binStorage> findAllById(long idProject);
+    List<binStorage> findAllByNameProject(long idProject);
+    List<binStorage> findAll();
 
     void deleteById(long id);
 }
