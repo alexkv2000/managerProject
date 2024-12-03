@@ -34,7 +34,7 @@
 </nav>
 <div class="mt-5 mb-4" style="text-align:center;">
     <h3>Список [хранилище файлов]</h3>
-    <a th:href="@{/addbinstorage}" class="btn btn-primary btn-sm mb-3">Добавить документ</a>
+    <a th:href="@{/addbinstorage(idProject=${project})}" class="btn btn-primary btn-sm mb-3">Добавить документ</a>
 </div>
 <!--Выпадающий список-->
 <form method="get" th:action="@{/binstorage}" class="justify-content:space-between">
@@ -90,7 +90,7 @@
                 <th>Комментарий</th>
                 <th>Файл</th>
                 <th>Добавить файл</th>
-                <th>Редакция</th>
+                <th width="5%">Редакция</th>
             </tr>
         </div>
         </thead>

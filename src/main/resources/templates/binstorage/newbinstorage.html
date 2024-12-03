@@ -15,14 +15,23 @@
           enctype="multipart/form-data">
         <input type="hidden" th:field="*{id}"/>
         <div lass="d-flex align-items-center mb-2">
-            <label for="id_project" style="flex: 1; max-width: 230px;">Наименование проекта:</label>
-            <!-- сохраняем в projectsListByNameProject выбор projectslist и в Controller передаем в id_project -->
-            <select th:name="projectsListByNameProject" id="id_project" style="flex: 1; max-width: 400px;"
-                    class="form-select"/>
-            <option value="" disabled selected>проект ...</option>
-            <th:block th:each="projectslist : ${projectslists}">
-                <option th:value="${projectslist.id}" th:text="${projectslist.getName()}"></option>
-            </th:block>
+<!--            <label for="id_project" style="flex: 1; max-width: 230px;">Наименование проекта:</label>-->
+<!--            &lt;!&ndash; сохраняем в projectsListByNameProject выбор projectslist и в Controller передаем в id_project &ndash;&gt;-->
+<!--            <select th:name="projectsListByNameProject" id="id_project" style="flex: 1; max-width: 400px;"-->
+<!--                    class="form-select"/>-->
+<!--            <option value="" disabled selected>проект ...</option>-->
+<!--            <th:block th:each="projectslist : ${projectslists}">-->
+<!--                <option th:value="${projectslist.id}" th:text="${projectslist.getName()}"></option>-->
+<!--            </th:block>-->
+<!--            </select>-->
+            <label for="project_id" class="me-2" style="flex: 1; max-width: 230px;">Проект- :</label>
+            <!-- сохраняем в linkDivisionByIdDivision выбор division и в Controller передаем в id_division -->
+            <select th:name="projectsListByNameProject" id="project_id" style="flex: 1; max-width: 400px;"
+                    class="form-select">
+                <!--                    <option value="" disabled selected>проект ...</option>-->
+                <!--                    <th:block th:each="projectslist : ${projectslists}">-->
+                <option th:value="${projectslists.getId()}" th:text="${projectslists.getName()}"></option>
+                <!--                    </th:block>-->
             </select>
         </div>
         <div class="d-flex align-items-center mb-2">

@@ -47,10 +47,11 @@ public class binStorageController implements CommandLineRunner {
     }
 
     @GetMapping(path = "/addbinstorage")
-    public String addNewProject(Model model) {
+    public String addNewProject(@RequestParam(required = false, defaultValue = "0") Long idProject, Model model) {
 
+        model.addAttribute("idProject", idProject);
         model.addAttribute("stepprojects", libStepProjectRepo.findAll());
-        model.addAttribute("projectslists", docProjectsListRepo.findAllByClosedIsFalse());
+        model.addAttribute("projectslists", docProjectsListRepo.findAllById(idProject));
         model.addAttribute("binstorage", new binStorage());
         return "/binstorage/newbinstorage";
     }
