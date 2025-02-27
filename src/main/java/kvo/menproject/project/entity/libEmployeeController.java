@@ -1,5 +1,6 @@
 package kvo.menproject.project.entity;
 
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -16,7 +17,7 @@ public class libEmployeeController implements CommandLineRunner {
     }
 
     @GetMapping("/employee")
-    public String viewHomePage(Model model,
+    public String viewHomePage(HttpServletRequest request, Model model,
                                @RequestParam(defaultValue = "0") int page,
                                @RequestParam(defaultValue = "15") int size) {
 //        List<serLibDivision> rows = jdbcTemplate.query("select id, \"nameDivision\", organisation, active from library.\"libDivision\" where active = true order by id", BeanPropertyRowMapper.newInstance(serLibDivision.class));
@@ -33,6 +34,8 @@ public class libEmployeeController implements CommandLineRunner {
         model.addAttribute("employees", libEmployeeRepo.findAllByActiveIsTrue(pageable));
         model.addAttribute("totalPages", rows.getTotalPages());
         model.addAttribute("currentPage", page);
+        model.addAttribute("request", request);
+
         return "/employee/mainemployee";
     }
 

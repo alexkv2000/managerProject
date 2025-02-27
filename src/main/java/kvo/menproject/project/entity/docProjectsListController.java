@@ -1,5 +1,6 @@
 package kvo.menproject.project.entity;
 
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -25,7 +26,7 @@ public class docProjectsListController implements CommandLineRunner {
     }
 
     @GetMapping("/projectlist")
-    public String viewHomePage(@RequestParam(required = false, defaultValue = "0") Long idDivision, Model model) {
+    public String viewHomePage(@RequestParam(required = false, defaultValue = "0") Long idDivision, HttpServletRequest request, Model model) {
 //    public String viewHomePage(Model model,
 //                               @RequestParam(defaultValue = "0") int page,
 //                               @RequestParam(defaultValue = "5") int size) {
@@ -52,6 +53,7 @@ public class docProjectsListController implements CommandLineRunner {
             model.addAttribute("libbivision", libDivisionRepo.findById(idDivision).get().getId());
         }
         model.addAttribute("projectlists", docProjectsListRepo.findAllByLibDivisionByIdDivision_Id(idDivision));
+        model.addAttribute("request", request);
 //        model.addAttribute("projectlists", docProjectsListRepo.findAllByClosedIsFalse(pageable));
 //        model.addAttribute("totalPages", rows.getTotalPages());
 //        model.addAttribute("currentPage", page);

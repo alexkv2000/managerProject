@@ -1,5 +1,6 @@
 package kvo.menproject.project.entity;
 
+import jakarta.servlet.http.HttpServletRequest;
 import org.aspectj.weaver.ast.And;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -39,7 +40,7 @@ public class docFaсtPaymentController implements CommandLineRunner {
     }
     @Transactional
     @GetMapping("/factpayment")
-    public String viewHomePage(@RequestParam(name = "idProject", required = false, defaultValue = "0") Long idProject, Model model) {
+    public String viewHomePage(@RequestParam(name = "idProject", required = false, defaultValue = "0") Long idProject, HttpServletRequest request, Model model) {
 
         List<docFaсtPayment> rows = docFaсtPaymentRepo.findAllByProjectId(idProject);
 
@@ -50,6 +51,7 @@ public class docFaсtPaymentController implements CommandLineRunner {
 
         model.addAttribute("factpayments", rows);
         model.addAttribute("planpayprojects", docPlanPayProjectRepo.findAll());
+        model.addAttribute("request", request);
 
         return "/factpayment/mainfactpayment";
     }

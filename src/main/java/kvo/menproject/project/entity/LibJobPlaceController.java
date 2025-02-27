@@ -1,5 +1,6 @@
 package kvo.menproject.project.entity;
 
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -18,7 +19,7 @@ public class LibJobPlaceController implements CommandLineRunner {
     }
 
     @GetMapping("/jobplace")
-    public String viewHomePage(Model model,
+    public String viewHomePage(HttpServletRequest request, Model model,
                                @RequestParam(defaultValue = "0") int page,
                                @RequestParam(defaultValue = "15") int size) {
         Pageable pageable = PageRequest.of(page, size);
@@ -35,6 +36,8 @@ public class LibJobPlaceController implements CommandLineRunner {
         model.addAttribute("jobplaces", LibJobPlaceRepo.findAll(pageable));
         model.addAttribute("totalPages", rows.getTotalPages());
         model.addAttribute("currentPage", page);
+        model.addAttribute("request", request);
+
         return "/jobplace/mainjobplace";
     }
 

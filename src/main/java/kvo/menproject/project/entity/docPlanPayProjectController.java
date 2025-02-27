@@ -1,5 +1,6 @@
 package kvo.menproject.project.entity;
 
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -23,7 +24,7 @@ public class docPlanPayProjectController implements CommandLineRunner {
     }
 
     @GetMapping("/planpayproject")
-    public String viewHomePage(@RequestParam(required = false, defaultValue = "0") Long idProject, Model model) {
+    public String viewHomePage(@RequestParam(required = false, defaultValue = "0") Long idProject, HttpServletRequest request, Model model) {
 
 
         List<docProjectsList> projectsLists = docProjectsListRepo.findAll();
@@ -33,6 +34,7 @@ public class docPlanPayProjectController implements CommandLineRunner {
         }
 
         model.addAttribute("planpayprojects", docPlanPayProjectRepo.findAllByDocProjectsListByPlanProject_Id(idProject));
+        model.addAttribute("request", request);
 
         return "/planpayproject/mainplanpayproject";
     }

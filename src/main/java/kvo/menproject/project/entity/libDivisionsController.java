@@ -1,5 +1,6 @@
 package kvo.menproject.project.entity;
 
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -21,7 +22,7 @@ public class libDivisionsController implements CommandLineRunner {
     }
 
     @GetMapping("/division")
-    public String viewHomePage(Model model,
+    public String viewHomePage(HttpServletRequest request, Model model,
                                @RequestParam(defaultValue = "0") int page,
                                @RequestParam(defaultValue = "15") int size) {
 
@@ -35,11 +36,13 @@ public class libDivisionsController implements CommandLineRunner {
         model.addAttribute("divisions", libDivisionRepo.findAllByActiveIsTrue(pageable));
         model.addAttribute("totalPages", rows.getTotalPages());
         model.addAttribute("currentPage", page);
+        model.addAttribute("request", request);
         return "/division/maindivision";
     }
 
     @GetMapping(path="/")
-    public String HomePage(Model model){
+    public String HomePage(HttpServletRequest request, Model model){
+        model.addAttribute("request", request);
         return "index";
     }
 
