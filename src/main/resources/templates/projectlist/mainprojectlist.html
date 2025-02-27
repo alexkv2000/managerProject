@@ -9,30 +9,7 @@
 </head>
 <!--<body class="min-vh-100">-->
 <body>
-<nav>
-    <ul class="topmenu">
-        <li><a href="/">Главная -</a></li>
-        <li><a href="" class="down">Справочник -</a>
-            <ul class="submenu">
-                <li><a href="/entity">Юр. лица</a></li>
-                <li><a href="/division">Отдел / подразделения</a></li>
-                <li><a href="/employee">Сотрудники</a></li>
-                <li><a href="/jobplace">Рабочие места</a></li>
-                <li><a href="/stepproject">Этапы проекта</a></li>
-            </ul>
-        </li>
-        <li><a href="" class="down">Проекты -</a>
-            <ul class="submenu">
-                <li><a href="/projectlist">Проекты</a></li>
-                <li><a href="/planpayproject">План оплат проектов</a></li>
-                <li><a href="/factpayment">Факт оплаты проектов</a></li>
-                <li><a href="/binstorage">Хранилице файлов</a></li>
-            </ul>
-        </li>
-        <li><a href="/schemadoc" class="down">Шаблоны -</a></li>
-        <li><a href="/blog">Блог</a></li>
-    </ul>
-</nav>
+<div th:replace="~{fragments/nav :: nav}"></div>
 <div class="mt-5 mb-4" style="text-align:center;">
     <h3>Список проектов</h3>
     <a th:href="@{/addprojectlist}" class="btn btn-primary btn-sm mb-3">Добавить новый проект</a>

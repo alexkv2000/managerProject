@@ -29,8 +29,8 @@ spring.ldap.password=your-ldap-password
 spring.ldap.urls=ldap://s02.gaz.ru:636
 #spring.ldap.base=OU=Users,OU=KIS,OU=NN,DC=gaz,DC=ru
 spring.ldap.base=DC=gaz,DC=ru
-spring.ldap.username=GAZ\DVStorage
-spring.ldap.password=!_Dwkflw17
+spring.ldap.username=GDVStorage
+spring.ldap.password=
 
 Конфигурация Spring Security:Создайте класс конфигурации безопасности, чтобы настроить аутентификацию LDAP и роли пользователей.
 

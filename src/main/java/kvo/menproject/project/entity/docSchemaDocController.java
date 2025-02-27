@@ -1,5 +1,6 @@
 package kvo.menproject.project.entity;
 
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.data.domain.Page;
@@ -30,7 +31,7 @@ public class docSchemaDocController implements CommandLineRunner {
     }
     @Transactional
     @GetMapping(path = "/schemadoc")
-    public String viewHomePage(Model model,
+    public String viewHomePage(HttpServletRequest request, Model model,
                                @RequestParam(defaultValue = "0") int page,
                                @RequestParam(defaultValue = "5") int size) {
 
@@ -49,6 +50,8 @@ public class docSchemaDocController implements CommandLineRunner {
         model.addAttribute("fileData", fileDataRepo.findAllByTypeDoc("docSchemaDoc"));
         model.addAttribute("totalPages", rows.getTotalPages());
         model.addAttribute("currentPage", page);
+        model.addAttribute("request", request);
+
         return "/schemadoc/mainschemadoc";
     }
 

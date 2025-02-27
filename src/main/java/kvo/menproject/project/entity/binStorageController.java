@@ -1,5 +1,6 @@
 package kvo.menproject.project.entity;
 
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -31,7 +32,7 @@ public class binStorageController implements CommandLineRunner {
 
     @Transactional(readOnly = true)
     @GetMapping("/binstorage")
-    public String viewHomePage(@RequestParam(required = false, defaultValue = "0") Long idProject, Model model){
+    public String viewHomePage(@RequestParam(required = false, defaultValue = "0") Long idProject, HttpServletRequest request, Model model){
 
         if (idProject != 0) {
             model.addAttribute("project", docProjectsListRepo.findById(idProject).get().getId());
@@ -42,6 +43,7 @@ public class binStorageController implements CommandLineRunner {
         model.addAttribute("fileData", fileDataRepo.findAllByTypeDoc("binStorage"));
         model.addAttribute("projectslists", docProjectsListRepo.findAll());
         model.addAttribute("stepprojects", libStepProjectRepo.findAll());
+        model.addAttribute("request", request);
 
         return "/binstorage/mainbinstorage";
     }

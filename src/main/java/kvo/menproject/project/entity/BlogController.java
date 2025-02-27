@@ -1,5 +1,6 @@
 package kvo.menproject.project.entity;
 
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,7 +19,7 @@ public class BlogController implements CommandLineRunner {
     }
 
     @GetMapping("/blog")
-    public String getBlogPage(Model model) throws ParseException {
+    public String getBlogPage(HttpServletRequest request, Model model) throws ParseException {
         if (blogRepo.findAllByShowIsTrueOrderByDcreateDesc().isEmpty()) {
             SimpleDateFormat format = new SimpleDateFormat("dd-MM-yyyy");
             Date date = new Date();
@@ -31,12 +32,13 @@ public class BlogController implements CommandLineRunner {
             return "blog/newblog";
         }
         model.addAttribute("blogs", blogRepo.findAllByShowIsTrueOrderByDcreateDesc());
+        model.addAttribute("request", request);
 //        model.addAttribute("title", "Заголовок");
 //        model.addAttribute("content", "Это пример параграфа текста для вашего блога.");
         return "blog/blog";
     }
     @GetMapping("/blogall")
-    public String getBlogPageAll(Model model) throws ParseException {
+    public String getBlogPageAll(HttpServletRequest request, Model model) throws ParseException {
         if (blogRepo.findAll().isEmpty()) {
             SimpleDateFormat format = new SimpleDateFormat("dd-MM-yyyy");
             Date date = new Date();
@@ -46,15 +48,17 @@ public class BlogController implements CommandLineRunner {
             map.setTitle("Заголовок от " + dateFormate);
             map.setDcreate(date);
             model.addAttribute("blog", map);
+//            model.addAttribute("request", request);
             return "blog/newblog";
         }
         model.addAttribute("blogs", blogRepo.findByOrderByIdDesc());
 //        model.addAttribute("title", "Заголовок");
 //        model.addAttribute("content", "Это пример параграфа текста для вашего блога.");
+        model.addAttribute("request", request);
         return "blog/blogall";
     }
     @GetMapping("/newblog")
-    public String getNewBlogPage(Model model) throws ParseException {
+    public String getNewBlogPage(HttpServletRequest request, Model model) throws ParseException {
         Blog blog = new Blog();
 
         SimpleDateFormat format = new SimpleDateFormat("dd-MM-yyyy");
@@ -65,13 +69,15 @@ public class BlogController implements CommandLineRunner {
         blog.setTitle("Заголовок от " + dateFormate);
         blog.setDcreate(date);
         model.addAttribute("blog", blog);
+        model.addAttribute("request", request);
 
         return "blog/newblog";
     }
     @GetMapping(path = "/showblog/{id}")
-    public String updateForm(@PathVariable(value = "id") long id, Model model) {
+    public String updateForm(@PathVariable(value = "id") long id, HttpServletRequest request, Model model) {
         Blog blog = blogRepo.getById(id);
         model.addAttribute("blog", blog);
+        model.addAttribute("request", request);
         return "/blog/showblog";
     }
     @PostMapping("/saveBlogPost")

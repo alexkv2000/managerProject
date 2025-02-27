@@ -9,30 +9,7 @@
 
 </head>
 <body>
-<nav>
-    <ul class="topmenu">
-        <li><a href="/">Главная -</a></li>
-        <li><a href="" class="down">Справочник -</a>
-            <ul class="submenu">
-                <li><a href="/entity">Юр. лица</a></li>
-                <li><a href="/division">Отдел / подразделения</a></li>
-                <li><a href="/employee">Сотрудники</a></li>
-                <li><a href="/jobplace">Рабочие места</a></li>
-                <li><a href="/stepproject">Этапы проекта</a></li>
-            </ul>
-        </li>
-        <li><a href="" class="down">Проекты -</a>
-            <ul class="submenu">
-                <li><a href="/projectlist">Проекты</a></li>
-                <li><a href="/planpayproject">План оплат проектов</a></li>
-                <li><a href="/factpayment">Факт оплаты проектов</a></li>
-                <li><a href="/binstorage">Хранилице файлов</a></li>
-            </ul>
-        </li>
-        <li><a href="/schemadoc" class="down">Шаблоны -</a></li>
-        <li><a href="/blog">Блог</a></li>
-    </ul>
-</nav>
+<div th:replace="~{fragments/nav :: nav}"></div>
 <div class="container">
     <h1 style="display: flex; justify-content: center; align-items: center;">Новая публикация</h1>
     <hr>
@@ -154,9 +131,9 @@
             'anchor', 'autolink', 'charmap', 'codesample', 'emoticons', 'image', 'link', 'lists', 'media', 'searchreplace', 'table', 'visualblocks', 'wordcount',
             // Your account includes a free trial of TinyMCE premium features
             // Try the most popular premium features until Nov 25, 2024:
-            'checklist', 'mediaembed', 'casechange', 'export', 'formatpainter', 'pageembed', 'a11ychecker', 'tinymcespellchecker', 'permanentpen', 'powerpaste', 'advtable', 'advcode', 'editimage', 'advtemplate', 'ai', 'mentions', 'tinycomments', 'tableofcontents', 'footnotes', 'mergetags', 'autocorrect', 'typography', 'inlinecss', 'markdown',
+            //'checklist', 'mediaembed', 'casechange', 'export', 'formatpainter', 'pageembed', 'a11ychecker', 'tinymcespellchecker', 'permanentpen', 'powerpaste', 'advtable', 'advcode', 'editimage', 'advtemplate', 'ai', 'mentions', 'tinycomments', 'tableofcontents', 'footnotes', 'mergetags', 'autocorrect', 'typography', 'inlinecss', 'markdown',
             // Early access to document converters
-            'importword', 'exportword', 'exportpdf'
+            //'importword', 'exportword', 'exportpdf'
         ],
         toolbar: 'undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | link image media table mergetags | addcomment showcomments | spellcheckdialog a11ycheck typography | align lineheight | checklist numlist bullist indent outdent | emoticons charmap | removeformat',
         tinycomments_mode: 'embedded',

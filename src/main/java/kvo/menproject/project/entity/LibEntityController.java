@@ -1,5 +1,6 @@
 package kvo.menproject.project.entity;
 
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -15,7 +16,7 @@ public class LibEntityController implements CommandLineRunner {
     }
 
     @GetMapping("/entity")
-    public String viewHomePage(Model model,
+    public String viewHomePage(HttpServletRequest request, Model model,
                                @RequestParam(defaultValue = "0") int page,
                                @RequestParam(defaultValue = "15") int size) {
 
@@ -32,6 +33,8 @@ public class LibEntityController implements CommandLineRunner {
         model.addAttribute("entitys", LibEntityRepo.findAll(pageable));
         model.addAttribute("totalPages", rows.getTotalPages());
         model.addAttribute("currentPage", page);
+        model.addAttribute("request", request);
+
         return "/entity/mainentity";
     }
 

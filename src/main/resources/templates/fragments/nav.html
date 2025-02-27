@@ -1,0 +1,42 @@
+<!-- fragments/nav.html -->
+<nav th:fragment="nav">
+    <ul class="topmenu">
+        <li th:if="${not request.requestURI.equals('/')}">
+            <a href="/">Главная -</a>
+        </li>
+
+        <li><a href="" class="down">Справочник -</a>
+            <ul class="submenu">
+                <li th:if="${not request.requestURI.equals('/entity')}"><a href="/entity">Юр. лица</a></li>
+                <li th:if="${not request.requestURI.equals('/division')}"><a href="/division">Отдел / подразделения</a>
+                </li>
+                <li th:if="${not request.requestURI.equals('/employee')}"><a href="/employee">Сотрудники</a></li>
+                <li th:if="${not request.requestURI.equals('/jobplace')}"><a href="/jobplace">Рабочие места</a></li>
+                <li th:if="${not request.requestURI.equals('/stepproject')}"><a href="/stepproject">Этапы проекта</a>
+                </li>
+            </ul>
+        </li>
+        <li><a href="" class="down">Проекты -</a>
+            <ul class="submenu">
+                <li th:if="${not request.requestURI.equals('/projectlist')}"><a href="/projectlist">Проекты</a></li>
+                <li th:if="${not request.requestURI.equals('/planpayproject')}"><a href="/planpayproject">План оплат
+                    проектов</a></li>
+                <li th:if="${not request.requestURI.equals('/factpayment')}"><a href="/factpayment">Факт оплаты
+                    проектов</a></li>
+                <li th:if="${not request.requestURI.equals('/binstorage')}"><a href="/binstorage">Хранилице файлов</a>
+                </li>
+            </ul>
+        </li>
+        <li th:if="${not request.requestURI.equals('/schemadoc')}"><a href="/schemadoc" class="down">Шаблоны -</a></li>
+
+        <li><a href="" class="down">Проекты -</a>
+            <ul class="submenu">
+                <li th:if="${not (request.requestURI.equals('/blogall')) and (request.requestURI.equals('/blog'))}"><a
+                        href="/blogall">Блог</a></li>
+                <li th:if="${not (request.requestURI.equals('/newblog')) and (request.requestURI.equals('/blog'))}"><a
+                        href="/newblog">Новая публикация</a></li>
+                <li><a href="/blog">Все публикации</a></li>
+            </ul>
+        </li>
+        <p>Current URI: <span th:text="${request.requestURI}"></span></p>
+</nav>
